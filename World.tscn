@@ -101,8 +101,6 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-focus_mode = 0
-enabled_focus_mode = 0
 icon = SubResource( 2 )
 expand_icon = true
 
