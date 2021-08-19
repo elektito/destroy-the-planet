@@ -26,8 +26,6 @@ var building_scenes = [
 ]
 
 func _ready():
-	var img = preload("res://assets/gfx/sprites/factory.png")
-	
 	for i in range(0, 40):
 		snap_angles.append(2 * PI / 40 * i)
 
