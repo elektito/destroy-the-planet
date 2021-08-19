@@ -17,6 +17,13 @@ var preview_icons = [
 	preload("res://assets/gfx/sprites/apartment.png"),
 	preload("res://assets/gfx/sprites/bar.png"),
 ]
+var building_scenes = [
+	preload("res://Factory.tscn"),
+	preload("res://Mine.tscn"),
+	preload("res://Powerplant.tscn"),
+	preload("res://Apartment.tscn"),
+	preload("res://Bar.tscn"),
+]
 
 func _ready():
 	var img = preload("res://assets/gfx/sprites/factory.png")
@@ -36,13 +43,19 @@ func _input(event):
 			$placing_area/preview_icon.rotation = v.angle() + PI / 2
 	
 	if event is InputEventMouseButton:
-		#var b = $building.duplicate()
-		#b.z_index = -10
-		#add_child(b)
-		
 		if placing >= 0 and event.button_index == BUTTON_RIGHT:
 			placing = -1
 			$placing_icon.visible = false
+		
+		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area:
+			$placing_icon.visible = false
+			$placing_area/preview_icon.visible = false
+			var b = building_scenes[placing].instance()
+			b.z_index = -10
+			b.position = $placing_area/preview_icon.position
+			b.rotation = $placing_area/preview_icon.rotation
+			$placing_area.add_child(b)
+			placing = -1
 
 
 func get_snap_angle(angle):
@@ -60,7 +73,6 @@ func get_snap_angle(angle):
 
 
 func _on_toolbox_btn_pressed(btn):
-	print('pressed ', btn)
 	$placing_icon.texture = buttons[btn].icon
 	$placing_icon.position = get_local_mouse_position()
 	$placing_icon.visible = true
@@ -69,14 +81,12 @@ func _on_toolbox_btn_pressed(btn):
 
 
 func _on_toolbox_btn_mouse_entered(btn):
-	print('enter ', btn)
 	$highlight.rect_position.x = 4
 	$highlight.rect_position.y = buttons[btn].rect_position.y + 6
 	$highlight.visible = true
 
 
 func _on_toolbox_btn_mouse_exited(btn):
-	print('exit ', btn)
 	$highlight.visible = false
 
 
