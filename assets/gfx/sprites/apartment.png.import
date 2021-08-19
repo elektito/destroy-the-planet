@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lumberyard.png-7b2f52163bd732c3f54508b8af6ce77c.stex"
+path="res://.import/apartment.png-5df3b351b1f64fb4f795487940e0a413.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/icons/lumberyard.png"
-dest_files=[ "res://.import/lumberyard.png-7b2f52163bd732c3f54508b8af6ce77c.stex" ]
+source_file="res://assets/gfx/sprites/apartment.png"
+dest_files=[ "res://.import/apartment.png-5df3b351b1f64fb4f795487940e0a413.stex" ]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
