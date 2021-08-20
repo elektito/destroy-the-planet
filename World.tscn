@@ -6,39 +6,39 @@
 [ext_resource path="res://assets/gfx/sprites/planet.png" type="Texture" id=4]
 [ext_resource path="res://assets/gfx/sprites/bar.png" type="Texture" id=5]
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=1]
 radius = 276.474
 
-[sub_resource type="StreamTexture" id=1]
+[sub_resource type="StreamTexture" id=2]
 resource_local_to_scene = true
 flags = 5
 load_path = "res://.import/factory.png-511f58d2a3b3f08c311f8e6bbfc28779.stex"
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=3]
 flags = 5
-atlas = SubResource( 1 )
+atlas = SubResource( 2 )
 region = Rect2( 0, 300, 512, 600 )
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=4]
 flags = 5
 load_path = "res://.import/mine.png-6e597bfb5a7c7612bb55dc80efe8800f.stex"
 
-[sub_resource type="AtlasTexture" id=4]
-flags = 5
-atlas = SubResource( 3 )
-region = Rect2( 0, 320, 512, 600 )
-
 [sub_resource type="AtlasTexture" id=5]
 flags = 5
-atlas = ExtResource( 1 )
+atlas = SubResource( 4 )
 region = Rect2( 0, 320, 512, 600 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 5
+atlas = ExtResource( 1 )
+region = Rect2( 0, 320, 512, 600 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 5
 atlas = ExtResource( 2 )
 region = Rect2( 0, 310, 512, 600 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=8]
 flags = 5
 atlas = ExtResource( 5 )
 region = Rect2( 0, 310, 512, 600 )
@@ -58,7 +58,7 @@ scale = Vector2( 0.063, 0.063 )
 texture = ExtResource( 1 )
 
 [node name="shape" type="CollisionShape2D" parent="placing_area"]
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 
 [node name="planet" type="Sprite" parent="placing_area"]
 scale = Vector2( 0.4, 0.4 )
@@ -101,7 +101,7 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-icon = SubResource( 2 )
+icon = SubResource( 3 )
 expand_icon = true
 
 [node name="mine_btn" type="ToolButton" parent="hud/hbox/toolbox"]
@@ -111,7 +111,7 @@ margin_bottom = 84.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
 enabled_focus_mode = 0
-icon = SubResource( 4 )
+icon = SubResource( 5 )
 expand_icon = true
 
 [node name="powerplant_btn" type="ToolButton" parent="hud/hbox/toolbox"]
@@ -121,7 +121,7 @@ margin_bottom = 128.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
 enabled_focus_mode = 0
-icon = SubResource( 5 )
+icon = SubResource( 6 )
 expand_icon = true
 
 [node name="apartment_btn" type="ToolButton" parent="hud/hbox/toolbox"]
@@ -131,7 +131,7 @@ margin_bottom = 172.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
 enabled_focus_mode = 0
-icon = SubResource( 6 )
+icon = SubResource( 7 )
 expand_icon = true
 
 [node name="bar_btn" type="ToolButton" parent="hud/hbox/toolbox"]
@@ -141,7 +141,7 @@ margin_bottom = 216.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
 enabled_focus_mode = 0
-icon = SubResource( 7 )
+icon = SubResource( 8 )
 expand_icon = true
 
 [node name="placing_icon" type="Sprite" parent="."]

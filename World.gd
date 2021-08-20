@@ -2,6 +2,7 @@ extends Node2D
 
 var placing := -1
 var inside_placing_area := false
+var selected_building = null
 var snap_angles = []
 onready var buttons = [
 	$hud/hbox/toolbox/factory_btn,
@@ -53,7 +54,16 @@ func _input(event):
 			b.position = $placing_area/preview_icon.position
 			b.rotation = $placing_area/preview_icon.rotation
 			$placing_area.add_child(b)
+			b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
 			placing = -1
+
+
+func _on_building_clicked(building):
+	print('building clicked: ', building)
+	if selected_building:
+		selected_building.get_node('building').selected = false
+	building.get_node('building').selected = true
+	selected_building = building
 
 
 func get_snap_angle(angle):
