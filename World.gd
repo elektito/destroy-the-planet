@@ -79,9 +79,25 @@ func _on_building_clicked(building):
 
 func update_building_panel():
 	if selected_building == null:
-		$hud/building_panel/description.bbcode_text = ''
+		$hud/hbox/building_panel/MarginContainer/VBoxContainer/description.bbcode_text = ''
 	else:
-		$hud/building_panel/description.bbcode_text = '[b]' + selected_building.building_name + '[/b]\n\n' + selected_building.description
+		$hud/hbox/building_panel/MarginContainer/VBoxContainer/description.bbcode_text = '[b]' + selected_building.building_name + '[/b]\n\n' + selected_building.description
+	
+	for widget in get_tree().get_nodes_in_group('building_widgets'):
+		widget.visible = false
+		widget.queue_free()
+	
+	if selected_building:
+		for action in selected_building.get_actions():
+			var widget = preload("res://BuildingWidget.tscn").instance()
+			widget.text = '[b]' + action['name'] + '[/b]\n\n' + action['description']
+			widget.connect('action_button_clicked', self, '_on_action_button_clicked', [widget, action])
+			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
+
+
+func _on_action_button_clicked(widget, action):
+	selected_building.perform_action(action)
+	update_building_panel()
 
 
 func get_snap_angle(angle):
