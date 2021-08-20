@@ -4,6 +4,7 @@ var placing := -1
 var inside_placing_area := false
 var selected_building = null
 var snap_angles = []
+var used_angles = []
 onready var buttons = [
 	$hud/hbox/toolbox/factory_btn,
 	$hud/hbox/toolbox/mine_btn,
@@ -47,15 +48,17 @@ func _input(event):
 			$placing_icon.visible = false
 		
 		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area:
-			$placing_icon.visible = false
-			$placing_area/preview_icon.visible = false
-			var b = building_scenes[placing].instance()
-			b.z_index = -10
-			b.position = $placing_area/preview_icon.position
-			b.rotation = $placing_area/preview_icon.rotation
-			$placing_area.add_child(b)
-			b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
-			placing = -1
+			if not $placing_area/preview_icon.rotation in used_angles:
+				$placing_icon.visible = false
+				$placing_area/preview_icon.visible = false
+				var b = building_scenes[placing].instance()
+				b.z_index = -10
+				b.position = $placing_area/preview_icon.position
+				b.rotation = $placing_area/preview_icon.rotation
+				$placing_area.add_child(b)
+				b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
+				placing = -1
+				used_angles.append($placing_area/preview_icon.rotation)
 			
 		if placing < 0 and not selected_building == null:
 			selected_building.get_node('building').selected = false
