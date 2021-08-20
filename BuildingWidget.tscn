@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://BuildingWidget.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Secuela-Regular.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/fonts/Secuela-Bold.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/fonts/Secuela-BoldItalic.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/fonts/Secuela-Italic.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://Theme.tres" type="Theme" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
@@ -20,59 +21,6 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 2 )
-
-[sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.215686, 0.580392, 0.431373, 1 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 1, 1, 1, 1 )
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 0.215686, 0.580392, 0.431373, 1 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 0.6, 0.898039, 0.313726, 1 )
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.215686, 0.580392, 0.431373, 1 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 0, 0, 0, 1 )
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="DynamicFont" id=7]
-font_data = ExtResource( 3 )
-
-[sub_resource type="Theme" id=8]
-default_font = SubResource( 7 )
-Button/colors/font_color = Color( 0.6, 0.898039, 0.313726, 1 )
-Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-Button/colors/font_color_hover = Color( 1, 1, 1, 1 )
-Button/colors/font_color_pressed = Color( 0, 0, 0, 1 )
-Button/constants/hseparation = 2
-Button/fonts/font = null
-Button/styles/disabled = null
-Button/styles/focus = null
-Button/styles/hover = SubResource( 9 )
-Button/styles/normal = SubResource( 10 )
-Button/styles/pressed = SubResource( 11 )
 
 [node name="BuildingWidget" type="PanelContainer" groups=[
 "building_widgets",
@@ -121,7 +69,7 @@ margin_right = 1272.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 70, 30 )
 size_flags_horizontal = 8
-theme = SubResource( 8 )
+theme = ExtResource( 6 )
 text = "Upgrade"
 
 [connection signal="pressed" from="margin/vbox/action_btn" to="." method="_on_action_btn_pressed"]
