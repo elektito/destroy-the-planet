@@ -66,7 +66,8 @@ func _input(event):
 
 
 func _on_building_clicked(building):
-	print('building clicked: ', building)
+	if placing >= 0:
+		return
 	if selected_building:
 		selected_building.get_node('building').selected = false
 	building.get_node('building').selected = true
