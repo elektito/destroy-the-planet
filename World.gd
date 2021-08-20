@@ -110,6 +110,8 @@ func _on_placing_area_mouse_entered():
 
 
 func _on_placing_area_mouse_exited():
+	if $placing_area.get_local_mouse_position().length() < $placing_area.get_node("shape").shape.radius:
+		return
 	inside_placing_area = false
 	if placing >= 0:
 		$placing_area/preview_icon.visible = false
