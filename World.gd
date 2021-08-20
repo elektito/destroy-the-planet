@@ -90,7 +90,7 @@ func update_building_panel():
 	if selected_building:
 		for action in selected_building.get_actions():
 			var widget = preload("res://BuildingWidget.tscn").instance()
-			widget.text = '[b]' + action['name'] + '[/b]\n\n' + action['description']
+			widget.text = '[b]' + action['title'] + '[/b]\n\n' + action['description']
 			widget.connect('action_button_clicked', self, '_on_action_button_clicked', [widget, action])
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 

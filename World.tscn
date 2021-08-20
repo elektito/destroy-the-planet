@@ -158,16 +158,16 @@ expand_icon = true
 
 [node name="building_panel" type="PanelContainer" parent="hud/hbox"]
 margin_left = 40.0
-margin_right = 160.0
+margin_right = 172.0
 margin_bottom = 704.0
-rect_min_size = Vector2( 120, 0 )
+rect_min_size = Vector2( 132, 0 )
 custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="hud/hbox/building_panel"]
-margin_right = 120.0
+margin_right = 132.0
 margin_bottom = 704.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
@@ -180,11 +180,11 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="hud/hbox/building_panel/MarginContainer"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 116.0
+margin_right = 128.0
 margin_bottom = 700.0
 
 [node name="description" type="RichTextLabel" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer"]
-margin_right = 112.0
+margin_right = 124.0
 margin_bottom = 48.0
 custom_fonts/bold_font = SubResource( 10 )
 custom_fonts/normal_font = SubResource( 11 )
@@ -205,8 +205,8 @@ __meta__ = {
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 52.0
-margin_right = 112.0
-margin_bottom = 153.0
+margin_right = 124.0
+margin_bottom = 158.0
 text = "[b]foobar[/b]
 something very interesting and useful goes here."
 

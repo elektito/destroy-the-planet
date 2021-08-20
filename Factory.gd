@@ -1,5 +1,7 @@
 extends Node2D
 
+const MAX_LEVEL := 7
+
 var building_name = 'Factory'
 var description = 'A good ol\' factory. Consumes some resources and pollutes a heck of a lot more.'
 var level := 1
@@ -26,12 +28,18 @@ func get_pollution():
 
 
 func get_actions():
-	return [
-		{'name': 'Upgrade to Level ' + str(level + 1), 'description': 'Upgrade to level ' + str(level + 1) + ' which is way cooler.'}
-	]
+	var actions = []
+	if level < MAX_LEVEL:
+		actions.append({
+			'name': 'level',
+			'title': 'Upgrade to Level ' + str(level + 1),
+			'description': 'Upgrade factory to level ' + str(level + 1) + '. Base resource usage will be twice the current amount and the pollution ten times.'
+		})
+	
+	return actions
 
 
 func perform_action(action):
 	match action['name']:
-		'Upgrade to Level 2', 'Uprade to Level 3':
+		'level':
 			level += 1
