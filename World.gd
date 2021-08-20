@@ -63,6 +63,7 @@ func _unhandled_input(event):
 		if placing < 0 and not selected_building == null:
 			selected_building.get_node('building').selected = false
 			selected_building = null
+			update_building_panel()
 
 
 func _on_building_clicked(building):
@@ -72,6 +73,15 @@ func _on_building_clicked(building):
 		selected_building.get_node('building').selected = false
 	building.get_node('building').selected = true
 	selected_building = building
+	
+	update_building_panel()
+
+
+func update_building_panel():
+	if selected_building == null:
+		$hud/building_panel/description.bbcode_text = ''
+	else:
+		$hud/building_panel/description.bbcode_text = '[b]' + selected_building.building_name + '[/b]\n\n' + selected_building.description
 
 
 func get_snap_angle(angle):
