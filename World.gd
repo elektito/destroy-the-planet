@@ -56,6 +56,10 @@ func _input(event):
 			$placing_area.add_child(b)
 			b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
 			placing = -1
+			
+		if placing < 0 and not selected_building == null:
+			selected_building.get_node('building').selected = false
+			selected_building = null
 
 
 func _on_building_clicked(building):
