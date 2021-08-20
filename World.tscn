@@ -122,7 +122,6 @@ margin_right = 40.0
 margin_bottom = 84.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
-enabled_focus_mode = 0
 icon = SubResource( 5 )
 expand_icon = true
 
@@ -132,7 +131,6 @@ margin_right = 40.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
-enabled_focus_mode = 0
 icon = SubResource( 6 )
 expand_icon = true
 
@@ -142,7 +140,6 @@ margin_right = 40.0
 margin_bottom = 172.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
-enabled_focus_mode = 0
 icon = SubResource( 7 )
 expand_icon = true
 
@@ -152,7 +149,6 @@ margin_right = 40.0
 margin_bottom = 216.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
-enabled_focus_mode = 0
 icon = SubResource( 8 )
 expand_icon = true
 
