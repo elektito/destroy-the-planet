@@ -31,7 +31,7 @@ func _ready():
 	for i in range(0, 40):
 		snap_angles.append(2 * PI / 40 * i)
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		if placing >= 0:
 			$placing_icon.position = get_local_mouse_position()
