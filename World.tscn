@@ -207,17 +207,17 @@ anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
 margin_top = 52.0
-margin_right = 24.0
-margin_bottom = 72.0
+margin_right = 54.0
+margin_bottom = 70.0
 type = 5
 text = "foobar"
 
 [node name="BuildingWidget" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 76.0
+margin_top = 74.0
 margin_right = 124.0
-margin_bottom = 182.0
+margin_bottom = 180.0
 text = "[b]foobar[/b]
 something very interesting and useful goes here."
 
