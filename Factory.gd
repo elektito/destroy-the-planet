@@ -1,5 +1,7 @@
 extends Node2D
 
+signal upgraded(building)
+
 const type = Global.BuildingType.FACTORY
 const MAX_LEVEL := 7
 
@@ -90,6 +92,10 @@ func get_pollution():
 func get_stats():
 	return [
 		{
+			'type': Global.StatType.LEVEL,
+			'value': str(level),
+		},
+		{
 			'type': Global.StatType.MONEY,
 			'value': str(get_current_money_per_cycle()),
 		},
@@ -132,6 +138,8 @@ func perform_action(action):
 	match action['name']:
 		'level':
 			level += 1
+			current_level = levels[level - 1]
+			emit_signal("upgraded", self)
 
 
 func _on_cycle_timer_timeout():

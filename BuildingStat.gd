@@ -5,6 +5,10 @@ export(Global.StatType) var type setget set_type, get_type
 export(String) var text setget set_text, get_text
 
 var type_info = {
+	Global.StatType.LEVEL: {
+		'name': 'Level',
+		'texture': preload("res://assets/gfx/icons/level.png"),
+	},
 	Global.StatType.POLLUTION: {
 		'name': 'Pollution (per cycle)',
 		'texture': preload("res://assets/gfx/icons/pollution.png"),

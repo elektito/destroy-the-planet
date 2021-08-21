@@ -76,6 +76,7 @@ func _unhandled_input(event):
 				b.rotation = $placing_area/preview_icon.rotation
 				$placing_area.add_child(b)
 				b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
+				b.connect('upgraded', self, '_on_building_upgraded')
 				b.init(self)
 				consume_money(get_price(b.type))
 				placing = -1
@@ -97,6 +98,10 @@ func _on_building_clicked(building):
 	building.get_node('building').selected = true
 	selected_building = building
 	
+	update_building_panel()
+
+
+func _on_building_upgraded(building):
 	update_building_panel()
 
 
@@ -148,7 +153,6 @@ func update_toolbox():
 
 func _on_action_button_clicked(widget, action):
 	selected_building.perform_action(action)
-	update_building_panel()
 
 
 func get_price(building) -> int:

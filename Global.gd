@@ -1,6 +1,7 @@
 class_name Global
 
 enum StatType {
+	LEVEL,
 	POLLUTION,
 	USAGE,
 	MONEY,
