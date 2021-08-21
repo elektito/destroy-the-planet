@@ -27,6 +27,23 @@ func get_pollution():
 	return 5
 
 
+func get_stats():
+	return [
+		{
+			'type': Global.StatType.MONEY,
+			'value': '100',
+		},
+		{
+			'type': Global.StatType.POLLUTION,
+			'value': '200',
+		},
+		{
+			'type': Global.StatType.USAGE,
+			'value': '10',
+		},
+	]
+
+
 func get_actions():
 	var actions = []
 	if level < MAX_LEVEL:

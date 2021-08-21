@@ -87,7 +87,16 @@ func update_building_panel():
 		widget.visible = false
 		widget.queue_free()
 	
+	for widget in get_tree().get_nodes_in_group('building_stats'):
+		widget.visible = false
+		widget.queue_free()
+	
 	if selected_building:
+		for stat in selected_building.get_stats():
+			var widget = preload("res://BuildingStat.tscn").instance()
+			widget.type = stat['type']
+			widget.text = stat['value']
+			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 		for action in selected_building.get_actions():
 			var widget = preload("res://BuildingWidget.tscn").instance()
 			widget.text = '[b]' + action['title'] + '[/b]\n\n' + action['description']

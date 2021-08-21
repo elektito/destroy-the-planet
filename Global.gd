@@ -1,0 +1,12 @@
+class_name Global
+
+enum StatType {
+	POLLUTION,
+	USAGE,
+	MONEY,
+	ENTERTAINMENT,
+	POWER,
+	MINING,
+	POPULATION_CAP,
+	POPULATION_INCREASE,
+}
