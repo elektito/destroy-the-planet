@@ -15,13 +15,13 @@ var selected_building = null
 var snap_angles = []
 var used_angles = []
 var placed_buildings = []
-onready var buttons = [
-	$hud/hbox/toolbox/factory_btn,
-	$hud/hbox/toolbox/mine_btn,
-	$hud/hbox/toolbox/powerplant_btn,
-	$hud/hbox/toolbox/apartment_btn,
-	$hud/hbox/toolbox/bar_btn,
-]
+onready var buttons = {
+	Global.BuildingType.FACTORY: $hud/hbox/toolbox/factory_btn,
+	Global.BuildingType.MINE: $hud/hbox/toolbox/mine_btn,
+	Global.BuildingType.POWERPLANT: $hud/hbox/toolbox/powerplant_btn,
+	Global.BuildingType.APARTMENT_BUILDING: $hud/hbox/toolbox/apartment_btn,
+	Global.BuildingType.BAR: $hud/hbox/toolbox/bar_btn,
+}
 var preview_icons = [
 	preload("res://assets/gfx/sprites/factory.png"),
 	preload("res://assets/gfx/sprites/mine.png"),
