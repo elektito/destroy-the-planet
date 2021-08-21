@@ -7,7 +7,7 @@ const MIN_SCALE = 0.2
 const MAX_SCALE = 0.4
 
 const MAX_RATE := 100
-export(int, 0, 100) var rate = 0 setget set_rate, get_rate
+export(int, 0, 100) var rate = 1 setget set_rate, get_rate
 
 func set_rate(value : int):
 	rate = value
