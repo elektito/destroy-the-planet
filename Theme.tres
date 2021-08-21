@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=2]
+[gd_resource type="Theme" load_steps=12 format=2]
 
 [ext_resource path="res://assets/fonts/Secuela-Bold.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Secuela-Regular.otf" type="DynamicFontData" id=2]
@@ -6,7 +6,23 @@
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=8]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=10]
+content_margin_left = 8.0
+content_margin_right = 8.0
 bg_color = Color( 0.215686, 0.580392, 0.431373, 1 )
 border_width_left = 3
 border_width_top = 3
@@ -18,7 +34,9 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=11]
+content_margin_left = 8.0
+content_margin_right = 8.0
 bg_color = Color( 0.215686, 0.580392, 0.431373, 1 )
 border_width_left = 3
 border_width_top = 3
@@ -61,7 +79,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxLine" id=8]
+[sub_resource type="StyleBoxLine" id=9]
 color = Color( 1, 1, 1, 1 )
 thickness = 3
 vertical = true
@@ -78,10 +96,10 @@ Button/colors/font_color_hover = Color( 1, 1, 1, 1 )
 Button/colors/font_color_pressed = Color( 0, 0, 0, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = SubResource( 1 )
-Button/styles/disabled = null
+Button/styles/disabled = SubResource( 8 )
 Button/styles/focus = null
-Button/styles/hover = SubResource( 2 )
-Button/styles/normal = SubResource( 3 )
+Button/styles/hover = SubResource( 10 )
+Button/styles/normal = SubResource( 11 )
 Button/styles/pressed = SubResource( 4 )
 TooltipLabel/colors/font_color = Color( 1, 1, 1, 1 )
 TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
@@ -90,4 +108,4 @@ TooltipLabel/constants/shadow_offset_y = 0
 TooltipLabel/fonts/font = SubResource( 5 )
 TooltipPanel/styles/panel = SubResource( 6 )
 VSeparator/constants/separation = 4
-VSeparator/styles/separator = SubResource( 8 )
+VSeparator/styles/separator = SubResource( 9 )

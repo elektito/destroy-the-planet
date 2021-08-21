@@ -128,6 +128,8 @@ func update_building_panel():
 		for action in selected_building.get_actions():
 			var widget = preload("res://BuildingWidget.tscn").instance()
 			widget.text = '[b]' + action['title'] + '[/b]\n\n' + action['description']
+			widget.price = action['price']
+			widget.button_disabled = (money < action['price'])
 			widget.connect('action_button_clicked', self, '_on_action_button_clicked', [widget, action])
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 
@@ -151,7 +153,13 @@ func update_toolbox():
 		btn.disabled = (money < building_price)
 
 
+func update_action_widgets():
+	for widget in get_tree().get_nodes_in_group('building_widgets'):
+		widget.button_disabled = (money < widget.price)
+
+
 func _on_action_button_clicked(widget, action):
+	consume_money(action['price'])
 	selected_building.perform_action(action)
 
 
@@ -235,12 +243,14 @@ func produce_money(amount):
 	money += amount
 	update_resource_bar()
 	update_toolbox()
+	update_action_widgets()
 
 
 func consume_money(amount):
 	money -= amount
 	update_resource_bar()
 	update_toolbox()
+	update_action_widgets()
 
 
 func produce_pollution(amount):
