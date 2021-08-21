@@ -1,13 +1,20 @@
 extends Node2D
 
+const type := Global.BuildingType.APARTMENT_BUILDING
 const MAX_LEVEL := 9
 
 var building_name = 'Apartment Building'
 var description = 'Provides housing for the ultimate resource users and pollution producers: people.'
 var level := 1
 
+var world
+
 var resource_usage = 1 setget set_resource_usage, get_resource_usage
 var pollution = 1 setget set_pollution, get_pollution
+
+func init(world):
+	self.world = world
+
 
 func set_resource_usage(value):
 	# property can't be changed

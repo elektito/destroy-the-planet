@@ -1,13 +1,20 @@
 extends Node2D
 
+const type := Global.BuildingType.POWERPLANT
 const MAX_LEVEL := 8
 
 var building_name = 'Coal Powerplant'
 var description = 'The best kind of power plant there is.'
 var level := 1
 
+var world
+
 var resource_usage = 2 setget set_resource_usage, get_resource_usage
 var pollution = 4 setget set_pollution, get_pollution
+
+func init(world):
+	self.world = world
+
 
 func set_resource_usage(value):
 	# property can't be changed

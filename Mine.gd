@@ -1,13 +1,20 @@
 extends Node2D
 
+const type := Global.BuildingType.MINE
 const MAX_LEVEL := 5
 
 var building_name = 'Mine'
 var description = 'Mines resource from the planet, accelerating certain doom.'
 var level := 1
 
+var world
+
 var resource_usage = 1 setget set_resource_usage, get_resource_usage
 var pollution = 5 setget set_pollution, get_pollution
+
+func init(world):
+	self.world = world
+
 
 func set_resource_usage(value):
 	# property can't be changed
