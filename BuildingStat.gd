@@ -45,6 +45,7 @@ func set_type(value):
 	var info = type_info[type]
 	$hbox/icon.texture = info['texture']
 	$hbox/icon.hint_tooltip = info['name']
+	$hbox/label.hint_tooltip = info['name']
 
 
 func get_type():
