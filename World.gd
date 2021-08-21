@@ -1,5 +1,12 @@
 extends Node2D
 
+const MAX_RESOURCES := pow(2, 63) - 1
+const MAX_POLLUTION := pow(2, 63) - 1
+
+var pollution := 0
+var resources := MAX_RESOURCES
+var money := 0
+
 var placing := -1
 var inside_placing_area := false
 var selected_building = null
@@ -30,6 +37,9 @@ var building_scenes = [
 func _ready():
 	for i in range(0, 40):
 		snap_angles.append(2 * PI / 40 * i)
+	
+	update_building_panel()
+	update_resource_bar()
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -102,6 +112,16 @@ func update_building_panel():
 			widget.text = '[b]' + action['title'] + '[/b]\n\n' + action['description']
 			widget.connect('action_button_clicked', self, '_on_action_button_clicked', [widget, action])
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
+
+
+func update_resource_bar():
+	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = str(money)
+	
+	var resources_percent = int(float(resources) / MAX_RESOURCES * 100)
+	$hud/hbox/vbox/resource_bar/margin/hbox/resources_value_label.text = str(resources) + ' (' + str(resources_percent) + '%)'
+	
+	var pollution_percent = int(float(pollution) / MAX_POLLUTION * 100)
+	$hud/hbox/vbox/resource_bar/margin/hbox/pollution_value_label.text = str(pollution) + ' (' + str(pollution_percent) + '%)'
 
 
 func _on_action_button_clicked(widget, action):
