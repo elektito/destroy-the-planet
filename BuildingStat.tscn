@@ -14,24 +14,24 @@ margin_right = 640.0
 margin_bottom = 704.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_constants/margin_right = 2
-custom_constants/margin_top = 2
-custom_constants/margin_left = 2
-custom_constants/margin_bottom = 2
+custom_constants/margin_right = 1
+custom_constants/margin_top = 1
+custom_constants/margin_left = 1
+custom_constants/margin_bottom = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="hbox" type="HBoxContainer" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 1278.0
-margin_bottom = 702.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1279.0
+margin_bottom = 703.0
 
 [node name="icon" type="TextureRect" parent="hbox"]
 margin_right = 16.0
-margin_bottom = 700.0
+margin_bottom = 702.0
 rect_min_size = Vector2( 16, 16 )
 hint_tooltip = "Pollution (per cycle)"
 theme = ExtResource( 3 )
@@ -40,10 +40,11 @@ expand = true
 
 [node name="label" type="Label" parent="hbox"]
 margin_left = 20.0
-margin_top = 342.0
-margin_right = 20.0
-margin_bottom = 357.0
+margin_right = 1278.0
+margin_bottom = 702.0
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
