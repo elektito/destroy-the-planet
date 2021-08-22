@@ -69,6 +69,19 @@ bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
 [node name="World" type="Node2D"]
 script = ExtResource( 3 )
 
+[node name="bg_layer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="background" type="ColorRect" parent="bg_layer"]
+margin_right = 1278.0
+margin_bottom = 704.0
+mouse_filter = 2
+color = Color( 0, 0.733333, 1, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
 [node name="placing_area" type="Area2D" parent="."]
 position = Vector2( 816.03, 353.575 )
 

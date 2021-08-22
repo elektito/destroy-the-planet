@@ -326,6 +326,9 @@ func produce_pollution(amount):
 	if pollution == MAX_POLLUTION:
 		win()
 	update_resource_bar()
+	
+	$bg_layer/background.color = lerp(Color('00bbff'), Color.lightblue, float(pollution) / MAX_POLLUTION)
+	$bg_layer/background.modulate = lerp(Color.white, Color('999999'), float(pollution) / MAX_POLLUTION)
 
 
 func consume_resources(amount):
@@ -337,6 +340,8 @@ func consume_resources(amount):
 	if resources == 0:
 		win()
 	update_resource_bar()
+	
+	$placing_area/planet.modulate = lerp(Color.white, Color('666666'), float(pollution) / MAX_POLLUTION)
 
 
 func add_population(amount):
