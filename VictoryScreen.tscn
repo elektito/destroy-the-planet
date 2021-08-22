@@ -47,13 +47,13 @@ __meta__ = {
 }
 
 [node name="factory" parent="title" instance=ExtResource( 2 )]
-position = Vector2( 147.446, 184.417 )
+position = Vector2( 147.446, 234.417 )
 
 [node name="powerplant" parent="title" instance=ExtResource( 4 )]
-position = Vector2( 198, 566.671 )
+position = Vector2( 198, 616.671 )
 
 [node name="mine" parent="title" instance=ExtResource( 5 )]
-position = Vector2( 144.138, 378.099 )
+position = Vector2( 144.138, 428.099 )
 
 [node name="title_tween" type="Tween" parent="."]
 

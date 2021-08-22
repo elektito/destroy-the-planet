@@ -58,6 +58,8 @@ func _ready():
 	$victory_screen.set_process_input(false)
 	$victory_screen.set_physics_process(false)
 	
+	$settings.set_process_input(true)
+	
 	update_toolbox()
 	update_building_panel()
 	update_resource_bar()
@@ -80,6 +82,9 @@ func _input(event):
 
 
 func _unhandled_input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		$settings.set_process_input(true)
+		$settings/screen.visible = true
 	if event is InputEventMouseButton:
 		if placing < 0 and event.pressed and event.button_index == BUTTON_LEFT:
 			$placement_preview_sound.play()
@@ -448,3 +453,8 @@ func win():
 	yield($victory_screen/fade_out_tween, "tween_all_completed")
 	$victory_screen/screen.start()
 
+
+
+func _on_screen_closed():
+	$settings.set_process_input(false)
+	$settings/screen.visible = false
