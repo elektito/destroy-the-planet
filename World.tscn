@@ -103,6 +103,7 @@ texture = ExtResource( 4 )
 [node name="toolbox_bg" type="ColorRect" parent="."]
 margin_right = 40.0
 margin_bottom = 704.0
+mouse_filter = 2
 color = Color( 0.215686, 0.580392, 0.431373, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,6 +113,7 @@ __meta__ = {
 visible = false
 margin_right = 32.0
 margin_bottom = 36.0
+mouse_filter = 2
 color = Color( 1, 1, 1, 0.501961 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -133,6 +135,7 @@ __meta__ = {
 [node name="toolbox" type="VBoxContainer" parent="hud/hbox"]
 margin_right = 40.0
 margin_bottom = 704.0
+mouse_filter = 2
 custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -192,6 +195,7 @@ margin_left = 40.0
 margin_right = 172.0
 margin_bottom = 704.0
 rect_min_size = Vector2( 132, 0 )
+mouse_filter = 2
 custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -200,6 +204,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="hud/hbox/building_panel"]
 margin_right = 132.0
 margin_bottom = 704.0
+mouse_filter = 2
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -213,6 +218,7 @@ margin_left = 4.0
 margin_top = 4.0
 margin_right = 128.0
 margin_bottom = 700.0
+mouse_filter = 2
 
 [node name="description" type="RichTextLabel" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer"]
 margin_right = 124.0
@@ -505,7 +511,7 @@ theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "0"
 
-[node name="placing_icon" type="Sprite" parent="."]
+[node name="placing_icon" type="Sprite" parent="hud"]
 visible = false
 modulate = Color( 1, 1, 1, 0.501961 )
 scale = Vector2( 0.063, 0.063 )

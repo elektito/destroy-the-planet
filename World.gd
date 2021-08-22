@@ -46,6 +46,8 @@ onready var building_info = {
 	},
 }
 
+onready var placing_icon = $hud/placing_icon
+
 func _ready():
 	for i in range(0, 40):
 		snap_angles.append(2 * PI / 40 * i)
@@ -55,17 +57,20 @@ func _ready():
 	update_resource_bar()
 	update_info_bar()
 
-func _unhandled_input(event):
+
+func _input(event):
 	if event is InputEventMouseMotion:
 		if placing >= 0:
-			$placing_icon.position = get_local_mouse_position()
+			placing_icon.position = get_local_mouse_position()
 		
 			var v : Vector2 = $placing_area.get_local_mouse_position() - $placing_area/planet.position
 			var angle = get_snap_angle(v.angle())
 			v = Vector2.RIGHT.rotated(angle)
 			$placing_area/preview_icon.position = v.normalized() * 230
 			$placing_area/preview_icon.rotation = v.angle() + PI / 2
-	
+
+
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if placing < 0 and event.pressed and event.button_index == BUTTON_LEFT:
 			produce_money(click_money)
@@ -74,11 +79,11 @@ func _unhandled_input(event):
 		
 		if placing >= 0 and event.button_index == BUTTON_RIGHT:
 			placing = -1
-			$placing_icon.visible = false
+			placing_icon.visible = false
 		
 		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area:
 			if not $placing_area/preview_icon.rotation in used_angles:
-				$placing_icon.visible = false
+				placing_icon.visible = false
 				$placing_area/preview_icon.visible = false
 				var b = building_info[placing]['scene'].instance()
 				b.z_index = -10
@@ -266,9 +271,9 @@ func get_snap_angle(angle):
 
 
 func _on_toolbox_btn_pressed(building):
-	$placing_icon.texture = building_info[building]['button'].icon
-	$placing_icon.position = get_local_mouse_position()
-	$placing_icon.visible = true
+	placing_icon.texture = building_info[building]['button'].icon
+	placing_icon.position = get_local_mouse_position()
+	placing_icon.visible = true
 	placing = building
 	$placing_area/preview_icon.texture = building_info[building]['preview_icon']
 
@@ -287,7 +292,7 @@ func _on_placing_area_mouse_entered():
 	inside_placing_area = true
 	if placing >= 0:
 		$placing_area/preview_icon.visible = true
-		$placing_icon.visible = false
+		placing_icon.visible = false
 
 
 func _on_placing_area_mouse_exited():
@@ -296,7 +301,7 @@ func _on_placing_area_mouse_exited():
 	inside_placing_area = false
 	if placing >= 0:
 		$placing_area/preview_icon.visible = false
-		$placing_icon.visible = true
+		placing_icon.visible = true
 
 
 func produce_money(amount):
