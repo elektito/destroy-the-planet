@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/placement_preview.ogg-57666d7ab01b7cac24b254430339f3e0.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/placement_preview.ogg"
+dest_files=[ "res://.import/placement_preview.ogg-57666d7ab01b7cac24b254430339f3e0.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

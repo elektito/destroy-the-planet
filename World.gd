@@ -18,6 +18,8 @@ var snap_angles = []
 var used_angles = []
 var placed_buildings = []
 
+var prev_angle = null
+
 onready var building_info = {
 	Global.BuildingType.FACTORY: {
 		'button': $hud/hbox/toolbox/factory_btn,
@@ -69,6 +71,9 @@ func _input(event):
 		
 			var v : Vector2 = $placing_area.get_local_mouse_position() - $placing_area/planet.position
 			var angle = get_snap_angle(v.angle())
+			if angle != prev_angle and inside_placing_area:
+				$placement_preview_sound.play()
+				prev_angle = angle
 			v = Vector2.RIGHT.rotated(angle)
 			$placing_area/preview_icon.position = v.normalized() * 230
 			$placing_area/preview_icon.rotation = v.angle() + PI / 2
@@ -99,6 +104,7 @@ func _unhandled_input(event):
 				b.connect('info_updated', self, '_on_building_info_updated')
 				consume_money(get_price(b.type))
 				b.init(self)
+				$placement_sound.play()
 				placing = -1
 				used_angles.append($placing_area/preview_icon.rotation)
 				placed_buildings.append(b)
@@ -280,6 +286,7 @@ func _on_toolbox_btn_pressed(building):
 	placing_icon.visible = true
 	placing = building
 	$placing_area/preview_icon.texture = building_info[building]['preview_icon']
+	$placement_preview_sound.play()
 
 
 func _on_toolbox_btn_mouse_entered(building):
