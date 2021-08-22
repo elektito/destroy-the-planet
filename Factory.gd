@@ -59,7 +59,7 @@ var levels = [
 var current_level = levels[0]
 
 var building_name = 'Factory'
-var description = 'A good ol\' factory. Consumes some resources and pollutes a heck of a lot more.'
+var description = 'A good ol\' factory. Consumes some resources and pollutes a heck of a lot more, while also making money for you. Production will increase the more population, power production and mining you have.'
 var level := 1
 
 var world
