@@ -72,8 +72,10 @@ static func get_level_upgrade_stats(current_level, next_level):
 	}
 	for key in current_level:
 		if key in key_to_stat_type:
-			stats.append({
-				'type': key_to_stat_type[key],
-				'value': 'x' + str(next_level[key] / current_level[key]),
-			})
+			var multiplier = next_level[key] / current_level[key]
+			if multiplier != 1:
+				stats.append({
+					'type': key_to_stat_type[key],
+					'value': 'x' + str(multiplier),
+				})
 	return stats
