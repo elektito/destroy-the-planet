@@ -303,6 +303,10 @@ func produce_pollution(amount):
 	for b in placed_buildings:
 		b.notify_update('pollution')
 	pollution += amount
+	if pollution > MAX_POLLUTION or pollution < 0: # overflow
+		pollution = MAX_POLLUTION
+	if pollution == MAX_POLLUTION:
+		win()
 	update_resource_bar()
 
 
@@ -310,6 +314,10 @@ func consume_resources(amount):
 	for b in placed_buildings:
 		b.notify_update('resources')
 	resources -= amount
+	if resources < 0:
+		resources = 0
+	if resources == 0:
+		win()
 	update_resource_bar()
 
 
@@ -371,3 +379,7 @@ func get_demand() -> int:
 	if demand == 0:
 		demand = 1
 	return demand
+
+
+func win():
+	print('VICTORY!')
