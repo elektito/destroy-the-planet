@@ -52,6 +52,7 @@ var world
 
 func init(world):
 	self.world = world
+	$building.update_upgrade_label(self)
 
 
 func get_stats():
@@ -93,7 +94,9 @@ func perform_action(action):
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
 			emit_signal("info_updated", self, "entertainment")
+			$building.update_upgrade_label(self)
 
 
 func notify_update(item):
-	pass
+	if item == 'money':
+		$building.update_upgrade_label(self)

@@ -71,6 +71,7 @@ var world
 
 func init(world):
 	self.world = world
+	$building.update_upgrade_label(self)
 
 
 func get_stats():
@@ -126,6 +127,7 @@ func perform_action(action):
 			emit_signal("upgraded", self)
 			emit_signal("info_updated", self, "population_cap")
 			emit_signal("info_updated", self, "population_increment")
+			$building.update_upgrade_label(self)
 		'cycle':
 			_on_cycle_timer_timeout()
 
@@ -135,4 +137,5 @@ func _on_cycle_timer_timeout():
 
 
 func notify_update(item):
-	pass
+	if item == 'money':
+		$building.update_upgrade_label(self)

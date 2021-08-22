@@ -88,8 +88,8 @@ func _unhandled_input(event):
 				b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
 				b.connect('upgraded', self, '_on_building_upgraded')
 				b.connect('info_updated', self, '_on_building_info_updated')
-				b.init(self)
 				consume_money(get_price(b.type))
+				b.init(self)
 				placing = -1
 				used_angles.append($placing_area/preview_icon.rotation)
 				placed_buildings.append(b)

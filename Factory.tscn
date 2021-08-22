@@ -26,4 +26,7 @@ rate = 1
 [node name="cycle_timer" type="Timer" parent="."]
 autostart = true
 
+[node name="upgrade_available_pos" type="Position2D" parent="."]
+position = Vector2( -16.5682, -20.4617 )
+
 [connection signal="timeout" from="cycle_timer" to="." method="_on_cycle_timer_timeout"]
