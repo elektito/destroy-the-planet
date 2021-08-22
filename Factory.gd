@@ -75,15 +75,15 @@ func get_stats():
 		},
 		{
 			'type': Global.StatType.MONEY,
-			'value': str(get_current_money_per_cycle()),
+			'value': str(get_money_per_cycle()),
 		},
 		{
 			'type': Global.StatType.POLLUTION,
-			'value': str(get_current_pollution_per_cycle()),
+			'value': str(get_pollution_per_cycle()),
 		},
 		{
 			'type': Global.StatType.USAGE,
-			'value': str(get_current_resource_usage_per_cycle()),
+			'value': str(get_resource_usage_per_cycle()),
 		},
 	]
 
@@ -109,15 +109,15 @@ func get_mining_factor():
 	return factor
 
 
-func get_current_money_per_cycle():
+func get_money_per_cycle():
 	return current_level['base_money_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
 
 
-func get_current_pollution_per_cycle():
+func get_pollution_per_cycle():
 	return current_level['base_pollution_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
 
 
-func get_current_resource_usage_per_cycle():
+func get_resource_usage_per_cycle():
 	return current_level['base_resource_usage_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
 
 
@@ -143,6 +143,6 @@ func perform_action(action):
 
 
 func _on_cycle_timer_timeout():
-	world.produce_money(current_level['base_money_per_cycle'])
-	world.produce_pollution(current_level['base_pollution_per_cycle'])
-	world.consume_resources(current_level['base_resource_usage_per_cycle'])
+	world.produce_money(get_money_per_cycle())
+	world.produce_pollution(get_pollution_per_cycle())
+	world.consume_resources(get_resource_usage_per_cycle())

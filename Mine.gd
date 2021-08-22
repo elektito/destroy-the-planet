@@ -61,11 +61,11 @@ func get_stats():
 		},
 		{
 			'type': Global.StatType.POLLUTION,
-			'value': str(get_current_pollution_per_cycle()),
+			'value': str(get_pollution_per_cycle()),
 		},
 		{
 			'type': Global.StatType.USAGE,
-			'value': str(get_current_resource_usage_per_cycle()),
+			'value': str(get_resource_usage_per_cycle()),
 		},
 		{
 			'type': Global.StatType.MINING,
@@ -74,11 +74,11 @@ func get_stats():
 	]
 
 
-func get_current_pollution_per_cycle():
+func get_pollution_per_cycle():
 	return current_level['base_pollution_per_cycle']
 
 
-func get_current_resource_usage_per_cycle():
+func get_resource_usage_per_cycle():
 	return current_level['base_resource_usage_per_cycle']
 
 
@@ -105,3 +105,8 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
+
+
+func _on_cycle_timer_timeout():
+	world.produce_pollution(get_pollution_per_cycle())
+	world.consume_resources(get_resource_usage_per_cycle())
