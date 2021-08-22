@@ -88,8 +88,8 @@ func get_stats():
 	]
 
 
-func get_population_factor():
-	var factor = world.get_population() / 1000000
+func get_demand_factor():
+	var factor = world.get_demand() / 1000000
 	if factor == 0:
 		factor = 1
 	return factor
@@ -110,15 +110,15 @@ func get_mining_factor():
 
 
 func get_money_per_cycle():
-	return current_level['base_money_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
+	return current_level['base_money_per_cycle'] * get_demand_factor() * get_power_factor() * get_mining_factor()
 
 
 func get_pollution_per_cycle():
-	return current_level['base_pollution_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
+	return current_level['base_pollution_per_cycle'] * get_demand_factor() * get_power_factor() * get_mining_factor()
 
 
 func get_resource_usage_per_cycle():
-	return current_level['base_resource_usage_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
+	return current_level['base_resource_usage_per_cycle'] * get_demand_factor() * get_power_factor() * get_mining_factor()
 
 
 func get_actions():
