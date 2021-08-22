@@ -9,29 +9,8 @@ var level := 1
 
 var world
 
-var resource_usage = 2 setget set_resource_usage, get_resource_usage
-var pollution = 4 setget set_pollution, get_pollution
-
 func init(world):
 	self.world = world
-
-
-func set_resource_usage(value):
-	# property can't be changed
-	pass
-
-
-func get_resource_usage():
-	return 2
-
-
-func set_pollution(value):
-	# property can't be changed
-	pass
-
-
-func get_pollution():
-	return 4
 
 
 func get_stats():
