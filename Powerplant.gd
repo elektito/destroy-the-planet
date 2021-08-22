@@ -30,34 +30,34 @@ var levels = [
 	{
 		'number': 4,
 		'description': 'Medium-sized powerplant.',
-		'base_pollution_per_cycle': 50,
+		'base_pollution_per_cycle': 80,
 		'base_resource_usage_per_cycle': 20,
 		'base_power': 80,
 	},
 	{
 		'number': 5,
-		'base_pollution_per_cycle': 100,
+		'base_pollution_per_cycle': 400,
 		'base_resource_usage_per_cycle': 100,
 		'base_power': 160,
 	},
 	{
 		'number': 6,
 		'description': 'Big powerplant.',
-		'base_pollution_per_cycle': 500,
+		'base_pollution_per_cycle': 2000,
 		'base_resource_usage_per_cycle': 200,
 		'base_power': 800,
 	},
 	{
 		'number': 7,
 		'description': 'Huge powerplant.',
-		'base_pollution_per_cycle': 2000,
+		'base_pollution_per_cycle': 4000,
 		'base_resource_usage_per_cycle': 400,
 		'base_power': 1600,
 	},
 	{
 		'number': 8,
 		'description': 'Gigantic powerplant.',
-		'base_pollution_per_cycle': 5000,
+		'base_pollution_per_cycle': 20000,
 		'base_resource_usage_per_cycle': 800,
 		'base_power': 3200,
 	},
@@ -129,6 +129,7 @@ func perform_action(action):
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
 			emit_signal("info_updated", self, 'power')
+			update_smoke()
 
 
 func _on_cycle_timer_timeout():
@@ -138,3 +139,16 @@ func _on_cycle_timer_timeout():
 
 func notify_update(item):
 	pass
+
+
+func update_smoke():
+	var max_pollution = levels[-1]['base_pollution_per_cycle']
+	var pollution = float(get_pollution_per_cycle())
+	var rate = float(get_pollution_per_cycle()) / max_pollution
+	if rate > 1.0:
+		rate = 1.0
+	rate = int(rate * 100)
+	if rate == 0:
+		rate = 1
+	if rate != $smoke.rate:
+		$smoke.rate = rate

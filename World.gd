@@ -1,7 +1,8 @@
 extends Node2D
 
-const MAX_RESOURCES := 9223372036854775807 # 2**63-1
-const MAX_POLLUTION := 9223372036854775807 # 2**63-1
+const TRILLION := 1000000000000
+const MAX_RESOURCES := 1000 * TRILLION
+const MAX_POLLUTION := 1000 * TRILLION
 
 var pollution := 0
 var resources := MAX_RESOURCES
@@ -69,7 +70,7 @@ func _unhandled_input(event):
 		if placing < 0 and event.pressed and event.button_index == BUTTON_LEFT:
 			produce_money(click_money)
 		if OS.is_debug_build() and placing < 0 and event.pressed and event.button_index == BUTTON_MIDDLE:
-			produce_money(1000000000000)
+			produce_money(100000000000000)
 		
 		if placing >= 0 and event.button_index == BUTTON_RIGHT:
 			placing = -1
@@ -200,23 +201,38 @@ func _on_action_button_clicked(widget, action):
 
 
 func get_price(building) -> int:
+	var base_price = -1
+	var exponent = 0
 	match building:
 		Global.BuildingType.FACTORY:
-			var factories = get_building_count(Global.BuildingType.FACTORY)
-			return int(pow(100, factories + 1))
+			base_price = 100
+			exponent = get_building_count(Global.BuildingType.FACTORY)
 		Global.BuildingType.MINE:
-			var mines = get_building_count(Global.BuildingType.MINE)
-			return int(pow(200, mines + 1))
+			base_price = 200
+			exponent = get_building_count(Global.BuildingType.MINE)
 		Global.BuildingType.POWERPLANT:
-			var powerplants = get_building_count(Global.BuildingType.POWERPLANT)
-			return int(pow(200, powerplants + 1))
+			base_price = 200
+			exponent = get_building_count(Global.BuildingType.POWERPLANT)
 		Global.BuildingType.APARTMENT_BUILDING:
-			var apartment_buildings = get_building_count(Global.BuildingType.APARTMENT_BUILDING)
-			return int(pow(200, apartment_buildings + 1))
+			base_price = 200
+			exponent = get_building_count(Global.BuildingType.APARTMENT_BUILDING)
 		Global.BuildingType.BAR:
-			var bars = get_building_count(Global.BuildingType.BAR)
-			return int(pow(200, bars + 1))
-	return -1
+			base_price = 200
+			exponent = get_building_count(Global.BuildingType.BAR)
+	
+	var price
+	if base_price == 100:
+		if exponent <= 6:
+			price = int(pow(base_price, exponent + 1))
+		else:
+			price = int(pow(base_price, 7) * pow(2, exponent - 6))
+	else:
+		if exponent <= 5:
+			price = int(pow(base_price, exponent + 1))
+		else:
+			price = int(pow(base_price, 6) * pow(2, exponent - 5))
+	
+	return price
 
 
 func get_building_count(building_type) -> int:
