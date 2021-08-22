@@ -3,7 +3,6 @@ extends Node2D
 signal upgraded(building)
 
 const type = Global.BuildingType.FACTORY
-const MAX_LEVEL := 7
 
 var levels = [
 	{
@@ -124,7 +123,7 @@ func get_current_resource_usage_per_cycle():
 
 func get_actions():
 	var actions = []
-	if level < MAX_LEVEL:
+	if level < levels[-1]['number']:
 		actions.append({
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
