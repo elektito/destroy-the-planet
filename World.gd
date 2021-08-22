@@ -213,6 +213,7 @@ func update_action_widgets():
 func _on_action_button_clicked(widget, action):
 	consume_money(action['price'])
 	selected_building.perform_action(action)
+	$placement_sound.play()
 
 
 func get_price(building) -> int:
