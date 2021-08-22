@@ -83,6 +83,7 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if placing < 0 and event.pressed and event.button_index == BUTTON_LEFT:
 			$placement_preview_sound.play()
+			click_vfx()
 			produce_money(click_money)
 		if OS.is_debug_build() and placing < 0 and event.pressed and event.button_index == BUTTON_MIDDLE:
 			produce_money(100000000000000)
@@ -117,6 +118,20 @@ func _unhandled_input(event):
 			selected_building.get_node('building').selected = false
 			selected_building = null
 			update_building_panel()
+
+
+func click_vfx():
+	var sprite = Sprite.new()
+	sprite.texture = preload("res://assets/particles/blackSmoke04.png")
+	sprite.position = get_local_mouse_position()
+	add_child(sprite)
+	$click_vfx_tween.interpolate_property(sprite, 'scale', Vector2(1, 1), Vector2(2, 2), 0.1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$click_vfx_tween.interpolate_property(sprite, 'modulate:a', 1.0, 0.0, 0.1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$click_vfx_tween.start()
+
+
+func _on_click_vfx_tween_tween_completed(object, key):
+	object.queue_free()
 
 
 func _on_building_clicked(building):
@@ -432,3 +447,4 @@ func win():
 	$victory_screen/fade_out_tween.start()
 	yield($victory_screen/fade_out_tween, "tween_all_completed")
 	$victory_screen/screen.start()
+

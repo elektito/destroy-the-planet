@@ -540,6 +540,8 @@ volume_db = -11.107
 stream = ExtResource( 15 )
 autoplay = true
 
+[node name="click_vfx_tween" type="Tween" parent="."]
+
 [connection signal="mouse_entered" from="placing_area" to="." method="_on_placing_area_mouse_entered"]
 [connection signal="mouse_exited" from="placing_area" to="." method="_on_placing_area_mouse_exited"]
 [connection signal="mouse_entered" from="hud/hbox/toolbox/factory_btn" to="." method="_on_toolbox_btn_mouse_entered" binds= [ 0 ]]
@@ -557,3 +559,4 @@ autoplay = true
 [connection signal="mouse_entered" from="hud/hbox/toolbox/bar_btn" to="." method="_on_toolbox_btn_mouse_entered" binds= [ 4 ]]
 [connection signal="mouse_exited" from="hud/hbox/toolbox/bar_btn" to="." method="_on_toolbox_btn_mouse_exited" binds= [ 4 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/bar_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 4 ]]
+[connection signal="tween_completed" from="click_vfx_tween" to="." method="_on_click_vfx_tween_tween_completed"]
