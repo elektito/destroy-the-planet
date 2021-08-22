@@ -1,8 +1,8 @@
 extends Node2D
 
 const TRILLION := 1000000000000
-const MAX_RESOURCES := 1000 * TRILLION
-const MAX_POLLUTION := 1000 * TRILLION
+const MAX_RESOURCES := 10000 * TRILLION
+const MAX_POLLUTION := 10000 * TRILLION
 
 var pollution := 0
 var resources := MAX_RESOURCES
