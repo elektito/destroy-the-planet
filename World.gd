@@ -148,7 +148,7 @@ func update_building_panel():
 			if stat['type'] == Global.StatType.MONEY:
 				widget.text = Global.human_readable_money(int(stat['value']))
 			else:
-				widget.text = stat['value']
+				widget.text = Global.human_readable_money(int(stat['value']))
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 		for action in selected_building.get_actions():
 			var widget = preload("res://BuildingWidget.tscn").instance()

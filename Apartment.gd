@@ -57,7 +57,7 @@ var levels = [
 	{
 		'number': 9,
 		'description': 'Colossal apartment building.',
-		'base_population_increment': 80000,
+		'base_population_increment': 20000000,
 		'base_population_cap': 1000000000,
 	},
 ]
