@@ -6,6 +6,7 @@ const MAX_POLLUTION := 9223372036854775807 # 2**63-1
 var pollution := 0
 var resources := MAX_RESOURCES
 var money := 100
+var population := 0
 
 var click_money := 1
 
@@ -51,6 +52,7 @@ func _ready():
 	update_toolbox()
 	update_building_panel()
 	update_resource_bar()
+	update_info_bar()
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -160,6 +162,12 @@ func update_toolbox():
 		btn.disabled = (money < building_price)
 
 
+func update_info_bar():
+	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = str(get_population()) + '/' + str(get_population_cap())
+	$hud/hbox/vbox/info_bar/margin/hbox/power_value_label.text = str(get_power())
+	$hud/hbox/vbox/info_bar/margin/hbox/mining_value_label.text = str(get_mining())
+
+
 func update_action_widgets():
 	for widget in get_tree().get_nodes_in_group('building_widgets'):
 		widget.button_disabled = (money < widget.price)
@@ -196,6 +204,14 @@ func get_building_count(building_type) -> int:
 		if b.type == building_type:
 			count += 1
 	return count
+
+
+func get_placed_buildings(building_type):
+	var buildings = []
+	for b in placed_buildings:
+		if b.type == building_type:
+			buildings.append(b)
+	return buildings
 
 
 func get_snap_angle(angle):
@@ -268,3 +284,31 @@ func produce_pollution(amount):
 func consume_resources(amount):
 	resources -= amount
 	update_resource_bar()
+
+
+func get_population() -> int:
+	return population
+
+
+func get_population_cap() -> int:
+	var apartments = get_placed_buildings(Global.BuildingType.APARTMENT_BUILDING)
+	var cap := 0
+	for apartment in apartments:
+		cap += apartment.get_population_cap()
+	return cap
+
+
+func get_power() -> int:
+	var powerplants = get_placed_buildings(Global.BuildingType.POWERPLANT)
+	var power := 0
+	for powerplant in powerplants:
+		power += powerplant.get_power_generation()
+	return power
+
+
+func get_mining() -> int:
+	var mines = get_placed_buildings(Global.BuildingType.MINE)
+	var mining := 0
+	for mine in mines:
+		mining += mine.get_mining()
+	return mining

@@ -89,16 +89,37 @@ func get_stats():
 	]
 
 
+func get_population_factor():
+	var factor = world.get_population() / 1000000
+	if factor == 0:
+		factor = 1
+	return factor
+
+
+func get_power_factor():
+	var factor = world.get_power() / 1000000
+	if factor == 0:
+		factor = 1
+	return factor
+
+
+func get_mining_factor():
+	var factor = world.get_mining() / 1000000
+	if factor == 0:
+		factor = 1
+	return factor
+
+
 func get_current_money_per_cycle():
-	return current_level['base_money_per_cycle']
+	return current_level['base_money_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
 
 
 func get_current_pollution_per_cycle():
-	return current_level['base_pollution_per_cycle']
+	return current_level['base_pollution_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
 
 
 func get_current_resource_usage_per_cycle():
-	return current_level['base_resource_usage_per_cycle']
+	return current_level['base_resource_usage_per_cycle'] * get_population_factor() * get_power_factor() * get_mining_factor()
 
 
 func get_actions():
