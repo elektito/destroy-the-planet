@@ -232,7 +232,6 @@ anchor_bottom = 0.0
 margin_top = 74.0
 margin_right = 124.0
 margin_bottom = 132.0
-button_disabled = false
 
 [node name="vbox" type="VBoxContainer" parent="hud/hbox"]
 margin_left = 172.0

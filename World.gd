@@ -15,27 +15,34 @@ var selected_building = null
 var snap_angles = []
 var used_angles = []
 var placed_buildings = []
-onready var buttons = {
-	Global.BuildingType.FACTORY: $hud/hbox/toolbox/factory_btn,
-	Global.BuildingType.MINE: $hud/hbox/toolbox/mine_btn,
-	Global.BuildingType.POWERPLANT: $hud/hbox/toolbox/powerplant_btn,
-	Global.BuildingType.APARTMENT_BUILDING: $hud/hbox/toolbox/apartment_btn,
-	Global.BuildingType.BAR: $hud/hbox/toolbox/bar_btn,
+
+onready var building_info = {
+	Global.BuildingType.FACTORY: {
+		'button': $hud/hbox/toolbox/factory_btn,
+		'preview_icon': preload("res://assets/gfx/sprites/factory.png"),
+		'scene': preload("res://Factory.tscn"),
+	},
+	Global.BuildingType.MINE: {
+		'button': $hud/hbox/toolbox/mine_btn,
+		'preview_icon': preload("res://assets/gfx/sprites/mine.png"),
+		'scene': preload("res://Mine.tscn"),
+	},
+	Global.BuildingType.POWERPLANT: {
+		'button': $hud/hbox/toolbox/powerplant_btn,
+		'preview_icon': preload("res://assets/gfx/sprites/powerplant.png"),
+		'scene': preload("res://Powerplant.tscn"),
+	},
+	Global.BuildingType.APARTMENT_BUILDING: {
+		'button': $hud/hbox/toolbox/apartment_btn,
+		'preview_icon': preload("res://assets/gfx/sprites/apartment.png"),
+		'scene': preload("res://Apartment.tscn"),
+	},
+	Global.BuildingType.BAR: {
+		'button': $hud/hbox/toolbox/bar_btn,
+		'preview_icon': preload("res://assets/gfx/sprites/bar.png"),
+		'scene': preload("res://Bar.tscn"),
+	},
 }
-var preview_icons = [
-	preload("res://assets/gfx/sprites/factory.png"),
-	preload("res://assets/gfx/sprites/mine.png"),
-	preload("res://assets/gfx/sprites/powerplant.png"),
-	preload("res://assets/gfx/sprites/apartment.png"),
-	preload("res://assets/gfx/sprites/bar.png"),
-]
-var building_scenes = [
-	preload("res://Factory.tscn"),
-	preload("res://Mine.tscn"),
-	preload("res://Powerplant.tscn"),
-	preload("res://Apartment.tscn"),
-	preload("res://Bar.tscn"),
-]
 
 func _ready():
 	for i in range(0, 40):
@@ -70,7 +77,7 @@ func _unhandled_input(event):
 			if not $placing_area/preview_icon.rotation in used_angles:
 				$placing_icon.visible = false
 				$placing_area/preview_icon.visible = false
-				var b = building_scenes[placing].instance()
+				var b = building_info[placing]['scene'].instance()
 				b.z_index = -10
 				b.position = $placing_area/preview_icon.position
 				b.rotation = $placing_area/preview_icon.rotation
@@ -146,7 +153,7 @@ func update_resource_bar():
 
 func update_toolbox():
 	for building_type in Global.get_building_types():
-		var btn : Button = buttons[building_type]
+		var btn : Button = building_info[building_type]['button']
 		var building_name := Global.get_building_name(building_type)
 		var building_price = get_price(building_type)
 		btn.hint_tooltip = building_name + '\nCost: ' + Global.human_readable_money(building_price)
@@ -205,17 +212,17 @@ func get_snap_angle(angle):
 	return snap_angles[len(snap_angles) - 1]
 
 
-func _on_toolbox_btn_pressed(btn):
-	$placing_icon.texture = buttons[btn].icon
+func _on_toolbox_btn_pressed(building):
+	$placing_icon.texture = building_info[building]['scene'].instance()
 	$placing_icon.position = get_local_mouse_position()
 	$placing_icon.visible = true
-	placing = btn
-	$placing_area/preview_icon.texture = preview_icons[btn]
+	placing = building
+	$placing_area/preview_icon.texture = building_info[building]['preview_icon']
 
 
-func _on_toolbox_btn_mouse_entered(btn):
+func _on_toolbox_btn_mouse_entered(building):
 	$highlight.rect_position.x = 2
-	$highlight.rect_position.y = buttons[btn].rect_position.y + 2
+	$highlight.rect_position.y = building_info[building]['button'].rect_position.y + 2
 	$highlight.visible = true
 
 
