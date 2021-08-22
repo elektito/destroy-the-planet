@@ -8,38 +8,38 @@ const type := Global.BuildingType.BAR
 var levels = [
 	{
 		'number': 1,
-		'description': 'Your rudimentary basic factory.',
+		'description': 'Level 1 bar.',
 		'base_entertainment': 2,
 	},
 	{
 		'number': 2,
-		'description': 'Small factory.',
+		'description': 'Level 2 bar.',
 		'base_entertainment': 10,
 	},
 	{
 		'number': 3,
-		'description': 'Partially upgraded factory.',
-		'base_entertainment': 100,
+		'description': 'Level 3 bar.',
+		'base_entertainment': 500,
 	},
 	{
 		'number': 4,
-		'description': 'Medium-sized factory.',
-		'base_entertainment': 1000,
+		'description': 'Level 4 bar.',
+		'base_entertainment': 25000,
 	},
 	{
 		'number': 5,
-		'description': 'Above-medium factory.',
-		'base_entertainment': 10000,
+		'description': 'Level 5 bar.',
+		'base_entertainment': 1000000,
 	},
 	{
 		'number': 6,
-		'description': 'Almost-there factory.',
-		'base_entertainment': 100000,
+		'description': 'Level 6 bar.',
+		'base_entertainment': 50000000,
 	},
 	{
 		'number': 7,
-		'description': 'Beast of a factory.',
-		'base_entertainment': 1000000,
+		'description': 'Level 7 bar.',
+		'base_entertainment': 100000000,
 	},
 ]
 var current_level = levels[0]

@@ -172,7 +172,10 @@ func notify_update(item):
 
 
 func update_smoke():
-	var max_pollution = 10000000000
+	var max_demand_factor = 10
+	var max_power_factor = 5000
+	var max_mining_factor = 160
+	var max_pollution = levels[-1]['base_pollution_per_cycle'] * max_demand_factor * max_power_factor * max_mining_factor
 	var pollution = float(get_pollution_per_cycle())
 	var rate = float(get_pollution_per_cycle()) / max_pollution
 	if rate > 1.0:
