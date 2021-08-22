@@ -52,6 +52,10 @@ func _ready():
 	for i in range(0, 40):
 		snap_angles.append(2 * PI / 40 * i)
 	
+	$victory_screen.set_process(false)
+	$victory_screen.set_process_input(false)
+	$victory_screen.set_physics_process(false)
+	
 	update_toolbox()
 	update_building_panel()
 	update_resource_bar()
@@ -410,4 +414,12 @@ func get_demand() -> int:
 
 
 func win():
-	print('VICTORY!')
+	get_tree().paused = true
+	$victory_screen.set_process(true)
+	$victory_screen.set_physics_process(true)
+	$victory_screen.set_process_input(true)
+	$victory_screen/screen.visible = true
+	$victory_screen/fade_out_tween.interpolate_property($victory_screen/screen, 'modulate:a', 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_screen/fade_out_tween.start()
+	yield($victory_screen/fade_out_tween, "tween_all_completed")
+	$victory_screen/screen.start()

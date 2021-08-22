@@ -54,6 +54,11 @@ func update_upgrade_label(parent):
 
 
 func shake():
+	# this function messes up the scrolling title in the victory screen, so we
+	# detect it using this hack and return.
+	if get_parent().get_parent().get_path().get_name(1) == 'VictoryScreen' or get_parent().get_parent().get_path().get_name(2) == 'victory_screen':
+		return
+	
 	var parent_pos = get_parent().global_position
 	var pos = global_position
 	var initial_rotation = get_parent().rotation
