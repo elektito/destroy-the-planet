@@ -125,12 +125,13 @@ func get_resource_usage_per_cycle():
 func get_actions():
 	var actions = []
 	if level < levels[-1]['number']:
+		var next_level = levels[level] # level is one based, so levels[level] is next level
 		actions.append({
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade factory to level ' + str(level + 1) + '. Base resource usage will be twice the current amount and the pollution ten times.',
 			'price': (level + 1) * 1000,
-			'stats': Global.get_level_upgrade_stats(current_level, levels[level + 1]),
+			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
 	
 	return actions
