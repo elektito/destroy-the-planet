@@ -95,7 +95,7 @@ func _unhandled_input(event):
 				update_toolbox()
 				update_info_bar()
 			
-		if placing < 0 and not selected_building == null:
+		if placing < 0 and selected_building != null and event.button_index == BUTTON_RIGHT:
 			selected_building.get_node('building').selected = false
 			selected_building = null
 			update_building_panel()
