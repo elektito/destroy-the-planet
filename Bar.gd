@@ -9,7 +9,7 @@ var levels = [
 	{
 		'number': 1,
 		'description': 'Your rudimentary basic factory.',
-		'base_entertainment': 1,
+		'base_entertainment': 2,
 	},
 	{
 		'number': 2,
@@ -78,7 +78,7 @@ func get_actions():
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade bar to level ' + str(level + 1) + '.',
-			'price': (level + 1) * 1000,
+			'price': int(pow(10, level + 1)),
 			'stats': Global.get_level_upgrade_stats(current_level, levels[level + 1]),
 		})
 	

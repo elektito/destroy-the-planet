@@ -90,21 +90,21 @@ func get_stats():
 
 
 func get_demand_factor():
-	var factor = world.get_demand() / 1000000
+	var factor = world.get_demand()
 	if factor == 0:
 		factor = 1
 	return factor
 
 
 func get_power_factor():
-	var factor = world.get_power() / 1000000
+	var factor = world.get_power()
 	if factor == 0:
 		factor = 1
 	return factor
 
 
 func get_mining_factor():
-	var factor = world.get_mining() / 1000000
+	var factor = world.get_mining() / 1000
 	if factor == 0:
 		factor = 1
 	return factor
@@ -130,7 +130,7 @@ func get_actions():
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade factory to level ' + str(level + 1) + '.',
-			'price': (level + 1) * 1000,
+			'price': int(pow(10, level + 1)),
 			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
 	
@@ -155,6 +155,9 @@ func _on_cycle_timer_timeout():
 func notify_update(item):
 	if item in ['demand', 'power', 'mining']:
 		update_smoke()
+		emit_signal("info_updated", self, 'money_per_cycle')
+		emit_signal("info_updated", self, 'pollution_per_cycle')
+		emit_signal("info_updated", self, 'resource_usage_per_cycle')
 
 
 func update_smoke():

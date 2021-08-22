@@ -8,7 +8,7 @@ var resources := MAX_RESOURCES
 var money := 100
 var population := 0
 
-var click_money := 1
+var click_money := 10
 
 var placing := -1
 var inside_placing_area := false
@@ -94,6 +94,7 @@ func _unhandled_input(event):
 				placed_buildings.append(b)
 				update_toolbox()
 				update_info_bar()
+				update_building_panel()
 			
 		if placing < 0 and selected_building != null and event.button_index == BUTTON_RIGHT:
 			selected_building.get_node('building').selected = false
@@ -122,6 +123,7 @@ func _on_building_info_updated(building, item):
 		b.notify_update(item)
 		if item in ['population_increment', 'entertainment']:
 			b.notify_update('demand')
+	update_building_panel()
 
 
 func update_building_panel():
@@ -355,4 +357,13 @@ func get_entertainment() -> int:
 
 
 func get_demand() -> int:
-	return get_population() * get_entertainment()
+	var pop = get_population()
+	if pop == 0:
+		pop = 1
+	var entertainment = get_entertainment()
+	if entertainment == 0:
+		entertainment = 1
+	var demand = int(log(pop * entertainment) / log(10) )
+	if demand == 0:
+		demand = 1
+	return demand

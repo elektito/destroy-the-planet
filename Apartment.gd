@@ -101,7 +101,7 @@ func get_actions():
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade apartment building to level ' + str(level + 1) + '.',
-			'price': (level + 1) * 1000,
+			'price': int(pow(10, level + 1)),
 			'stats': Global.get_level_upgrade_stats(current_level, levels[level + 1]),
 		})
 	
