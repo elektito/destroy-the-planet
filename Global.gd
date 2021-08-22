@@ -58,7 +58,7 @@ static func human_readable_money(value : int) -> String:
 		return str(value)
 
 
-static func get_level_stats(level):
+static func get_level_upgrade_stats(current_level, next_level):
 	var stats = []
 	var key_to_stat_type = {
 		'base_money_per_cycle': StatType.MONEY,
@@ -70,10 +70,10 @@ static func get_level_stats(level):
 		'base_population_cap': StatType.POPULATION_CAP,
 		'base_mining': StatType.MINING,
 	}
-	for key in level:
+	for key in current_level:
 		if key in key_to_stat_type:
 			stats.append({
 				'type': key_to_stat_type[key],
-				'value': str(level[key]),
+				'value': 'x' + str(next_level[key] / current_level[key]),
 			})
 	return stats
