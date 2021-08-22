@@ -86,6 +86,7 @@ func _unhandled_input(event):
 				$placing_area.add_child(b)
 				b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
 				b.connect('upgraded', self, '_on_building_upgraded')
+				b.connect('info_updated', self, '_on_building_info_updated')
 				b.init(self)
 				consume_money(get_price(b.type))
 				placing = -1
@@ -114,6 +115,13 @@ func _on_building_clicked(building):
 func _on_building_upgraded(building):
 	update_building_panel()
 	update_info_bar()
+
+
+func _on_building_info_updated(building, item):
+	for b in placed_buildings:
+		b.notify_update(item)
+		if item in ['population_increment', 'entertainment']:
+			b.notify_update('demand')
 
 
 func update_building_panel():
@@ -268,12 +276,16 @@ func _on_placing_area_mouse_exited():
 
 func produce_money(amount):
 	money += amount
+	for b in placed_buildings:
+		b.notify_update('money')
 	update_resource_bar()
 	update_toolbox()
 	update_action_widgets()
 
 
 func consume_money(amount):
+	for b in placed_buildings:
+		b.notify_update('money')
 	money -= amount
 	update_resource_bar()
 	update_toolbox()
@@ -281,16 +293,23 @@ func consume_money(amount):
 
 
 func produce_pollution(amount):
+	for b in placed_buildings:
+		b.notify_update('pollution')
 	pollution += amount
 	update_resource_bar()
 
 
 func consume_resources(amount):
+	for b in placed_buildings:
+		b.notify_update('resources')
 	resources -= amount
 	update_resource_bar()
 
 
 func add_population(amount):
+	for b in placed_buildings:
+		b.notify_update('population')
+		b.notify_update('demand')
 	population += amount
 	var cap := get_population_cap()
 	if population > cap:

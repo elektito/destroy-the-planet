@@ -1,6 +1,7 @@
 extends Node2D
 
 signal upgraded(building)
+signal info_updated(building, item)
 
 const type := Global.BuildingType.BAR
 
@@ -103,3 +104,8 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
+			emit_signal("info_updated", self, "entertainment")
+
+
+func notify_update(item):
+	pass

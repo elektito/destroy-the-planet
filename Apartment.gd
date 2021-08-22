@@ -1,6 +1,7 @@
 extends Node2D
 
 signal upgraded(building)
+signal info_updated(building, item)
 
 const type := Global.BuildingType.APARTMENT_BUILDING
 
@@ -112,7 +113,13 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
+			emit_signal("info_updated", self, "population_cap")
+			emit_signal("info_updated", self, "population_increment")
 
 
 func _on_cycle_timer_timeout():
 	world.add_population(get_population_increment())
+
+
+func notify_update(item):
+	pass

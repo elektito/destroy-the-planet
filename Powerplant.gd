@@ -1,6 +1,7 @@
 extends Node2D
 
 signal upgraded(building)
+signal info_updated(building, item)
 
 const type := Global.BuildingType.POWERPLANT
 
@@ -125,8 +126,13 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
+			emit_signal("info_updated", self, 'power')
 
 
 func _on_cycle_timer_timeout():
 	world.produce_pollution(get_pollution_per_cycle())
 	world.consume_resources(get_resource_usage_per_cycle())
+
+
+func notify_update(item):
+	pass

@@ -1,6 +1,7 @@
 extends Node2D
 
 signal upgraded(building)
+signal info_updated(building, item)
 
 const type = Global.BuildingType.FACTORY
 
@@ -140,9 +141,29 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
+			update_smoke()
 
 
 func _on_cycle_timer_timeout():
 	world.produce_money(get_money_per_cycle())
 	world.produce_pollution(get_pollution_per_cycle())
 	world.consume_resources(get_resource_usage_per_cycle())
+
+
+func notify_update(item):
+	if item in ['demand', 'power', 'mining']:
+		update_smoke()
+
+
+func update_smoke():
+	var max_pollution = 10000000000
+	var pollution = float(get_pollution_per_cycle())
+	var rate = float(get_pollution_per_cycle()) / max_pollution
+	if rate > 1.0:
+		rate = 1.0
+	rate = int(rate * 100)
+	if rate == 0:
+		rate = 1
+	if rate != $smoke1.rate:
+		$smoke1.rate = rate
+		$smoke2.rate = rate
