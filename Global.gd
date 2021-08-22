@@ -43,10 +43,10 @@ static func get_building_name(building_type) -> String:
 
 
 static func human_readable_money(value : int) -> String:
-	var suffixes = ['K', 'M', 'B', 'T', 'QA', 'QI', 'SX', 'SP', 'OC', 'NN']
+	var suffixes = ['K', 'M', 'B', 'T']
 	var fvalue = float(value)
 	var i = -1
-	while fvalue >= 1000 and i < len(suffixes):
+	while fvalue >= 1000 and i < len(suffixes) - 1:
 		fvalue /= 1000.0
 		i += 1
 	if i >= 0:
