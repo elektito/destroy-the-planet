@@ -213,7 +213,7 @@ func get_snap_angle(angle):
 
 
 func _on_toolbox_btn_pressed(building):
-	$placing_icon.texture = building_info[building]['scene'].instance()
+	$placing_icon.texture = building_info[building]['button'].icon
 	$placing_icon.position = get_local_mouse_position()
 	$placing_icon.visible = true
 	placing = building
