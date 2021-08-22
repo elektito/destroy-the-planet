@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/gfx/sprites/powerplant.png" type="Texture" id=1]
 [ext_resource path="res://assets/gfx/sprites/apartment.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://VictoryScreen.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/audio/placement_preview.ogg" type="AudioStream" id=13]
 [ext_resource path="res://assets/audio/placement.ogg" type="AudioStream" id=14]
+[ext_resource path="res://assets/audio/Big Eyes.mp3" type="AudioStream" id=15]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 276.474
@@ -534,6 +535,10 @@ stream = ExtResource( 13 )
 [node name="placement_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 volume_db = -11.107
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+autoplay = true
 
 [connection signal="mouse_entered" from="placing_area" to="." method="_on_placing_area_mouse_entered"]
 [connection signal="mouse_exited" from="placing_area" to="." method="_on_placing_area_mouse_exited"]
