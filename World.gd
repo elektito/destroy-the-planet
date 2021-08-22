@@ -183,10 +183,10 @@ func update_toolbox():
 
 
 func update_info_bar():
-	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = str(get_population()) + '/' + str(get_population_cap())
+	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = Global.human_readable_money(get_population()) + '/' + Global.human_readable_money(get_population_cap())
 	$hud/hbox/vbox/info_bar/margin/hbox/power_value_label.text = str(get_power())
 	$hud/hbox/vbox/info_bar/margin/hbox/mining_value_label.text = str(get_mining())
-	$hud/hbox/vbox/info_bar/margin/hbox/entertainment_value_label.text = str(get_entertainment())
+	$hud/hbox/vbox/info_bar/margin/hbox/entertainment_value_label.text = Global.human_readable_money(get_entertainment())
 	$hud/hbox/vbox/info_bar/margin/hbox/demand_value_label.text = str(get_demand())
 
 
