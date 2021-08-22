@@ -82,6 +82,7 @@ func _input(event):
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if placing < 0 and event.pressed and event.button_index == BUTTON_LEFT:
+			$placement_preview_sound.play()
 			produce_money(click_money)
 		if OS.is_debug_build() and placing < 0 and event.pressed and event.button_index == BUTTON_MIDDLE:
 			produce_money(100000000000000)
