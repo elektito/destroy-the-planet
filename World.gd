@@ -290,6 +290,14 @@ func consume_resources(amount):
 	update_resource_bar()
 
 
+func add_population(amount):
+	population += amount
+	var cap := get_population_cap()
+	if population > cap:
+		population = cap
+	update_info_bar()
+
+
 func get_population() -> int:
 	return population
 
