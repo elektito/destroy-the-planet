@@ -168,6 +168,8 @@ func update_info_bar():
 	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = str(get_population()) + '/' + str(get_population_cap())
 	$hud/hbox/vbox/info_bar/margin/hbox/power_value_label.text = str(get_power())
 	$hud/hbox/vbox/info_bar/margin/hbox/mining_value_label.text = str(get_mining())
+	$hud/hbox/vbox/info_bar/margin/hbox/entertainment_value_label.text = str(get_entertainment())
+	$hud/hbox/vbox/info_bar/margin/hbox/demand_value_label.text = str(get_demand())
 
 
 func update_action_widgets():
@@ -314,3 +316,15 @@ func get_mining() -> int:
 	for mine in mines:
 		mining += mine.get_mining()
 	return mining
+
+
+func get_entertainment() -> int:
+	var bars = get_placed_buildings(Global.BuildingType.BAR)
+	var entertainment := 0
+	for bar in bars:
+		entertainment += bar.get_entertainment()
+	return entertainment
+
+
+func get_demand() -> int:
+	return get_population() * get_entertainment()

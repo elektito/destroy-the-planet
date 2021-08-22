@@ -380,7 +380,7 @@ text = "Power:"
 [node name="power_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
 margin_left = 47.0
 margin_top = 8.0
-margin_right = 348.0
+margin_right = 192.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -388,24 +388,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep1" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 352.0
-margin_right = 356.0
+margin_left = 196.0
+margin_right = 200.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="population_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 360.0
+margin_left = 204.0
 margin_top = 8.0
-margin_right = 433.0
+margin_right = 277.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Population:"
 
 [node name="population_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 437.0
+margin_left = 281.0
 margin_top = 8.0
-margin_right = 739.0
+margin_right = 426.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -413,25 +413,79 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep2" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 743.0
-margin_right = 747.0
+margin_left = 430.0
+margin_right = 434.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="mining_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 751.0
+margin_left = 438.0
 margin_top = 8.0
-margin_right = 798.0
+margin_right = 485.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Mining:"
 
 [node name="mining_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 802.0
+margin_left = 489.0
+margin_top = 8.0
+margin_right = 635.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+theme = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
+text = "0"
+
+[node name="sep3" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 639.0
+margin_right = 643.0
+margin_bottom = 32.0
+theme = ExtResource( 10 )
+
+[node name="entertainment_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 647.0
+margin_top = 8.0
+margin_right = 737.0
+margin_bottom = 23.0
+theme = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
+text = "Entertanment:"
+
+[node name="entertainment_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 741.0
+margin_top = 8.0
+margin_right = 886.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+theme = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
+text = "0"
+
+[node name="sep4" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 890.0
+margin_right = 894.0
+margin_bottom = 32.0
+theme = ExtResource( 10 )
+
+[node name="demand_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 898.0
+margin_top = 8.0
+margin_right = 954.0
+margin_bottom = 23.0
+hint_tooltip = "Demand depends on the population and entertainment."
+mouse_filter = 1
+theme = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
+text = "Demand:"
+
+[node name="demand_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 958.0
 margin_top = 8.0
 margin_right = 1104.0
 margin_bottom = 23.0
+hint_tooltip = "Demand depends on the population and entertainment."
+mouse_filter = 1
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
