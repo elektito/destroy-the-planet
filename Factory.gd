@@ -134,6 +134,15 @@ func get_actions():
 			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
 	
+	actions.append({
+		'name': 'cycle',
+		'title': 'Manual Cycle',
+		'description': 'Manually perform one cycle of building operation by clicking the button.',
+		'price': 0,
+		'stats': [],
+		'button_text': 'Perform',
+	})
+	
 	return actions
 
 
@@ -144,6 +153,8 @@ func perform_action(action):
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
 			update_smoke()
+		'cycle':
+			_on_cycle_timer_timeout()
 
 
 func _on_cycle_timer_timeout():
