@@ -33,8 +33,7 @@ func set_button_disabled(value : bool):
 
 
 func get_button_disabled() -> bool:
-	#return $margin/vbox/action_btn.disabled
-	return false
+	return $margin/vbox/action_btn.disabled
 
 
 func update_action_button():
