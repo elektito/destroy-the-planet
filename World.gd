@@ -149,6 +149,7 @@ func update_building_panel():
 			widget.text = '[b]' + action['title'] + '[/b]\n\n' + action['description']
 			widget.price = action['price']
 			widget.button_disabled = (money < action['price'])
+			widget.set_stats(action['stats'])
 			widget.connect('action_button_clicked', self, '_on_action_button_clicked', [widget, action])
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 

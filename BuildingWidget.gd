@@ -36,6 +36,15 @@ func get_button_disabled() -> bool:
 	return $margin/vbox/action_btn.disabled
 
 
+func set_stats(stats):
+	for stat in stats:
+		if stat['type'] != Global.StatType.LEVEL:
+			var widget = preload("res://BuildingStat.tscn").instance()
+			widget.type = stat['type']
+			widget.text = stat['value']
+			$margin/vbox.add_child_below_node($margin/vbox/description, widget)
+
+
 func update_action_button():
 	if price == 0 or price == null:
 		$margin/vbox/action_btn.text = 'Upgrade'

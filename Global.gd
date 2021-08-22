@@ -56,3 +56,24 @@ static func human_readable_money(value : int) -> String:
 		return svalue + suffixes[i]
 	else:
 		return str(value)
+
+
+static func get_level_stats(level):
+	var stats = []
+	var key_to_stat_type = {
+		'base_money_per_cycle': StatType.MONEY,
+		'base_pollution_per_cycle': StatType.POLLUTION,
+		'base_resource_usage_per_cycle': StatType.USAGE,
+		'base_power': StatType.POWER,
+		'base_entertainment': StatType.ENTERTAINMENT,
+		'base_population_increment': StatType.POPULATION_INCREASE,
+		'base_population_cap': StatType.POPULATION_CAP,
+		'base_mining': StatType.MINING,
+	}
+	for key in level:
+		if key in key_to_stat_type:
+			stats.append({
+				'type': key_to_stat_type[key],
+				'value': str(level[key]),
+			})
+	return stats

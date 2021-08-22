@@ -9,50 +9,36 @@ var levels = [
 	{
 		'number': 1,
 		'description': 'Your rudimentary basic factory.',
-		'base_pollution_per_cycle': 100,
-		'base_resource_usage_per_cycle': 1,
 		'base_entertainment': 1,
 	},
 	{
 		'number': 2,
 		'description': 'Small factory.',
-		'base_pollution_per_cycle': 10000,
-		'base_resource_usage_per_cycle': 10,
 		'base_entertainment': 10,
 	},
 	{
 		'number': 3,
 		'description': 'Partially upgraded factory.',
-		'base_pollution_per_cycle': 100000,
-		'base_resource_usage_per_cycle': 100,
 		'base_entertainment': 100,
 	},
 	{
 		'number': 4,
 		'description': 'Medium-sized factory.',
-		'base_pollution_per_cycle': 1000000,
-		'base_resource_usage_per_cycle': 500,
 		'base_entertainment': 1000,
 	},
 	{
 		'number': 5,
 		'description': 'Above-medium factory.',
-		'base_pollution_per_cycle': 10000000,
-		'base_resource_usage_per_cycle': 1000,
 		'base_entertainment': 10000,
 	},
 	{
 		'number': 6,
 		'description': 'Almost-there factory.',
-		'base_pollution_per_cycle': 100000000,
-		'base_resource_usage_per_cycle': 10000,
 		'base_entertainment': 100000,
 	},
 	{
 		'number': 7,
 		'description': 'Beast of a factory.',
-		'base_pollution_per_cycle': 100000000,
-		'base_resource_usage_per_cycle': 50000,
 		'base_entertainment': 1000000,
 	},
 ]
@@ -93,6 +79,7 @@ func get_actions():
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade bar to level ' + str(level + 1) + '. Base resource usage will be twice the current amount and the pollution ten times.',
 			'price': (level + 1) * 1000,
+			'stats': Global.get_level_stats(levels[level + 1]),
 		})
 	
 	return actions

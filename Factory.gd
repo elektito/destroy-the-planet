@@ -130,6 +130,7 @@ func get_actions():
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade factory to level ' + str(level + 1) + '. Base resource usage will be twice the current amount and the pollution ten times.',
 			'price': (level + 1) * 1000,
+			'stats': Global.get_level_stats(levels[level + 1]),
 		})
 	
 	return actions
