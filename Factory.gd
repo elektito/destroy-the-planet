@@ -129,7 +129,7 @@ func get_actions():
 		actions.append({
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
-			'description': 'Upgrade factory to level ' + str(level + 1) + '. Base resource usage will be twice the current amount and the pollution ten times.',
+			'description': 'Upgrade factory to level ' + str(level + 1) + '.',
 			'price': (level + 1) * 1000,
 			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
