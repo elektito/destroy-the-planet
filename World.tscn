@@ -331,6 +331,7 @@ margin_left = 830.0
 margin_top = 8.0
 margin_right = 1104.0
 margin_bottom = 23.0
+mouse_filter = 1
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )

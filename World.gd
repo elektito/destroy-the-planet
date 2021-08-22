@@ -144,7 +144,10 @@ func update_building_panel():
 		for stat in selected_building.get_stats():
 			var widget = preload("res://BuildingStat.tscn").instance()
 			widget.type = stat['type']
-			widget.text = stat['value']
+			if stat['type'] == Global.StatType.MONEY:
+				widget.text = Global.human_readable_money(int(stat['value']))
+			else:
+				widget.text = stat['value']
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 		for action in selected_building.get_actions():
 			var widget = preload("res://BuildingWidget.tscn").instance()
@@ -157,7 +160,8 @@ func update_building_panel():
 
 
 func update_resource_bar():
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = str(money)
+	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = Global.human_readable_money(money)
+	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.hint_tooltip = str(money)
 	
 	var resources_percent = int(float(resources) / MAX_RESOURCES * 100)
 	$hud/hbox/vbox/resource_bar/margin/hbox/resources_value_label.text = str(resources) + ' (' + str(resources_percent) + '%)'

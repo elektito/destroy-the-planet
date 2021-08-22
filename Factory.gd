@@ -17,43 +17,43 @@ var levels = [
 		'number': 2,
 		'description': 'Small factory.',
 		'base_money_per_cycle': 10,
-		'base_pollution_per_cycle': 10000,
+		'base_pollution_per_cycle': 1000,
 		'base_resource_usage_per_cycle': 10,
 	},
 	{
 		'number': 3,
 		'description': 'Partially upgraded factory.',
 		'base_money_per_cycle': 100,
-		'base_pollution_per_cycle': 100000,
+		'base_pollution_per_cycle': 2000,
 		'base_resource_usage_per_cycle': 100,
 	},
 	{
 		'number': 4,
 		'description': 'Medium-sized factory.',
-		'base_money_per_cycle': 1000,
-		'base_pollution_per_cycle': 1000000,
+		'base_money_per_cycle': 500,
+		'base_pollution_per_cycle': 4000,
 		'base_resource_usage_per_cycle': 500,
 	},
 	{
 		'number': 5,
 		'description': 'Above-medium factory.',
-		'base_money_per_cycle': 10000,
-		'base_pollution_per_cycle': 10000000,
+		'base_money_per_cycle': 1000,
+		'base_pollution_per_cycle': 20000,
 		'base_resource_usage_per_cycle': 1000,
 	},
 	{
 		'number': 6,
 		'description': 'Almost-there factory.',
-		'base_money_per_cycle': 100000,
-		'base_pollution_per_cycle': 100000000,
-		'base_resource_usage_per_cycle': 10000,
+		'base_money_per_cycle': 2000,
+		'base_pollution_per_cycle': 8000,
+		'base_resource_usage_per_cycle': 2000,
 	},
 	{
 		'number': 7,
 		'description': 'Beast of a factory.',
-		'base_money_per_cycle': 100000,
-		'base_pollution_per_cycle': 100000000,
-		'base_resource_usage_per_cycle': 50000,
+		'base_money_per_cycle': 10000,
+		'base_pollution_per_cycle': 16000,
+		'base_resource_usage_per_cycle': 4000,
 	},
 ]
 var current_level = levels[0]
@@ -104,7 +104,7 @@ func get_power_factor():
 
 
 func get_mining_factor():
-	var factor = world.get_mining() / 1000
+	var factor = world.get_mining()
 	if factor == 0:
 		factor = 1
 	return factor
@@ -130,7 +130,7 @@ func get_actions():
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade factory to level ' + str(level + 1) + '.',
-			'price': int(pow(10, level + 1)),
+			'price': int(pow(100, level)),
 			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
 	

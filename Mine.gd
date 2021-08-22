@@ -11,35 +11,35 @@ var levels = [
 		'description': 'Tiny mine.',
 		'base_pollution_per_cycle': 1,
 		'base_resource_usage_per_cycle': 100,
-		'base_mining': 2000,
+		'base_mining': 2,
 	},
 	{
 		'number': 2,
 		'description': 'Small mine.',
 		'base_pollution_per_cycle': 10,
 		'base_resource_usage_per_cycle': 10000,
-		'base_mining': 4000,
+		'base_mining': 4,
 	},
 	{
 		'number': 3,
 		'description': 'Partially upgraded mine.',
 		'base_pollution_per_cycle': 100,
-		'base_resource_usage_per_cycle': 100000,
-		'base_mining': 8000,
+		'base_resource_usage_per_cycle': 50000,
+		'base_mining': 8,
 	},
 	{
 		'number': 4,
 		'description': 'Medium-sized mine.',
 		'base_pollution_per_cycle': 500,
-		'base_resource_usage_per_cycle': 1000000,
-		'base_mining': 16000,
+		'base_resource_usage_per_cycle': 100000,
+		'base_mining': 16,
 	},
 	{
 		'number': 5,
 		'description': 'Big mine.',
 		'base_pollution_per_cycle': 1000,
-		'base_resource_usage_per_cycle': 10000000,
-		'base_mining': 32000,
+		'base_resource_usage_per_cycle': 200000,
+		'base_mining': 32,
 	},
 ]
 var current_level = levels[0]
@@ -90,12 +90,13 @@ func get_mining():
 func get_actions():
 	var actions = []
 	if level < levels[-1]['number']:
+		var next_level = levels[level] # level is one based, so levels[level] is next level
 		actions.append({
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade mine to level ' + str(level + 1) + '.',
-			'price': int(pow(10, level + 1)),
-			'stats': Global.get_level_upgrade_stats(current_level, levels[level + 1]),
+			'price': int(pow(100, level)),
+			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
 	
 	return actions
