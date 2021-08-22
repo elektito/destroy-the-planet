@@ -92,6 +92,7 @@ func _unhandled_input(event):
 				used_angles.append($placing_area/preview_icon.rotation)
 				placed_buildings.append(b)
 				update_toolbox()
+				update_info_bar()
 			
 		if placing < 0 and not selected_building == null:
 			selected_building.get_node('building').selected = false
@@ -112,6 +113,7 @@ func _on_building_clicked(building):
 
 func _on_building_upgraded(building):
 	update_building_panel()
+	update_info_bar()
 
 
 func update_building_panel():
