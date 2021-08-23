@@ -58,6 +58,8 @@ func shake():
 	# detect it using this hack and return.
 	if get_parent().get_parent().get_path().get_name(1) == 'VictoryScreen' or get_parent().get_parent().get_path().get_name(2) == 'victory_screen':
 		return
+	if Engine.is_editor_hint():
+		return
 	
 	var parent_pos = get_parent().global_position
 	var pos = global_position
