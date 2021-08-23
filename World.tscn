@@ -79,7 +79,7 @@ layer = -1
 
 [node name="background" type="ColorRect" parent="bg_layer"]
 margin_right = 1278.0
-margin_bottom = 704.0
+margin_bottom = 720.0
 mouse_filter = 2
 color = Color( 0, 0.733333, 1, 1 )
 __meta__ = {
@@ -107,7 +107,7 @@ texture = ExtResource( 4 )
 
 [node name="toolbox_bg" type="ColorRect" parent="."]
 margin_right = 40.0
-margin_bottom = 704.0
+margin_bottom = 720.0
 mouse_filter = 2
 color = Color( 0.215686, 0.580392, 0.431373, 1 )
 __meta__ = {
