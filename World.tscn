@@ -188,9 +188,9 @@ expand_icon = true
 
 [node name="building_panel" type="PanelContainer" parent="hud/hbox"]
 margin_left = 40.0
-margin_right = 172.0
+margin_right = 190.0
 margin_bottom = 720.0
-rect_min_size = Vector2( 132, 0 )
+rect_min_size = Vector2( 150, 0 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 11 )
 __meta__ = {
@@ -198,7 +198,7 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="hud/hbox/building_panel"]
-margin_right = 132.0
+margin_right = 150.0
 margin_bottom = 720.0
 mouse_filter = 2
 custom_constants/margin_right = 4
@@ -212,12 +212,12 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="hud/hbox/building_panel/MarginContainer"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 128.0
+margin_right = 146.0
 margin_bottom = 716.0
 mouse_filter = 2
 
 [node name="description" type="RichTextLabel" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer"]
-margin_right = 124.0
+margin_right = 142.0
 margin_bottom = 48.0
 custom_fonts/bold_font = SubResource( 12 )
 custom_fonts/normal_font = SubResource( 13 )
@@ -248,18 +248,18 @@ text = "foobar"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 74.0
-margin_right = 124.0
+margin_right = 142.0
 margin_bottom = 132.0
 
 [node name="vbox" type="VBoxContainer" parent="hud/hbox"]
-margin_left = 172.0
+margin_left = 190.0
 margin_right = 1280.0
 margin_bottom = 720.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="resource_bar" type="PanelContainer" parent="hud/hbox/vbox"]
-margin_right = 1108.0
+margin_right = 1090.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 0, 36 )
 mouse_filter = 2
@@ -267,7 +267,7 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 14 )
 
 [node name="margin" type="MarginContainer" parent="hud/hbox/vbox/resource_bar"]
-margin_right = 1108.0
+margin_right = 1090.0
 margin_bottom = 36.0
 mouse_filter = 2
 custom_constants/margin_right = 2
@@ -278,7 +278,7 @@ custom_constants/margin_bottom = 2
 [node name="hbox" type="HBoxContainer" parent="hud/hbox/vbox/resource_bar/margin"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1106.0
+margin_right = 1088.0
 margin_bottom = 34.0
 mouse_filter = 2
 alignment = 1
@@ -294,7 +294,7 @@ text = "Pollution:"
 [node name="pollution_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
 margin_left = 65.0
 margin_top = 8.0
-margin_right = 339.0
+margin_right = 333.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -302,24 +302,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0 (0%)"
 
 [node name="sep1" type="VSeparator" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 343.0
-margin_right = 347.0
+margin_left = 337.0
+margin_right = 341.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="resources_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 351.0
+margin_left = 345.0
 margin_top = 8.0
-margin_right = 490.0
+margin_right = 484.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Remaining Resources:"
 
 [node name="resources_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 494.0
+margin_left = 488.0
 margin_top = 8.0
-margin_right = 768.0
+margin_right = 756.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -327,24 +327,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "10000 (100%)"
 
 [node name="sep2" type="VSeparator" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 772.0
-margin_right = 776.0
+margin_left = 760.0
+margin_right = 764.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="money_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 780.0
+margin_left = 768.0
 margin_top = 8.0
-margin_right = 826.0
+margin_right = 814.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Money:"
 
 [node name="money_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 830.0
+margin_left = 818.0
 margin_top = 8.0
-margin_right = 1104.0
+margin_right = 1086.0
 margin_bottom = 23.0
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -354,7 +354,7 @@ text = "0"
 
 [node name="empty" type="Control" parent="hud/hbox/vbox"]
 margin_top = 40.0
-margin_right = 1108.0
+margin_right = 1090.0
 margin_bottom = 680.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -362,14 +362,14 @@ size_flags_vertical = 3
 
 [node name="info_bar" type="PanelContainer" parent="hud/hbox/vbox"]
 margin_top = 684.0
-margin_right = 1108.0
+margin_right = 1090.0
 margin_bottom = 720.0
 rect_min_size = Vector2( 0, 36 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 15 )
 
 [node name="margin" type="MarginContainer" parent="hud/hbox/vbox/info_bar"]
-margin_right = 1108.0
+margin_right = 1090.0
 margin_bottom = 36.0
 mouse_filter = 2
 custom_constants/margin_right = 2
@@ -380,7 +380,7 @@ custom_constants/margin_bottom = 2
 [node name="hbox" type="HBoxContainer" parent="hud/hbox/vbox/info_bar/margin"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1106.0
+margin_right = 1088.0
 margin_bottom = 34.0
 mouse_filter = 2
 alignment = 1
@@ -396,7 +396,7 @@ text = "Power:"
 [node name="power_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
 margin_left = 47.0
 margin_top = 8.0
-margin_right = 192.0
+margin_right = 188.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -404,24 +404,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep1" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 196.0
-margin_right = 200.0
+margin_left = 192.0
+margin_right = 196.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="population_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 204.0
+margin_left = 200.0
 margin_top = 8.0
-margin_right = 277.0
+margin_right = 273.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Population:"
 
 [node name="population_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 281.0
+margin_left = 277.0
 margin_top = 8.0
-margin_right = 426.0
+margin_right = 419.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -429,24 +429,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep2" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 430.0
-margin_right = 434.0
+margin_left = 423.0
+margin_right = 427.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="mining_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 438.0
+margin_left = 431.0
 margin_top = 8.0
-margin_right = 485.0
+margin_right = 478.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Mining:"
 
 [node name="mining_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 489.0
+margin_left = 482.0
 margin_top = 8.0
-margin_right = 635.0
+margin_right = 624.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -454,24 +454,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep3" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 639.0
-margin_right = 643.0
+margin_left = 628.0
+margin_right = 632.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="entertainment_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 647.0
+margin_left = 636.0
 margin_top = 8.0
-margin_right = 737.0
+margin_right = 726.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Entertanment:"
 
 [node name="entertainment_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 741.0
+margin_left = 730.0
 margin_top = 8.0
-margin_right = 886.0
+margin_right = 872.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -479,15 +479,15 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep4" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 890.0
-margin_right = 894.0
+margin_left = 876.0
+margin_right = 880.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="demand_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 898.0
+margin_left = 884.0
 margin_top = 8.0
-margin_right = 954.0
+margin_right = 940.0
 margin_bottom = 23.0
 hint_tooltip = "Demand depends on the population and entertainment."
 mouse_filter = 1
@@ -496,9 +496,9 @@ custom_fonts/font = ExtResource( 11 )
 text = "Demand:"
 
 [node name="demand_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 958.0
+margin_left = 944.0
 margin_top = 8.0
-margin_right = 1104.0
+margin_right = 1086.0
 margin_bottom = 23.0
 hint_tooltip = "Demand depends on the population and entertainment."
 mouse_filter = 1
