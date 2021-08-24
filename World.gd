@@ -22,27 +22,27 @@ var prev_angle = null
 
 onready var building_info = {
 	Global.BuildingType.FACTORY: {
-		'button': $hud/hbox/toolbox/factory_btn,
+		'button': $hud/hbox/toolbox/vbox/factory_btn,
 		'preview_icon': preload("res://assets/gfx/sprites/factory.png"),
 		'scene': preload("res://Factory.tscn"),
 	},
 	Global.BuildingType.MINE: {
-		'button': $hud/hbox/toolbox/mine_btn,
+		'button': $hud/hbox/toolbox/vbox/mine_btn,
 		'preview_icon': preload("res://assets/gfx/sprites/mine.png"),
 		'scene': preload("res://Mine.tscn"),
 	},
 	Global.BuildingType.POWERPLANT: {
-		'button': $hud/hbox/toolbox/powerplant_btn,
+		'button': $hud/hbox/toolbox/vbox/powerplant_btn,
 		'preview_icon': preload("res://assets/gfx/sprites/powerplant.png"),
 		'scene': preload("res://Powerplant.tscn"),
 	},
 	Global.BuildingType.APARTMENT_BUILDING: {
-		'button': $hud/hbox/toolbox/apartment_btn,
+		'button': $hud/hbox/toolbox/vbox/apartment_btn,
 		'preview_icon': preload("res://assets/gfx/sprites/apartment.png"),
 		'scene': preload("res://Apartment.tscn"),
 	},
 	Global.BuildingType.BAR: {
-		'button': $hud/hbox/toolbox/bar_btn,
+		'button': $hud/hbox/toolbox/vbox/bar_btn,
 		'preview_icon': preload("res://assets/gfx/sprites/bar.png"),
 		'scene': preload("res://Bar.tscn"),
 	},
@@ -312,13 +312,13 @@ func _on_toolbox_btn_pressed(building):
 
 
 func _on_toolbox_btn_mouse_entered(building):
-	$highlight.rect_position.x = 2
-	$highlight.rect_position.y = building_info[building]['button'].rect_position.y + 2
-	$highlight.visible = true
+	$hud/highlight.rect_position.x = 2
+	$hud/highlight.rect_position.y = building_info[building]['button'].rect_position.y + 2
+	$hud/highlight.visible = true
 
 
 func _on_toolbox_btn_mouse_exited(btn):
-	$highlight.visible = false
+	$hud/highlight.visible = false
 
 
 func _on_placing_area_mouse_entered():
