@@ -311,16 +311,6 @@ func _on_toolbox_btn_pressed(building):
 	$placement_preview_sound.play()
 
 
-func _on_toolbox_btn_mouse_entered(building):
-	$hud/highlight.rect_position.x = 2
-	$hud/highlight.rect_position.y = building_info[building]['button'].rect_position.y + 2
-	$hud/highlight.visible = true
-
-
-func _on_toolbox_btn_mouse_exited(btn):
-	$hud/highlight.visible = false
-
-
 func _on_placing_area_mouse_entered():
 	inside_placing_area = true
 	if placing >= 0:

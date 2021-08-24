@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/gfx/sprites/powerplant.png" type="Texture" id=1]
 [ext_resource path="res://assets/gfx/sprites/apartment.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/audio/placement.ogg" type="AudioStream" id=14]
 [ext_resource path="res://assets/audio/Big Eyes.mp3" type="AudioStream" id=15]
 [ext_resource path="res://Settings.tscn" type="PackedScene" id=16]
+[ext_resource path="res://ToolboxTheme.tres" type="Theme" id=17]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 276.474
@@ -33,45 +34,45 @@ flags = 5
 atlas = SubResource( 3 )
 region = Rect2( 0, 300, 512, 600 )
 
-[sub_resource type="StreamTexture" id=5]
+[sub_resource type="StreamTexture" id=6]
 flags = 5
 load_path = "res://.import/mine.png-6e597bfb5a7c7612bb55dc80efe8800f.stex"
 
-[sub_resource type="AtlasTexture" id=6]
-flags = 5
-atlas = SubResource( 5 )
-region = Rect2( 0, 320, 512, 600 )
-
 [sub_resource type="AtlasTexture" id=7]
 flags = 5
-atlas = ExtResource( 1 )
+atlas = SubResource( 6 )
 region = Rect2( 0, 320, 512, 600 )
 
 [sub_resource type="AtlasTexture" id=8]
 flags = 5
+atlas = ExtResource( 1 )
+region = Rect2( 0, 320, 512, 600 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 5
 atlas = ExtResource( 2 )
 region = Rect2( 0, 310, 512, 600 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=10]
 flags = 5
 atlas = ExtResource( 5 )
 region = Rect2( 0, 310, 512, 600 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.6, 0.898039, 0.313726, 1 )
-
-[sub_resource type="DynamicFont" id=11]
-use_filter = true
-font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=12]
 use_filter = true
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=13]
+use_filter = true
 font_data = ExtResource( 6 )
 
-[sub_resource type="StyleBoxFlat" id=13]
+[sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
 
-[sub_resource type="StyleBoxFlat" id=14]
+[sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
 
 [node name="World" type="Node2D"]
@@ -122,12 +123,12 @@ __meta__ = {
 }
 
 [node name="toolbox" type="PanelContainer" parent="hud/hbox"]
-margin_right = 40.0
+margin_right = 32.0
 margin_bottom = 720.0
 custom_styles/panel = SubResource( 2 )
 
 [node name="vbox" type="VBoxContainer" parent="hud/hbox/toolbox"]
-margin_right = 40.0
+margin_right = 32.0
 margin_bottom = 720.0
 mouse_filter = 2
 custom_constants/separation = 0
@@ -136,61 +137,62 @@ __meta__ = {
 }
 
 [node name="factory_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-focus_mode = 0
-theme = ExtResource( 10 )
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+theme = ExtResource( 17 )
 icon = SubResource( 4 )
+flat = false
 expand_icon = true
 
 [node name="mine_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox"]
-margin_top = 40.0
-margin_right = 40.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 40, 40 )
+margin_top = 32.0
+margin_right = 32.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 32, 32 )
 focus_mode = 0
-theme = ExtResource( 10 )
-icon = SubResource( 6 )
+theme = ExtResource( 17 )
+icon = SubResource( 7 )
+flat = false
 expand_icon = true
 
 [node name="powerplant_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox"]
-margin_top = 80.0
-margin_right = 40.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 40, 40 )
-focus_mode = 0
-theme = ExtResource( 10 )
-icon = SubResource( 7 )
+margin_top = 64.0
+margin_right = 32.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 32, 32 )
+theme = ExtResource( 17 )
+icon = SubResource( 8 )
+flat = false
 expand_icon = true
 
 [node name="apartment_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox"]
-margin_top = 120.0
-margin_right = 40.0
-margin_bottom = 160.0
-rect_min_size = Vector2( 40, 40 )
-focus_mode = 0
-theme = ExtResource( 10 )
-icon = SubResource( 8 )
+margin_top = 96.0
+margin_right = 32.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 32, 32 )
+theme = ExtResource( 17 )
+icon = SubResource( 9 )
+flat = false
 expand_icon = true
 
 [node name="bar_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox"]
-margin_top = 160.0
-margin_right = 40.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 40, 40 )
-focus_mode = 0
-theme = ExtResource( 10 )
-icon = SubResource( 9 )
+margin_top = 128.0
+margin_right = 32.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 32, 32 )
+theme = ExtResource( 17 )
+icon = SubResource( 10 )
+flat = false
 expand_icon = true
 
 [node name="building_panel" type="PanelContainer" parent="hud/hbox"]
-margin_left = 40.0
-margin_right = 172.0
+margin_left = 32.0
+margin_right = 164.0
 margin_bottom = 720.0
 rect_min_size = Vector2( 132, 0 )
 mouse_filter = 2
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -217,8 +219,8 @@ mouse_filter = 2
 [node name="description" type="RichTextLabel" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer"]
 margin_right = 124.0
 margin_bottom = 48.0
-custom_fonts/bold_font = SubResource( 11 )
-custom_fonts/normal_font = SubResource( 12 )
+custom_fonts/bold_font = SubResource( 12 )
+custom_fonts/normal_font = SubResource( 13 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[b]foobar[/b]
@@ -250,22 +252,22 @@ margin_right = 124.0
 margin_bottom = 132.0
 
 [node name="vbox" type="VBoxContainer" parent="hud/hbox"]
-margin_left = 172.0
+margin_left = 164.0
 margin_right = 1280.0
 margin_bottom = 720.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="resource_bar" type="PanelContainer" parent="hud/hbox/vbox"]
-margin_right = 1108.0
+margin_right = 1116.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 0, 36 )
 mouse_filter = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 13 )
+custom_styles/panel = SubResource( 14 )
 
 [node name="margin" type="MarginContainer" parent="hud/hbox/vbox/resource_bar"]
-margin_right = 1108.0
+margin_right = 1116.0
 margin_bottom = 36.0
 mouse_filter = 2
 custom_constants/margin_right = 2
@@ -276,7 +278,7 @@ custom_constants/margin_bottom = 2
 [node name="hbox" type="HBoxContainer" parent="hud/hbox/vbox/resource_bar/margin"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1106.0
+margin_right = 1114.0
 margin_bottom = 34.0
 mouse_filter = 2
 alignment = 1
@@ -292,7 +294,7 @@ text = "Pollution:"
 [node name="pollution_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
 margin_left = 65.0
 margin_top = 8.0
-margin_right = 339.0
+margin_right = 341.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -300,24 +302,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0 (0%)"
 
 [node name="sep1" type="VSeparator" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 343.0
-margin_right = 347.0
+margin_left = 345.0
+margin_right = 349.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="resources_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 351.0
+margin_left = 353.0
 margin_top = 8.0
-margin_right = 490.0
+margin_right = 492.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Remaining Resources:"
 
 [node name="resources_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 494.0
+margin_left = 496.0
 margin_top = 8.0
-margin_right = 768.0
+margin_right = 773.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -325,24 +327,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "10000 (100%)"
 
 [node name="sep2" type="VSeparator" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 772.0
-margin_right = 776.0
+margin_left = 777.0
+margin_right = 781.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="money_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 780.0
+margin_left = 785.0
 margin_top = 8.0
-margin_right = 826.0
+margin_right = 831.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Money:"
 
 [node name="money_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 830.0
+margin_left = 835.0
 margin_top = 8.0
-margin_right = 1104.0
+margin_right = 1112.0
 margin_bottom = 23.0
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -352,7 +354,7 @@ text = "0"
 
 [node name="empty" type="Control" parent="hud/hbox/vbox"]
 margin_top = 40.0
-margin_right = 1108.0
+margin_right = 1116.0
 margin_bottom = 680.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -360,14 +362,14 @@ size_flags_vertical = 3
 
 [node name="info_bar" type="PanelContainer" parent="hud/hbox/vbox"]
 margin_top = 684.0
-margin_right = 1108.0
+margin_right = 1116.0
 margin_bottom = 720.0
 rect_min_size = Vector2( 0, 36 )
 mouse_filter = 2
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 15 )
 
 [node name="margin" type="MarginContainer" parent="hud/hbox/vbox/info_bar"]
-margin_right = 1108.0
+margin_right = 1116.0
 margin_bottom = 36.0
 mouse_filter = 2
 custom_constants/margin_right = 2
@@ -378,7 +380,7 @@ custom_constants/margin_bottom = 2
 [node name="hbox" type="HBoxContainer" parent="hud/hbox/vbox/info_bar/margin"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1106.0
+margin_right = 1114.0
 margin_bottom = 34.0
 mouse_filter = 2
 alignment = 1
@@ -394,7 +396,7 @@ text = "Power:"
 [node name="power_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
 margin_left = 47.0
 margin_top = 8.0
-margin_right = 192.0
+margin_right = 194.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -402,24 +404,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep1" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 196.0
-margin_right = 200.0
+margin_left = 198.0
+margin_right = 202.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="population_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 204.0
+margin_left = 206.0
 margin_top = 8.0
-margin_right = 277.0
+margin_right = 279.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Population:"
 
 [node name="population_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 281.0
+margin_left = 283.0
 margin_top = 8.0
-margin_right = 426.0
+margin_right = 430.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -427,24 +429,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep2" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 430.0
-margin_right = 434.0
+margin_left = 434.0
+margin_right = 438.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="mining_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 438.0
+margin_left = 442.0
 margin_top = 8.0
-margin_right = 485.0
+margin_right = 489.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Mining:"
 
 [node name="mining_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 489.0
+margin_left = 493.0
 margin_top = 8.0
-margin_right = 635.0
+margin_right = 640.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -452,24 +454,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep3" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 639.0
-margin_right = 643.0
+margin_left = 644.0
+margin_right = 648.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="entertainment_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 647.0
+margin_left = 652.0
 margin_top = 8.0
-margin_right = 737.0
+margin_right = 742.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Entertanment:"
 
 [node name="entertainment_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 741.0
+margin_left = 746.0
 margin_top = 8.0
-margin_right = 886.0
+margin_right = 893.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -477,15 +479,15 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep4" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 890.0
-margin_right = 894.0
+margin_left = 897.0
+margin_right = 901.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="demand_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 898.0
+margin_left = 905.0
 margin_top = 8.0
-margin_right = 954.0
+margin_right = 961.0
 margin_bottom = 23.0
 hint_tooltip = "Demand depends on the population and entertainment."
 mouse_filter = 1
@@ -494,9 +496,9 @@ custom_fonts/font = ExtResource( 11 )
 text = "Demand:"
 
 [node name="demand_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 958.0
+margin_left = 965.0
 margin_top = 8.0
-margin_right = 1104.0
+margin_right = 1112.0
 margin_bottom = 23.0
 hint_tooltip = "Demand depends on the population and entertainment."
 mouse_filter = 1
@@ -504,16 +506,6 @@ size_flags_horizontal = 3
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "0"
-
-[node name="highlight" type="ColorRect" parent="hud"]
-visible = false
-margin_right = 36.0
-margin_bottom = 36.0
-mouse_filter = 2
-color = Color( 1, 1, 1, 0.25098 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="placing_icon" type="Sprite" parent="hud"]
 visible = false
@@ -553,20 +545,10 @@ visible = false
 
 [connection signal="mouse_entered" from="placing_area" to="." method="_on_placing_area_mouse_entered"]
 [connection signal="mouse_exited" from="placing_area" to="." method="_on_placing_area_mouse_exited"]
-[connection signal="mouse_entered" from="hud/hbox/toolbox/vbox/factory_btn" to="." method="_on_toolbox_btn_mouse_entered" binds= [ 0 ]]
-[connection signal="mouse_exited" from="hud/hbox/toolbox/vbox/factory_btn" to="." method="_on_toolbox_btn_mouse_exited" binds= [ 0 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/factory_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 0 ]]
-[connection signal="mouse_entered" from="hud/hbox/toolbox/vbox/mine_btn" to="." method="_on_toolbox_btn_mouse_entered" binds= [ 2 ]]
-[connection signal="mouse_exited" from="hud/hbox/toolbox/vbox/mine_btn" to="." method="_on_toolbox_btn_mouse_exited" binds= [ 2 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/mine_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 2 ]]
-[connection signal="mouse_entered" from="hud/hbox/toolbox/vbox/powerplant_btn" to="." method="_on_toolbox_btn_mouse_entered" binds= [ 1 ]]
-[connection signal="mouse_exited" from="hud/hbox/toolbox/vbox/powerplant_btn" to="." method="_on_toolbox_btn_mouse_exited" binds= [ 1 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/powerplant_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 1 ]]
-[connection signal="mouse_entered" from="hud/hbox/toolbox/vbox/apartment_btn" to="." method="_on_toolbox_btn_mouse_entered" binds= [ 3 ]]
-[connection signal="mouse_exited" from="hud/hbox/toolbox/vbox/apartment_btn" to="." method="_on_toolbox_btn_mouse_exited" binds= [ 3 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/apartment_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 3 ]]
-[connection signal="mouse_entered" from="hud/hbox/toolbox/vbox/bar_btn" to="." method="_on_toolbox_btn_mouse_entered" binds= [ 4 ]]
-[connection signal="mouse_exited" from="hud/hbox/toolbox/vbox/bar_btn" to="." method="_on_toolbox_btn_mouse_exited" binds= [ 4 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/bar_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 4 ]]
 [connection signal="tween_completed" from="click_vfx_tween" to="." method="_on_click_vfx_tween_tween_completed"]
 [connection signal="closed" from="settings/screen" to="." method="_on_screen_closed"]
