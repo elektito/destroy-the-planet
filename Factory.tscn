@@ -8,9 +8,6 @@
 [node name="Factory" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="building" parent="." instance=ExtResource( 1 )]
-texture = ExtResource( 3 )
-
 [node name="smoke1" parent="." instance=ExtResource( 4 )]
 position = Vector2( -8.30849, -12.1369 )
 amount = 1
@@ -22,6 +19,9 @@ position = Vector2( 3.53554, -12.1369 )
 amount = 1
 scale_amount = 0.202
 rate = 1
+
+[node name="building" parent="." instance=ExtResource( 1 )]
+texture = ExtResource( 3 )
 
 [node name="cycle_timer" type="Timer" parent="."]
 autostart = true
