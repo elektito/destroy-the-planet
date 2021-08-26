@@ -17,8 +17,7 @@ func _ready():
 
 func _input(event):
 	if visible and Input.is_action_just_pressed("ui_cancel"):
-		emit_signal("closed")
-		get_tree().set_input_as_handled()
+		close_screen()
 
 
 func _on_master_slider_value_changed(value):
@@ -31,3 +30,13 @@ func _on_music_slider_value_changed(value):
 
 func _on_sfx_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(sfx_bus, linear2db(value))
+
+
+func close_screen():
+	emit_signal("closed")
+	get_tree().set_input_as_handled()
+
+
+func _on_back_btn_pressed():
+	$ui_sound.play()
+	close_screen()
