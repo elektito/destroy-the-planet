@@ -1,6 +1,8 @@
 extends Node2D
 tool
 
+const BUILDING_POP_TIME := 0.075
+
 signal clicked()
 
 export(Texture) var texture : Texture = null setget set_texture, get_texture
@@ -92,3 +94,17 @@ func shake():
 	get_parent().global_position = parent_pos
 	global_position = pos
 	get_parent().rotation = initial_rotation
+
+
+func _on_texture_mouse_entered():
+	$building_pop_tween.stop_all()
+	$building_pop_tween.interpolate_property(self, 'scale', null, Vector2(1.2, 1.2), BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$building_pop_tween.interpolate_property(self, 'position:y', null, -8, BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$building_pop_tween.start()
+
+
+func _on_texture_mouse_exited():
+	$building_pop_tween.stop_all()
+	$building_pop_tween.interpolate_property(self, 'scale', null, Vector2(1.0, 1.0), BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$building_pop_tween.interpolate_property(self, 'position:y', null, 0, BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$building_pop_tween.start()

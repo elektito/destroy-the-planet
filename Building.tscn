@@ -30,6 +30,7 @@ margin_left = -16.0
 margin_top = -32.0
 margin_right = 16.0
 margin_bottom = 32.0
+mouse_filter = 2
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -53,4 +54,8 @@ __meta__ = {
 
 [node name="upgrade_label_tween" type="Tween" parent="."]
 
+[node name="building_pop_tween" type="Tween" parent="."]
+
 [connection signal="gui_input" from="texture" to="." method="_on_texture_gui_input"]
+[connection signal="mouse_entered" from="texture" to="." method="_on_texture_mouse_entered"]
+[connection signal="mouse_exited" from="texture" to="." method="_on_texture_mouse_exited"]
