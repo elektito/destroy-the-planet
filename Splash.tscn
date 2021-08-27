@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/gfx/sprites/planet.png" type="Texture" id=1]
 [ext_resource path="res://Splash.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Secuela-ExtraBold.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/audio/rumble.ogg" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 210
@@ -94,6 +95,10 @@ anims/planet_rotation = SubResource( 2 )
 [node name="animation_speed_timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="splash_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
 
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_animation_finished"]
 [connection signal="timeout" from="animation_speed_timer" to="." method="_on_animation_speed_timer_timeout"]
