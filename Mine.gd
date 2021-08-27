@@ -5,6 +5,8 @@ signal info_updated(building, item)
 
 const type := Global.BuildingType.MINE
 
+export(bool) var decorative := false
+
 var levels = [
 	{
 		'number': 1,
@@ -139,6 +141,8 @@ func perform_action(action):
 
 
 func _on_cycle_timer_timeout():
+	if decorative:
+		return
 	world.produce_pollution(get_pollution_per_cycle())
 	world.consume_resources(get_resource_usage_per_cycle())
 

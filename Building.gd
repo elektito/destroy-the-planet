@@ -8,10 +8,14 @@ export(bool) var selected : bool = false setget set_selected, get_selected
 export(bool) var upgrade_available : bool = false setget set_upgrade_available
 
 func _ready():
+	if get_parent().decorative:
+		return
 	shake()
 
 
 func _on_texture_gui_input(event):
+	if get_parent().decorative:
+		return
 	if event is InputEventMouseButton and not event.pressed:
 		emit_signal("clicked")
 

@@ -6,12 +6,7 @@ onready var title_x = $title/game_title.rect_position.x
 func _ready():
 	$title/factory/smoke1.rate = 100
 	$title/factory/smoke2.rate = 100
-	$title/factory/cycle_timer.stop()
-	
 	$title/powerplant/smoke.rate = 100
-	$title/powerplant/cycle_timer.stop()
-	
-	$title/mine/cycle_timer.stop()
 	
 	$credits.rect_position.y = -$credits.rect_size.y - 100
 	$title.position.x = -$title/game_title.rect_size.x - 100

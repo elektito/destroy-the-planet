@@ -5,6 +5,8 @@ signal info_updated(building, item)
 
 const type := Global.BuildingType.APARTMENT_BUILDING
 
+export(bool) var decorative := false
+
 var levels = [
 	{
 		'number': 1,
@@ -133,6 +135,8 @@ func perform_action(action):
 
 
 func _on_cycle_timer_timeout():
+	if decorative:
+		return
 	world.add_population(get_population_increment())
 
 

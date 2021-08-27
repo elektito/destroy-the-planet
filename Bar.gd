@@ -5,6 +5,8 @@ signal info_updated(building, item)
 
 const type := Global.BuildingType.BAR
 
+export(bool) var decorative := false
+
 var levels = [
 	{
 		'number': 1,
