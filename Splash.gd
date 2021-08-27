@@ -60,7 +60,8 @@ func _on_animation_speed_timer_timeout():
 
 
 func _input(event):
-	if event is InputEventKey:
+	if event is InputEventKey or \
+	   (event is InputEventMouseButton and event.button_index in [BUTTON_LEFT, BUTTON_RIGHT]):
 		next_screen()
 
 
