@@ -359,6 +359,7 @@ margin_left = 768.0
 margin_top = 8.0
 margin_right = 814.0
 margin_bottom = 23.0
+mouse_filter = 1
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Money:"

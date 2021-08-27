@@ -117,6 +117,7 @@ func _unhandled_input(event):
 				update_toolbox()
 				update_info_bar()
 				update_building_panel()
+				update_resource_bar()
 			
 		if placing < 0 and selected_building != null and event.button_index == BUTTON_RIGHT:
 			selected_building.get_node('building').selected = false
@@ -198,8 +199,17 @@ func update_building_panel():
 
 
 func update_resource_bar():
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = Global.human_readable_money(money)
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.hint_tooltip = str(money)
+	var money_per_cycle = 0
+	
+	for b in placed_buildings:
+		if b.type == Global.BuildingType.FACTORY:
+			money_per_cycle += b.get_money_per_cycle()
+	
+	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = Global.human_readable_money(money) + ' (+' + Global.human_readable_money(money_per_cycle) + ')'
+	
+	var tooltip = 'Money (+Money-per-Cycle): ' + str(money) + ' (+' + str(money_per_cycle) + ')'
+	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.hint_tooltip = tooltip
+	$hud/hbox/vbox/resource_bar/margin/hbox/money_label.hint_tooltip = tooltip
 	
 	var resources_percent = int(float(resources) / MAX_RESOURCES * 100)
 	$hud/hbox/vbox/resource_bar/margin/hbox/resources_value_label.text = str(resources) + ' (' + str(resources_percent) + '%)'
