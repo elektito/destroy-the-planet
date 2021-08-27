@@ -41,25 +41,25 @@ var levels = [
 	{
 		'number': 6,
 		'description': 'Big apartment building.',
-		'base_population_increment': 20000,
+		'base_population_increment': 50000,
 		'base_population_cap': 10000000,
 	},
 	{
 		'number': 7,
 		'description': 'Huge apartment building.',
-		'base_population_increment': 40000,
+		'base_population_increment': 250000,
 		'base_population_cap': 50000000,
 	},
 	{
 		'number': 8,
 		'description': 'Gigantic apartment building.',
-		'base_population_increment': 10000000,
+		'base_population_increment': 1000000,
 		'base_population_cap': 100000000,
 	},
 	{
 		'number': 9,
 		'description': 'Colossal apartment building.',
-		'base_population_increment': 20000000,
+		'base_population_increment': 10000000,
 		'base_population_cap': 1000000000,
 	},
 ]

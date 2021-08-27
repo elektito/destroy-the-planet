@@ -41,7 +41,7 @@ var levels = [
 	{
 		'number': 7,
 		'description': 'Level 7 bar.',
-		'base_entertainment': 100000000,
+		'base_entertainment': 1000000000,
 	},
 ]
 var current_level = levels[0]
