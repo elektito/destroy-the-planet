@@ -142,6 +142,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="exit_btn" type="Button" parent="."]
+margin_left = 42.0
+margin_top = 641.0
+margin_right = 192.0
+margin_bottom = 694.0
+theme = ExtResource( 5 )
+text = "Exit Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ui_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 bus = "SFX"
@@ -150,3 +161,4 @@ bus = "SFX"
 [connection signal="value_changed" from="music_slider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="sfx_slider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="pressed" from="back_btn" to="." method="_on_back_btn_pressed"]
+[connection signal="pressed" from="exit_btn" to="." method="_on_exit_btn_pressed"]

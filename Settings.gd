@@ -40,3 +40,7 @@ func close_screen():
 func _on_back_btn_pressed():
 	$ui_sound.play()
 	close_screen()
+
+
+func _on_exit_btn_pressed():
+	get_tree().quit()
