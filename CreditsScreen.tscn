@@ -76,12 +76,16 @@ A game by elektito.
 
 This is a submission to [b]Godot Wild Jam #36[/b]. The theme of the Jam was [b]Uncontrollable Growth[/b].
 
+This game is made using the [b]Godot[/b] game engine. Some third-party sounds and fonts used. Check out the game page for details.
+
 Thank you for playing."
 text = "Destroy the Planet
 
 A game by elektito.
 
 This is a submission to Godot Wild Jam #36. The theme of the Jam was Uncontrollable Growth.
+
+This game is made using the Godot game engine. Some third-party sounds and fonts used. Check out the game page for details.
 
 Thank you for playing."
 fit_content_height = true
@@ -92,9 +96,9 @@ __meta__ = {
 
 [node name="exit_btn" type="Button" parent="."]
 margin_left = 819.0
-margin_top = 513.949
+margin_top = 587.949
 margin_right = 1041.0
-margin_bottom = 589.949
+margin_bottom = 663.949
 focus_mode = 0
 theme = ExtResource( 8 )
 text = "Exit Game"
