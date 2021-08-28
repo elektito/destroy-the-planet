@@ -74,7 +74,7 @@ func shake():
 	get_parent().global_position -= v * 50
 	global_position += v * 50
 	
-	for i in range(1):
+	for _i in range(1):
 		$tween.interpolate_property(get_parent(), 'rotation', null, get_parent().rotation + 0.1, 0.025, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		$tween.start()
 		yield($tween, "tween_completed")

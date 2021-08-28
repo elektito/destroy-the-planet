@@ -65,11 +65,11 @@ func _input(event):
 		next_screen()
 
 
-func _on_animation_animation_finished(anim_name):
+func _on_animation_animation_finished(_anim_name):
 	yield(get_tree().create_timer(1.5), "timeout")
 	next_screen()
 
 
 func next_screen():
-	get_tree().change_scene("res://World.tscn")
+	assert(get_tree().change_scene("res://World.tscn") == OK)
 

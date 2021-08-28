@@ -5,7 +5,6 @@ signal closed()
 onready var master_bus = AudioServer.get_bus_index('Master')
 onready var music_bus = AudioServer.get_bus_index('Music')
 onready var sfx_bus = AudioServer.get_bus_index('SFX')
-onready var Global = $"/root/Global"
 
 func _ready():
 	$master_slider.value = db2linear(AudioServer.get_bus_volume_db(master_bus))
@@ -15,7 +14,7 @@ func _ready():
 	$master_slider.grab_focus()
 
 
-func _input(event):
+func _input(_event):
 	if visible and Input.is_action_just_pressed("ui_cancel"):
 		close_screen()
 

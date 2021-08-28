@@ -135,7 +135,7 @@ func click_vfx():
 	$click_vfx_tween.start()
 
 
-func _on_click_vfx_tween_tween_completed(object, key):
+func _on_click_vfx_tween_tween_completed(object, _key):
 	object.queue_free()
 
 
@@ -150,17 +150,25 @@ func _on_building_clicked(building):
 	update_building_panel()
 
 
-func _on_building_upgraded(building):
+func _on_building_upgraded(_building):
 	update_building_panel()
 	update_info_bar()
 
 
-func _on_building_info_updated(building, item):
+func _on_building_info_updated(building, item, value):
 	for b in placed_buildings:
-		b.notify_update(item)
-		if item in ['population_increment', 'entertainment']:
-			b.notify_update('demand')
-	update_building_panel()
+		if b != building:
+			b.notify_update(item)
+		if item in [Global.StatType.POPULATION_INCREASE_PER_CYCLE, Global.StatType.ENTERTAINMENT]:
+			b.notify_update(Global.StatType.DEMAND)
+	
+	# No need to update the building panel anymore here, because building stats
+	# automatically update when the info_updated signal of the building is
+	# emitted, and the actions do not change when building_info is updated right
+	# now. This means, stat tooltips do not disappear on each update (which can
+	# happen frequently in end-game, making reading the tooltips difficult).
+	# If actions could change, then this would still be necessary.
+	#update_building_panel()
 
 
 func update_building_panel():
@@ -181,7 +189,8 @@ func update_building_panel():
 		for stat in selected_building.get_stats():
 			var widget = preload("res://BuildingStat.tscn").instance()
 			widget.type = stat['type']
-			if stat['type'] == Global.StatType.MONEY:
+			widget.init(selected_building)
+			if stat['type'] == Global.StatType.MONEY_PER_CYCLE:
 				widget.text = Global.human_readable_money(int(stat['value']))
 			else:
 				widget.text = Global.human_readable_money(int(stat['value']))
@@ -240,7 +249,7 @@ func update_action_widgets():
 		widget.button_disabled = (money < widget.price)
 
 
-func _on_action_button_clicked(widget, action):
+func _on_action_button_clicked(_widget, action):
 	consume_money(action['price'])
 	selected_building.perform_action(action)
 	$placement_sound.play()
@@ -339,7 +348,7 @@ func _on_placing_area_mouse_exited():
 func produce_money(amount):
 	money += amount
 	for b in placed_buildings:
-		b.notify_update('money')
+		b.notify_update(Global.StatType.MONEY)
 	update_resource_bar()
 	update_toolbox()
 	update_action_widgets()
@@ -347,7 +356,7 @@ func produce_money(amount):
 
 func consume_money(amount):
 	for b in placed_buildings:
-		b.notify_update('money')
+		b.notify_update(Global.StatType.MONEY)
 	money -= amount
 	update_resource_bar()
 	update_toolbox()
@@ -356,7 +365,7 @@ func consume_money(amount):
 
 func produce_pollution(amount):
 	for b in placed_buildings:
-		b.notify_update('pollution')
+		b.notify_update(Global.StatType.POLLUTION)
 	pollution += amount
 	if pollution > MAX_POLLUTION or pollution < 0: # overflow
 		pollution = MAX_POLLUTION
@@ -370,7 +379,7 @@ func produce_pollution(amount):
 
 func consume_resources(amount):
 	for b in placed_buildings:
-		b.notify_update('resources')
+		b.notify_update(Global.StatType.RESOURCES)
 	resources -= amount
 	if resources < 0:
 		resources = 0
@@ -383,8 +392,8 @@ func consume_resources(amount):
 
 func add_population(amount):
 	for b in placed_buildings:
-		b.notify_update('population')
-		b.notify_update('demand')
+		b.notify_update(Global.StatType.POPULATION)
+		b.notify_update(Global.StatType.DEMAND)
 	population += amount
 	var cap := get_population_cap()
 	if population > cap:

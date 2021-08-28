@@ -1,7 +1,7 @@
 extends Node2D
 
 signal upgraded(building)
-signal info_updated(building, item)
+signal info_updated(building, item, value)
 
 const type = Global.BuildingType.FACTORY
 
@@ -66,8 +66,8 @@ var level := 1
 
 var world
 
-func init(world):
-	self.world = world
+func init(_world):
+	world = _world
 	$building.update_upgrade_label(self)
 
 
@@ -78,15 +78,15 @@ func get_stats():
 			'value': str(level),
 		},
 		{
-			'type': Global.StatType.MONEY,
+			'type': Global.StatType.MONEY_PER_CYCLE,
 			'value': str(get_money_per_cycle()),
 		},
 		{
-			'type': Global.StatType.POLLUTION,
+			'type': Global.StatType.POLLUTION_PER_CYCLE,
 			'value': str(get_pollution_per_cycle()),
 		},
 		{
-			'type': Global.StatType.USAGE,
+			'type': Global.StatType.RESOURCE_USAGE_PER_CYCLE,
 			'value': str(get_resource_usage_per_cycle()),
 		},
 	]
@@ -155,6 +155,8 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
+			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
+			emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 			update_smoke()
 			$building.update_upgrade_label(self)
 		'cycle':
@@ -170,12 +172,17 @@ func _on_cycle_timer_timeout():
 
 
 func notify_update(item):
-	if item in ['demand', 'power', 'mining']:
+	var interesting = [
+		Global.StatType.DEMAND,
+		Global.StatType.POWER,
+		Global.StatType.MINING,
+	]
+	if item in interesting:
 		update_smoke()
-		emit_signal("info_updated", self, 'money_per_cycle')
-		emit_signal("info_updated", self, 'pollution_per_cycle')
-		emit_signal("info_updated", self, 'resource_usage_per_cycle')
-	if item == 'money':
+		emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
+		emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
+		emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
+	if item == Global.StatType.MONEY:
 		$building.update_upgrade_label(self)
 
 
@@ -184,7 +191,6 @@ func update_smoke():
 	var max_power_factor = 5000
 	var max_mining_factor = 160
 	var max_pollution = levels[-1]['base_pollution_per_cycle'] * max_demand_factor * max_power_factor * max_mining_factor
-	var pollution = float(get_pollution_per_cycle())
 	var rate = float(get_pollution_per_cycle()) / max_pollution
 	if rate > 1.0:
 		rate = 1.0

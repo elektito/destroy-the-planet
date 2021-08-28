@@ -263,7 +263,6 @@ margin_left = 0.0
 margin_top = 52.0
 margin_right = 54.0
 margin_bottom = 70.0
-type = 5
 text = "foobar"
 
 [node name="BuildingWidget" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]

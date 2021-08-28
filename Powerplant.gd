@@ -1,7 +1,7 @@
 extends Node2D
 
 signal upgraded(building)
-signal info_updated(building, item)
+signal info_updated(building, item, value)
 
 const type := Global.BuildingType.POWERPLANT
 
@@ -72,8 +72,8 @@ var level := 1
 
 var world
 
-func init(world):
-	self.world = world
+func init(_world):
+	world = _world
 	$building.update_upgrade_label(self)
 
 
@@ -84,11 +84,11 @@ func get_stats():
 			'value': str(level),
 		},
 		{
-			'type': Global.StatType.POLLUTION,
+			'type': Global.StatType.POLLUTION_PER_CYCLE,
 			'value': str(get_pollution_per_cycle()),
 		},
 		{
-			'type': Global.StatType.USAGE,
+			'type': Global.StatType.RESOURCE_USAGE_PER_CYCLE,
 			'value': str(get_resource_usage_per_cycle()),
 		},
 		{
@@ -131,7 +131,7 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
-			emit_signal("info_updated", self, 'power')
+			emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
 			update_smoke()
 			$building.update_upgrade_label(self)
 
@@ -144,13 +144,12 @@ func _on_cycle_timer_timeout():
 
 
 func notify_update(item):
-	if item == 'money':
+	if item == Global.StatType.MONEY:
 		$building.update_upgrade_label(self)
 
 
 func update_smoke():
 	var max_pollution = levels[-1]['base_pollution_per_cycle']
-	var pollution = float(get_pollution_per_cycle())
 	var rate = float(get_pollution_per_cycle()) / max_pollution
 	if rate > 1.0:
 		rate = 1.0

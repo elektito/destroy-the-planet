@@ -22,4 +22,4 @@ func _on_exit_btn_pressed():
 
 func _on_credits_btn_pressed():
 	get_tree().paused = false
-	get_tree().change_scene("res://CreditsScreen.tscn")
+	assert(get_tree().change_scene("res://CreditsScreen.tscn") == OK)

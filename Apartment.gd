@@ -1,7 +1,7 @@
 extends Node2D
 
 signal upgraded(building)
-signal info_updated(building, item)
+signal info_updated(building, item, value)
 
 const type := Global.BuildingType.APARTMENT_BUILDING
 
@@ -71,8 +71,8 @@ var level := 1
 
 var world
 
-func init(world):
-	self.world = world
+func init(_world):
+	world = _world
 	$building.update_upgrade_label(self)
 
 
@@ -83,7 +83,7 @@ func get_stats():
 			'value': str(get_population_cap()),
 		},
 		{
-			'type': Global.StatType.POPULATION_INCREASE,
+			'type': Global.StatType.POPULATION_INCREASE_PER_CYCLE,
 			'value': str(get_population_increment()),
 		},
 	]
@@ -127,8 +127,8 @@ func perform_action(action):
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
-			emit_signal("info_updated", self, "population_cap")
-			emit_signal("info_updated", self, "population_increment")
+			emit_signal("info_updated", self, Global.StatType.POPULATION_CAP, get_population_cap())
+			emit_signal("info_updated", self, Global.StatType.POPULATION_INCREASE_PER_CYCLE, get_population_increment())
 			$building.update_upgrade_label(self)
 		'cycle':
 			_on_cycle_timer_timeout()
@@ -141,5 +141,5 @@ func _on_cycle_timer_timeout():
 
 
 func notify_update(item):
-	if item == 'money':
+	if item == Global.StatType.MONEY:
 		$building.update_upgrade_label(self)
