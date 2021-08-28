@@ -10,6 +10,8 @@ func _ready():
 	
 	$credits.rect_position.y = -$credits.rect_size.y - 100
 	$title.position.x = -$title/game_title.rect_size.x - 100
+	
+	start()
 
 
 func start():
@@ -18,3 +20,7 @@ func start():
 	yield($title_tween, "tween_completed")
 	$title_tween.interpolate_property($credits, 'rect_position:y', null, credits_y, 0.5, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$title_tween.start()
+
+
+func _on_exit_btn_pressed():
+	get_tree().quit()

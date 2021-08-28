@@ -448,6 +448,7 @@ func win():
 	$victory_screen.set_process_input(true)
 	$victory_screen/screen.visible = true
 	$victory_screen/fade_out_tween.interpolate_property($victory_screen/screen, 'modulate:a', 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_screen/fade_out_tween.interpolate_property($music, 'volume_db', $music.volume_db, -80, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$victory_screen/fade_out_tween.start()
 	yield($victory_screen/fade_out_tween, "tween_all_completed")
 	$victory_screen/screen.start()

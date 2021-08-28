@@ -11,13 +11,13 @@
 [ext_resource path="res://BuildingStat.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Theme.tres" type="Theme" id=10]
 [ext_resource path="res://BoldLabelFont.tres" type="DynamicFont" id=11]
-[ext_resource path="res://VictoryScreen.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/audio/placement_preview.ogg" type="AudioStream" id=13]
 [ext_resource path="res://assets/audio/placement.ogg" type="AudioStream" id=14]
 [ext_resource path="res://assets/audio/Big Eyes.mp3" type="AudioStream" id=15]
 [ext_resource path="res://Settings.tscn" type="PackedScene" id=16]
 [ext_resource path="res://ToolboxTheme.tres" type="Theme" id=17]
 [ext_resource path="res://assets/gfx/icons/settings.png" type="Texture" id=18]
+[ext_resource path="res://EndScreen.tscn" type="PackedScene" id=19]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 276.474
@@ -539,7 +539,7 @@ scale = Vector2( 0.063, 0.063 )
 pause_mode = 2
 layer = 2
 
-[node name="screen" parent="victory_screen" instance=ExtResource( 12 )]
+[node name="screen" parent="victory_screen" instance=ExtResource( 19 )]
 visible = false
 
 [node name="fade_out_tween" type="Tween" parent="victory_screen"]
@@ -554,6 +554,7 @@ volume_db = -11.107
 bus = "SFX"
 
 [node name="music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 15 )
 autoplay = true
 bus = "Music"

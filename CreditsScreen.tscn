@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/fonts/Secuela-ExtraBold.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Factory.tscn" type="PackedScene" id=2]
-[ext_resource path="res://VictoryScreen.gd" type="Script" id=3]
+[ext_resource path="res://CreditsScreen.gd" type="Script" id=3]
 [ext_resource path="res://Powerplant.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Mine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Secuela-Bold.otf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/fonts/Secuela-Regular.otf" type="DynamicFontData" id=7]
+[ext_resource path="res://ToolboxTheme.tres" type="Theme" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 210
@@ -22,7 +23,7 @@ font_data = ExtResource( 6 )
 size = 32
 font_data = ExtResource( 7 )
 
-[node name="VictoryScreen" type="ColorRect"]
+[node name="CreditsScreen" type="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -88,3 +89,17 @@ scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="exit_btn" type="Button" parent="."]
+margin_left = 819.0
+margin_top = 513.949
+margin_right = 1041.0
+margin_bottom = 589.949
+focus_mode = 0
+theme = ExtResource( 8 )
+text = "Exit Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="exit_btn" to="." method="_on_exit_btn_pressed"]
