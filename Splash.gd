@@ -71,5 +71,6 @@ func _on_animation_animation_finished(_anim_name):
 
 
 func next_screen():
-	assert(get_tree().change_scene("res://World.tscn") == OK)
+	if get_tree().change_scene("res://World.tscn") != OK:
+		print('change_scene failed. Run for your life!')
 

@@ -53,7 +53,7 @@ var type_info = {
 }
 
 func init(object: Object):
-	assert(object.connect('info_updated', self, '_on_info_updated') == OK)
+	object.connect('info_updated', self, '_on_info_updated')
 
 
 func _on_info_updated(_object: Object, item: int, value):

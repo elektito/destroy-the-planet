@@ -22,4 +22,5 @@ func _on_exit_btn_pressed():
 
 func _on_credits_btn_pressed():
 	get_tree().paused = false
-	assert(get_tree().change_scene("res://CreditsScreen.tscn") == OK)
+	if get_tree().change_scene("res://CreditsScreen.tscn") != OK:
+		print('change_scene failed. Run for your life!6')
