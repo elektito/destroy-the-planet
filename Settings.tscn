@@ -157,8 +157,19 @@ __meta__ = {
 stream = ExtResource( 6 )
 bus = "SFX"
 
+[node name="fullscreen_checkbox" type="CheckBox" parent="."]
+margin_left = 245.754
+margin_top = 501.339
+margin_right = 458.754
+margin_bottom = 565.339
+focus_mode = 0
+theme = ExtResource( 5 )
+text = "Fullscreen"
+expand_icon = true
+
 [connection signal="value_changed" from="master_slider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="music_slider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="sfx_slider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="pressed" from="back_btn" to="." method="_on_back_btn_pressed"]
 [connection signal="pressed" from="exit_btn" to="." method="_on_exit_btn_pressed"]
+[connection signal="toggled" from="fullscreen_checkbox" to="." method="_on_fullscreen_checkbox_toggled"]

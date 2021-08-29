@@ -43,3 +43,7 @@ func _on_back_btn_pressed():
 
 func _on_exit_btn_pressed():
 	get_tree().quit()
+
+
+func _on_fullscreen_checkbox_toggled(button_pressed):
+	OS.window_fullscreen = button_pressed
