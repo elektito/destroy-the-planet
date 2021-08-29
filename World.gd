@@ -60,10 +60,31 @@ func _ready():
 	
 	$settings.set_process_input(false)
 	
+	create_plants()
+	
 	update_toolbox()
 	update_building_panel()
 	update_resource_bar()
 	update_info_bar()
+
+
+func create_plants():
+	var textures = [
+		preload("res://assets/gfx/sprites/plant1.png"),
+		preload("res://assets/gfx/sprites/plant2.png"),
+		preload("res://assets/gfx/sprites/plant3.png"),
+		preload("res://assets/gfx/sprites/plant4.png"),
+		preload("res://assets/gfx/sprites/plant5.png"),
+	]
+	for i in range(40):
+		var angle = i * 2 * PI / 40
+		var plant = Sprite.new()
+		plant.texture = textures[randi() % len(textures)]
+		plant.scale = Vector2(0.2, 0.2)
+		var v = Vector2.RIGHT.rotated(angle)
+		plant.position = v.normalized() * 255
+		plant.rotation = v.angle() + PI / 2
+		$placing_area.add_child(plant)
 
 
 func _input(event):
