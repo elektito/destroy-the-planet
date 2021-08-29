@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/gfx/sprites/selection.png" type="Texture" id=1]
 [ext_resource path="res://Building.gd" type="Script" id=2]
@@ -10,6 +10,9 @@ outline_size = 1
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 3, 22 )
 
 [node name="Building" type="Node2D"]
 script = ExtResource( 2 )
@@ -55,6 +58,16 @@ __meta__ = {
 [node name="upgrade_label_tween" type="Tween" parent="."]
 
 [node name="building_pop_tween" type="Tween" parent="."]
+
+[node name="area" type="Area2D" parent="." groups=[
+"building_area",
+]]
+collision_layer = 16
+collision_mask = 8
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+position = Vector2( 0, -18 )
+shape = SubResource( 2 )
 
 [connection signal="gui_input" from="texture" to="." method="_on_texture_gui_input"]
 [connection signal="mouse_entered" from="texture" to="." method="_on_texture_mouse_entered"]

@@ -76,13 +76,14 @@ func create_plants():
 		preload("res://assets/gfx/sprites/plant4.png"),
 		preload("res://assets/gfx/sprites/plant5.png"),
 	]
-	for i in range(40):
-		var angle = i * 2 * PI / 40
-		var plant = Sprite.new()
-		plant.texture = textures[randi() % len(textures)]
-		plant.scale = Vector2(0.2, 0.2)
+	var nplants = 40
+	for i in range(nplants):
+		var angle = i * 2 * PI / nplants
+		var plant = preload("res://Plant.tscn").instance()
+		plant.z_index = -20
+		plant.get_node("sprite").texture = textures[randi() % len(textures)]
 		var v = Vector2.RIGHT.rotated(angle)
-		plant.position = v.normalized() * 255
+		plant.position = v.normalized() * 208
 		plant.rotation = v.angle() + PI / 2
 		$placing_area.add_child(plant)
 
@@ -346,7 +347,7 @@ func _on_toolbox_btn_pressed(building):
 	placing_icon.position = get_local_mouse_position()
 	placing_icon.visible = true
 	placing = building
-	$placing_area/preview_icon.texture = building_info[building]['preview_icon']
+	$placing_area/preview_icon/sprite.texture = building_info[building]['preview_icon']
 	$placement_preview_sound.play()
 
 
@@ -354,6 +355,8 @@ func _on_placing_area_mouse_entered():
 	inside_placing_area = true
 	if placing >= 0:
 		$placing_area/preview_icon.visible = true
+		$placing_area/preview_icon.monitorable = true
+		$placing_area/preview_icon
 		placing_icon.visible = false
 
 
@@ -363,6 +366,7 @@ func _on_placing_area_mouse_exited():
 	inside_placing_area = false
 	if placing >= 0:
 		$placing_area/preview_icon.visible = false
+		$placing_area/preview_icon.monitorable = false
 		placing_icon.visible = true
 
 
