@@ -53,7 +53,8 @@ var type_info = {
 }
 
 func init(object: Object):
-	object.connect('info_updated', self, '_on_info_updated')
+	if object.connect('info_updated', self, '_on_info_updated') != OK:
+		print('Could not connect signal. Bad things could happen!')
 
 
 func _on_info_updated(_object: Object, item: int, value):

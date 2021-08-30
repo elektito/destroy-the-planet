@@ -184,7 +184,7 @@ func _on_building_upgraded(_building):
 	update_info_bar()
 
 
-func _on_building_info_updated(building, item, value):
+func _on_building_info_updated(building, item, _value):
 	for b in placed_buildings:
 		if b != building:
 			b.notify_update(item)

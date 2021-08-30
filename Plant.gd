@@ -8,5 +8,5 @@ func _on_Plant_area_entered(area : Area2D):
 		$sprite.modulate.a = 0.2
 
 
-func _on_Plant_area_exited(area):
+func _on_Plant_area_exited(_area):
 	$sprite.modulate.a = 1.0
