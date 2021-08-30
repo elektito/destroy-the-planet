@@ -121,11 +121,13 @@ func _unhandled_input(event):
 		if placing >= 0 and event.button_index == BUTTON_RIGHT:
 			placing = -1
 			placing_icon.visible = false
+			$placing_area/preview_icon.monitorable = false
 		
 		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area:
 			if not $placing_area/preview_icon.rotation in used_angles:
 				placing_icon.visible = false
 				$placing_area/preview_icon.visible = false
+				$placing_area/preview_icon.monitorable = false
 				var b = building_info[placing]['scene'].instance()
 				b.z_index = -10
 				b.position = $placing_area/preview_icon.position
