@@ -1,8 +1,7 @@
 extends Area2D
 
 
-
-func _on_Plant_area_entered(area):
+func _on_Plant_area_entered(area : Area2D):
 	if area.is_in_group('building_area'):
 		queue_free()
 	else:
