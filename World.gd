@@ -362,7 +362,12 @@ func _on_placing_area_mouse_entered():
 	if placing >= 0:
 		$placing_area/preview_icon.visible = true
 		$placing_area/preview_icon.monitorable = true
-		$placing_area/preview_icon
+		
+		# Workaround for a bug that means plants will not detect a collision
+		# with the preview icons before it's moved. The position will be
+		# immediately fixed so this won't be visible to the player.
+		$placing_area/preview_icon.position += Vector2(1000, 0)
+		
 		placing_icon.visible = false
 
 
