@@ -9,9 +9,16 @@ export(Texture) var texture : Texture = null setget set_texture, get_texture
 export(bool) var selected : bool = false setget set_selected, get_selected
 export(bool) var upgrade_available : bool = false setget set_upgrade_available
 
+var outline_material : ShaderMaterial
+
 func _ready():
 	if get_parent().decorative:
 		return
+	
+	outline_material = ShaderMaterial.new()
+	outline_material.shader = preload("res://Outline.gdshader")
+	outline_material.set_shader_param('line_thickness', 25)
+	
 	shake()
 
 
@@ -31,11 +38,16 @@ func get_texture():
 
 
 func set_selected(value : bool):
-	$selection.visible = value
+	if not is_inside_tree():
+		return
+	if value:
+		$texture.material = outline_material
+	else:
+		$texture.material = null
 
 
 func get_selected() -> bool:
-	return $selection.visible
+	return $texture.material == null
 
 
 func set_upgrade_available(value : bool):
