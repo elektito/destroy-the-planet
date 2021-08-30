@@ -85,7 +85,7 @@ func create_plants():
 		var angle = i * 2 * PI / nplants
 		var plant = preload("res://Plant.tscn").instance()
 		plant.z_index = -20
-		plant.get_node("sprite").texture = textures[randi() % len(textures)]
+		plant.texture = textures[randi() % len(textures)]
 		var v = Vector2.RIGHT.rotated(angle)
 		plant.position = v.normalized() * 208
 		plant.rotation = v.angle() + PI / 2
