@@ -109,13 +109,6 @@ func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		show_settings_screen()
 	if event is InputEventMouseButton:
-		if placing < 0 and event.pressed and event.button_index == BUTTON_LEFT:
-			$placement_preview_sound.play()
-			click_vfx()
-			produce_money(click_money)
-		if OS.is_debug_build() and placing < 0 and event.pressed and event.button_index == BUTTON_MIDDLE:
-			produce_money(100000000000000)
-		
 		if placing >= 0 and event.button_index == BUTTON_RIGHT:
 			placing = -1
 			placing_icon.visible = false
@@ -145,7 +138,18 @@ func _input(event):
 				update_info_bar()
 				update_building_panel()
 				update_resource_bar()
-			
+
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton:
+		if placing < 0 and event.pressed and event.button_index == BUTTON_LEFT:
+			$placement_preview_sound.play()
+			click_vfx()
+			produce_money(click_money)
+		
+		if OS.is_debug_build() and placing < 0 and event.pressed and event.button_index == BUTTON_MIDDLE:
+			produce_money(100000000000000)
+		
 		if placing < 0 and selected_building != null and event.button_index == BUTTON_RIGHT:
 			selected_building.get_node('building').selected = false
 			selected_building = null
