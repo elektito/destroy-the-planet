@@ -122,6 +122,7 @@ func _unhandled_input(event):
 			placing = -1
 			placing_icon.visible = false
 			$placing_area/preview_icon.monitorable = false
+			$placing_area/preview_icon.visible = false
 		
 		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area:
 			if not $placing_area/preview_icon.rotation in used_angles:
