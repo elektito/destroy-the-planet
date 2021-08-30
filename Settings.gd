@@ -47,3 +47,11 @@ func _on_exit_btn_pressed():
 
 func _on_fullscreen_checkbox_toggled(button_pressed):
 	OS.window_fullscreen = button_pressed
+
+
+func _on_new_game_btn_pressed():
+	$new_game_dialog.popup_centered()
+
+
+func _on_new_game_dialog_confirmed():
+	get_tree().reload_current_scene()

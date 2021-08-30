@@ -24,3 +24,7 @@ func start():
 
 func _on_exit_btn_pressed():
 	get_tree().quit()
+
+
+func _on_new_game_btn_pressed():
+	get_tree().change_scene("res://World.tscn")

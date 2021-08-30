@@ -67,10 +67,10 @@ __meta__ = {
 }
 
 [node name="exit_btn" type="Button" parent="sprite/Control"]
-margin_left = 761.334
-margin_top = 883.571
-margin_right = 983.334
-margin_bottom = 959.571
+margin_left = 541.293
+margin_top = 890.0
+margin_right = 763.293
+margin_bottom = 966.0
 rect_scale = Vector2( 2, 2 )
 focus_mode = 0
 theme = ExtResource( 7 )
@@ -79,11 +79,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="new_game_btn" type="Button" parent="sprite/Control"]
+margin_left = 1077.36
+margin_top = 890.0
+margin_right = 1299.36
+margin_bottom = 966.0
+rect_scale = Vector2( 2, 2 )
+theme = ExtResource( 7 )
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="credits_btn" type="Button" parent="sprite/Control"]
-margin_left = 1349.78
-margin_top = 883.572
-margin_right = 1571.78
-margin_bottom = 959.572
+margin_left = 1616.29
+margin_top = 890.0
+margin_right = 1838.29
+margin_bottom = 966.0
 rect_scale = Vector2( 2, 2 )
 focus_mode = 0
 theme = ExtResource( 7 )
@@ -98,4 +110,5 @@ __meta__ = {
 stream = ExtResource( 3 )
 
 [connection signal="pressed" from="sprite/Control/exit_btn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="sprite/Control/new_game_btn" to="." method="_on_new_game_btn_pressed"]
 [connection signal="pressed" from="sprite/Control/credits_btn" to="." method="_on_credits_btn_pressed"]

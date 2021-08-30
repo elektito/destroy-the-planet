@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/fonts/Secuela-Bold.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui/slider-picker.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Settings.gd" type="Script" id=4]
 [ext_resource path="res://ToolboxTheme.tres" type="Theme" id=5]
 [ext_resource path="res://assets/audio/placement_preview.ogg" type="AudioStream" id=6]
+[ext_resource path="res://DialogTheme.tres" type="Theme" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -166,6 +167,33 @@ focus_mode = 0
 theme = ExtResource( 5 )
 text = "Fullscreen"
 expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="new_game_btn" type="Button" parent="."]
+margin_left = 590.754
+margin_top = 641.0
+margin_right = 740.754
+margin_bottom = 694.0
+theme = ExtResource( 5 )
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="new_game_dialog" type="ConfirmationDialog" parent="."]
+margin_left = 418.63
+margin_top = 345.296
+margin_right = 816.63
+margin_bottom = 444.296
+theme = ExtResource( 7 )
+window_title = "Confirmation"
+dialog_text = "Are you sure you want to reset? You will permanently lose your current progress."
+dialog_autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="value_changed" from="master_slider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="music_slider" to="." method="_on_music_slider_value_changed"]
@@ -173,3 +201,5 @@ expand_icon = true
 [connection signal="pressed" from="back_btn" to="." method="_on_back_btn_pressed"]
 [connection signal="pressed" from="exit_btn" to="." method="_on_exit_btn_pressed"]
 [connection signal="toggled" from="fullscreen_checkbox" to="." method="_on_fullscreen_checkbox_toggled"]
+[connection signal="pressed" from="new_game_btn" to="." method="_on_new_game_btn_pressed"]
+[connection signal="confirmed" from="new_game_dialog" to="." method="_on_new_game_dialog_confirmed"]

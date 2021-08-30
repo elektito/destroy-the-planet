@@ -95,10 +95,10 @@ __meta__ = {
 }
 
 [node name="exit_btn" type="Button" parent="."]
-margin_left = 819.0
-margin_top = 587.949
-margin_right = 1041.0
-margin_bottom = 663.949
+margin_left = 1034.0
+margin_top = 589.949
+margin_right = 1256.0
+margin_bottom = 665.949
 focus_mode = 0
 theme = ExtResource( 8 )
 text = "Exit Game"
@@ -106,4 +106,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="new_game_btn" type="Button" parent="."]
+margin_left = 758.0
+margin_top = 589.949
+margin_right = 980.0
+margin_bottom = 665.949
+theme = ExtResource( 8 )
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="exit_btn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="new_game_btn" to="." method="_on_new_game_btn_pressed"]

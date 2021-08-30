@@ -24,3 +24,11 @@ func _on_credits_btn_pressed():
 	get_tree().paused = false
 	if get_tree().change_scene("res://CreditsScreen.tscn") != OK:
 		print('change_scene failed. Run for your life!6')
+
+
+func _on_new_game_btn_pressed():
+	$new_game_dialog.popup_centered()
+
+
+func _on_new_game_dialog_confirmed():
+	get_tree().change_scene("res://World.tscn")
