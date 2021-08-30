@@ -105,9 +105,7 @@ func _input(event):
 			v = Vector2.RIGHT.rotated(angle)
 			$placing_area/preview_icon.position = v.normalized() * 230
 			$placing_area/preview_icon.rotation = v.angle() + PI / 2
-
-
-func _unhandled_input(event):
+	
 	if Input.is_action_just_pressed("ui_cancel"):
 		show_settings_screen()
 	if event is InputEventMouseButton:
