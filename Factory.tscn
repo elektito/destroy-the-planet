@@ -26,3 +26,8 @@ position = Vector2( 3.77975, -11.8118 )
 
 [node name="upgrade_available_pos" type="Position2D" parent="." index="12"]
 position = Vector2( -15.347, -20.2215 )
+
+[node name="cycle_timer" type="Timer" parent="." index="13"]
+autostart = true
+
+[connection signal="timeout" from="cycle_timer" to="." method="_on_cycle_timer_timeout"]
