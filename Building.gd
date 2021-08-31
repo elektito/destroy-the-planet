@@ -22,13 +22,6 @@ func _ready():
 	shake()
 
 
-func _on_texture_gui_input(event):
-	if get_parent().decorative:
-		return
-	if event is InputEventMouseButton and not event.pressed:
-		emit_signal("clicked")
-
-
 func set_texture(value):
 	$texture.texture = value
 
@@ -104,15 +97,22 @@ func shake():
 	get_parent().rotation = initial_rotation
 
 
-func _on_texture_mouse_entered():
+func _on_main_area_mouse_entered():
 	$building_pop_tween.stop_all()
 	$building_pop_tween.interpolate_property(self, 'scale', null, Vector2(1.2, 1.2), BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$building_pop_tween.interpolate_property(self, 'position:y', null, -8, BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$building_pop_tween.start()
 
 
-func _on_texture_mouse_exited():
+func _on_main_area_mouse_exited():
 	$building_pop_tween.stop_all()
 	$building_pop_tween.interpolate_property(self, 'scale', null, Vector2(1.0, 1.0), BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$building_pop_tween.interpolate_property(self, 'position:y', null, 0, BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$building_pop_tween.start()
+
+
+func _on_main_area_gui_input(event):
+	if get_parent().decorative:
+		return
+	if event is InputEventMouseButton and not event.pressed:
+		emit_signal("clicked")

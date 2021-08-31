@@ -3,14 +3,14 @@
 [ext_resource path="res://Building.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Secuela-Bold.otf" type="DynamicFontData" id=3]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 8
 outline_size = 1
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 3, 22 )
 
 [node name="Building" type="Node2D"]
@@ -27,6 +27,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="main_area" type="Control" parent="."]
+margin_left = -16.0
+margin_top = -32.0
+margin_right = 16.0
+margin_bottom = 32.0
+mouse_filter = 1
+
 [node name="tween" type="Tween" parent="."]
 
 [node name="upgrade_label" type="Label" parent="."]
@@ -35,7 +42,7 @@ margin_left = -16.0
 margin_top = -51.8608
 margin_right = 13.0
 margin_bottom = -43.8608
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "UPGRADE"
 __meta__ = {
@@ -54,8 +61,8 @@ collision_mask = 8
 
 [node name="shape" type="CollisionShape2D" parent="area"]
 position = Vector2( 0, -18 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
-[connection signal="gui_input" from="texture" to="." method="_on_texture_gui_input"]
-[connection signal="mouse_entered" from="texture" to="." method="_on_texture_mouse_entered"]
-[connection signal="mouse_exited" from="texture" to="." method="_on_texture_mouse_exited"]
+[connection signal="gui_input" from="main_area" to="." method="_on_main_area_gui_input"]
+[connection signal="mouse_entered" from="main_area" to="." method="_on_main_area_mouse_entered"]
+[connection signal="mouse_exited" from="main_area" to="." method="_on_main_area_mouse_exited"]
