@@ -1,32 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Building.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Factory.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/sprites/factory.png" type="Texture" id=3]
-[ext_resource path="res://Smoke.tscn" type="PackedScene" id=4]
 
-[node name="Factory" type="Node2D"]
+[node name="Factory" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-
-[node name="smoke1" parent="." instance=ExtResource( 4 )]
-position = Vector2( -8.30849, -12.1369 )
-amount = 1
-scale_amount = 0.202
-rate = 1
-
-[node name="smoke2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 3.53554, -12.1369 )
-amount = 1
-scale_amount = 0.202
-rate = 1
-
-[node name="building" parent="." instance=ExtResource( 1 )]
 texture = ExtResource( 3 )
 
-[node name="cycle_timer" type="Timer" parent="."]
-autostart = true
+[node name="texture" parent="base" index="0"]
+texture = ExtResource( 3 )
 
-[node name="upgrade_available_pos" type="Position2D" parent="."]
-position = Vector2( -14, -20.462 )
+[node name="smoke_blueprint" parent="." index="9"]
+emitting = true
 
-[connection signal="timeout" from="cycle_timer" to="." method="_on_cycle_timer_timeout"]
+[node name="smoke_pos1" type="Position2D" parent="." index="10" groups=[
+"smoke_positions",
+]]
+position = Vector2( -8.34698, -11.8118 )
+
+[node name="smoke_pos2" type="Position2D" parent="." index="11" groups=[
+"smoke_positions",
+]]
+position = Vector2( 3.77975, -11.8118 )
+
+[node name="upgrade_available_pos" type="Position2D" parent="." index="12"]
+position = Vector2( -15.347, -20.2215 )

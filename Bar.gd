@@ -1,11 +1,10 @@
-extends Node2D
+extends 'Building.gd'
+tool
 
 signal upgraded(building)
 signal info_updated(building, item, value)
 
 const type := Global.BuildingType.BAR
-
-export(bool) var decorative := false
 
 var levels = [
 	{
@@ -54,7 +53,7 @@ var world
 
 func init(_world):
 	world = _world
-	$building.update_upgrade_label(self)
+	update_upgrade_label(self)
 
 
 func get_stats():
@@ -96,9 +95,9 @@ func perform_action(action):
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
 			emit_signal("info_updated", self, Global.StatType.ENTERTAINMENT, get_entertainment())
-			$building.update_upgrade_label(self)
+			update_upgrade_label(self)
 
 
 func notify_update(item):
 	if item == Global.StatType.MONEY:
-		$building.update_upgrade_label(self)
+		update_upgrade_label(self)

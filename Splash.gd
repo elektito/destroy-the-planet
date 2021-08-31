@@ -35,22 +35,10 @@ func create_building():
 		Global.BuildingType.POWERPLANT,
 		Global.BuildingType.POWERPLANT,
 	]
-	#var idx = randi() % len(scenes)
-	var building_type = building_types[randi() % len(building_types)] #scenes.keys()[idx]
-	var building_scene = scenes[building_type] #scenes.values()[idx]
+	var building_type = building_types[randi() % len(building_types)]
+	var building_scene = scenes[building_type]
 	var building = building_scene.instance()
 	building.decorative = true
-	if building_type == Global.BuildingType.FACTORY:
-		building.get_node("smoke1").rate = 100
-		building.get_node("smoke2").rate = 100
-		building.get_node("smoke1").preprocess = 10
-		building.get_node("smoke2").preprocess = 10
-		building.get_node("smoke1").local_coords = false
-		building.get_node("smoke2").local_coords = false
-	elif building_type == Global.BuildingType.POWERPLANT:
-		building.get_node("smoke").rate = 100
-		building.get_node("smoke").preprocess = 10
-		building.get_node("smoke").local_coords = false
 	return building
 
 

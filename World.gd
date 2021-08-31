@@ -125,7 +125,7 @@ func _input(event):
 				b.position = $placing_area/preview_icon.position
 				b.rotation = $placing_area/preview_icon.rotation
 				$placing_area.add_child(b)
-				b.get_node('building').connect('clicked', self, '_on_building_clicked', [b])
+				b.connect('clicked', self, '_on_building_clicked', [b])
 				b.connect('upgraded', self, '_on_building_upgraded')
 				b.connect('info_updated', self, '_on_building_info_updated')
 				consume_money(get_price(b.type))
@@ -151,7 +151,7 @@ func _unhandled_input(event):
 			produce_money(100000000000000)
 		
 		if placing < 0 and selected_building != null and event.button_index == BUTTON_RIGHT:
-			selected_building.get_node('building').selected = false
+			selected_building.selected = false
 			selected_building = null
 			update_building_panel()
 
@@ -174,8 +174,8 @@ func _on_building_clicked(building):
 	if placing >= 0:
 		return
 	if selected_building:
-		selected_building.get_node('building').selected = false
-	building.get_node('building').selected = true
+		selected_building.selected = false
+	building.selected = true
 	selected_building = building
 	
 	update_building_panel()

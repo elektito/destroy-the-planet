@@ -1,11 +1,10 @@
-extends Node2D
+extends 'Building.gd'
+tool
 
 signal upgraded(building)
 signal info_updated(building, item, value)
 
 const type := Global.BuildingType.POWERPLANT
-
-export(bool) var decorative := false
 
 var levels = [
 	{
@@ -74,7 +73,7 @@ var world
 
 func init(_world):
 	world = _world
-	$building.update_upgrade_label(self)
+	update_upgrade_label(self)
 
 
 func get_stats():
@@ -133,7 +132,7 @@ func perform_action(action):
 			emit_signal("upgraded", self)
 			emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
 			update_smoke()
-			$building.update_upgrade_label(self)
+			update_upgrade_label(self)
 
 
 func _on_cycle_timer_timeout():
@@ -145,7 +144,7 @@ func _on_cycle_timer_timeout():
 
 func notify_update(item):
 	if item == Global.StatType.MONEY:
-		$building.update_upgrade_label(self)
+		update_upgrade_label(self)
 
 
 func update_smoke():
@@ -156,5 +155,4 @@ func update_smoke():
 	rate = int(rate * 100)
 	if rate == 0:
 		rate = 1
-	if rate != $smoke.rate:
-		$smoke.rate = rate
+	set_smoke_rate(rate)

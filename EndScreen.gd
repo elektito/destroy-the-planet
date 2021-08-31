@@ -2,12 +2,6 @@ extends ColorRect
 
 func _ready():
 	$sprite.modulate.a = 0
-	$sprite/factory/smoke1.rate = 100
-	$sprite/factory/smoke2.rate = 100
-	$sprite/factory2/smoke1.rate = 100
-	$sprite/factory2/smoke2.rate = 100
-	$sprite/powerplant/smoke.rate = 100
-	$sprite/powerplant2/smoke.rate = 100
 
 
 func start():
