@@ -394,20 +394,20 @@ func produce_money(amount):
 
 
 func consume_money(amount):
+	money -= amount
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.MONEY)
-	money -= amount
 	update_resource_bar()
 	update_toolbox()
 	update_action_widgets()
 
 
 func produce_pollution(amount):
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.POLLUTION)
 	pollution += amount
 	if pollution > MAX_POLLUTION or pollution < 0: # overflow
 		pollution = MAX_POLLUTION
+	for b in placed_buildings:
+		b.notify_update(Global.StatType.POLLUTION)
 	if pollution == MAX_POLLUTION:
 		win()
 	update_resource_bar()
@@ -417,11 +417,11 @@ func produce_pollution(amount):
 
 
 func consume_resources(amount):
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.RESOURCES)
 	resources -= amount
 	if resources < 0:
 		resources = 0
+	for b in placed_buildings:
+		b.notify_update(Global.StatType.RESOURCES)
 	if resources == 0:
 		win()
 	update_resource_bar()
@@ -430,13 +430,13 @@ func consume_resources(amount):
 
 
 func add_population(amount):
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.POPULATION)
-		b.notify_update(Global.StatType.DEMAND)
 	population += amount
 	var cap := get_population_cap()
 	if population > cap:
 		population = cap
+	for b in placed_buildings:
+		b.notify_update(Global.StatType.POPULATION)
+		b.notify_update(Global.StatType.DEMAND)
 	update_info_bar()
 
 
