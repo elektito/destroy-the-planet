@@ -25,16 +25,16 @@ expand_margin_left = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=4]
 size = 32
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 content_margin_left = 5.0
 content_margin_right = 5.0
 content_margin_top = 5.0
@@ -69,7 +69,7 @@ CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
 CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 CheckBox/constants/check_vadjust = 0
 CheckBox/constants/hseparation = 4
-CheckBox/fonts/font = SubResource( 6 )
+CheckBox/fonts/font = SubResource( 4 )
 CheckBox/icons/checked = ExtResource( 4 )
 CheckBox/icons/radio_checked = null
 CheckBox/icons/radio_unchecked = null
@@ -84,5 +84,5 @@ TooltipLabel/colors/font_color = Color( 1, 1, 1, 1 )
 TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
 TooltipLabel/constants/shadow_offset_x = 1
 TooltipLabel/constants/shadow_offset_y = 1
-TooltipLabel/fonts/font = SubResource( 4 )
-TooltipPanel/styles/panel = SubResource( 5 )
+TooltipLabel/fonts/font = SubResource( 5 )
+TooltipPanel/styles/panel = SubResource( 6 )
