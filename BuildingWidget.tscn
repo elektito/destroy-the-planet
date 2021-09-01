@@ -25,8 +25,6 @@ font_data = ExtResource( 2 )
 [node name="BuildingWidget" type="PanelContainer" groups=[
 "building_widgets",
 ]]
-anchor_right = 1.0
-anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -34,8 +32,8 @@ __meta__ = {
 }
 
 [node name="margin" type="MarginContainer" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 78.0
+margin_bottom = 58.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -44,14 +42,14 @@ custom_constants/margin_bottom = 4
 [node name="vbox" type="VBoxContainer" parent="margin"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 1276.0
-margin_bottom = 716.0
+margin_right = 74.0
+margin_bottom = 54.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="description" type="RichTextLabel" parent="margin/vbox"]
-margin_right = 1272.0
+margin_right = 70.0
 margin_bottom = 16.0
 custom_fonts/bold_italics_font = SubResource( 2 )
 custom_fonts/italics_font = SubResource( 3 )
@@ -63,9 +61,8 @@ fit_content_height = true
 scroll_active = false
 
 [node name="action_btn" type="Button" parent="margin/vbox"]
-margin_left = 1202.0
 margin_top = 20.0
-margin_right = 1272.0
+margin_right = 70.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 70, 30 )
 focus_mode = 0
