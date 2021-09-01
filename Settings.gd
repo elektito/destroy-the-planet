@@ -6,6 +6,8 @@ onready var master_bus = AudioServer.get_bus_index('Master')
 onready var music_bus = AudioServer.get_bus_index('Music')
 onready var sfx_bus = AudioServer.get_bus_index('SFX')
 
+var action_after_confirm := ''
+
 func _ready():
 	$master_slider.value = db2linear(AudioServer.get_bus_volume_db(master_bus))
 	$music_slider.value = db2linear(AudioServer.get_bus_volume_db(music_bus))
@@ -42,7 +44,9 @@ func _on_back_btn_pressed():
 
 
 func _on_exit_btn_pressed():
-	get_tree().quit()
+	action_after_confirm = 'exit'
+	$confirm_dialog.dialog_text = 'Are you sure you want to exit? You will permanently lose your current progress.'
+	$confirm_dialog.popup_centered()
 
 
 func _on_fullscreen_checkbox_toggled(button_pressed):
@@ -50,8 +54,13 @@ func _on_fullscreen_checkbox_toggled(button_pressed):
 
 
 func _on_new_game_btn_pressed():
-	$new_game_dialog.popup_centered()
+	action_after_confirm = 'reset'
+	$confirm_dialog.dialog_text = 'Are you sure you want to reset? You will permanently lose your current progress.'
+	$confirm_dialog.popup_centered()
 
 
-func _on_new_game_dialog_confirmed():
-	get_tree().reload_current_scene()
+func _on_confirm_dialog_confirmed():
+	if action_after_confirm == 'reset':
+		get_tree().reload_current_scene()
+	elif action_after_confirm == 'exit':
+		get_tree().quit()

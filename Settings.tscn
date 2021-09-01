@@ -182,7 +182,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="new_game_dialog" type="ConfirmationDialog" parent="."]
+[node name="confirm_dialog" type="ConfirmationDialog" parent="."]
 margin_left = 418.63
 margin_top = 345.296
 margin_right = 816.63
@@ -202,4 +202,4 @@ __meta__ = {
 [connection signal="pressed" from="exit_btn" to="." method="_on_exit_btn_pressed"]
 [connection signal="toggled" from="fullscreen_checkbox" to="." method="_on_fullscreen_checkbox_toggled"]
 [connection signal="pressed" from="new_game_btn" to="." method="_on_new_game_btn_pressed"]
-[connection signal="confirmed" from="new_game_dialog" to="." method="_on_new_game_dialog_confirmed"]
+[connection signal="confirmed" from="confirm_dialog" to="." method="_on_confirm_dialog_confirmed"]
