@@ -158,7 +158,7 @@ func _unhandled_input(event):
 
 func click_vfx():
 	var sprite = Sprite.new()
-	sprite.texture = preload("res://assets/particles/blackSmoke04.png")
+	sprite.texture = preload("res://assets/gfx/particles/blackSmoke04.png")
 	sprite.position = get_local_mouse_position()
 	add_child(sprite)
 	$click_vfx_tween.interpolate_property(sprite, 'scale', Vector2(1, 1), Vector2(2, 2), 0.1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
