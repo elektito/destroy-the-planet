@@ -99,6 +99,7 @@ autostart = true
 [node name="splash_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 autoplay = true
+bus = "SFX"
 
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_animation_finished"]
 [connection signal="timeout" from="animation_speed_timer" to="." method="_on_animation_speed_timer_timeout"]
