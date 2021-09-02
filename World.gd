@@ -497,6 +497,7 @@ func get_demand() -> int:
 
 
 func win():
+	game_over = true
 	for building in get_tree().get_nodes_in_group('buildings'):
 		building.operations_paused = true
 	for button in get_tree().get_nodes_in_group('building_buttons'):
