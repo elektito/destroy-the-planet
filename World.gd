@@ -17,7 +17,7 @@ var selected_building = null
 var snap_angles = []
 var used_angles = []
 var placed_buildings = []
-
+var game_over := false
 var prev_angle = null
 
 onready var building_info = {
@@ -385,6 +385,8 @@ func _on_placing_area_mouse_exited():
 
 
 func produce_money(amount):
+	if game_over:
+		return
 	money += amount
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.MONEY)
@@ -394,6 +396,8 @@ func produce_money(amount):
 
 
 func consume_money(amount):
+	if game_over:
+		return
 	money -= amount
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.MONEY)
@@ -403,6 +407,8 @@ func consume_money(amount):
 
 
 func produce_pollution(amount):
+	if game_over:
+		return
 	pollution += amount
 	if pollution > MAX_POLLUTION or pollution < 0: # overflow
 		pollution = MAX_POLLUTION
@@ -417,6 +423,8 @@ func produce_pollution(amount):
 
 
 func consume_resources(amount):
+	if game_over:
+		return
 	resources -= amount
 	if resources < 0:
 		resources = 0
@@ -430,6 +438,8 @@ func consume_resources(amount):
 
 
 func add_population(amount):
+	if game_over:
+		return
 	population += amount
 	var cap := get_population_cap()
 	if population > cap:
@@ -490,17 +500,25 @@ func get_demand() -> int:
 
 
 func win():
-	get_tree().paused = true
-	$victory_screen.set_process(true)
-	$victory_screen.set_physics_process(true)
-	$victory_screen.set_process_input(true)
-	$victory_screen/screen.visible = true
-	$victory_screen/fade_out_tween.interpolate_property($victory_screen/screen, 'modulate:a', 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	$victory_screen/fade_out_tween.interpolate_property($music, 'volume_db', $music.volume_db, -80, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	$victory_screen/fade_out_tween.start()
-	yield($victory_screen/fade_out_tween, "tween_all_completed")
-	$victory_screen/screen.start()
-
+	for building in get_tree().get_nodes_in_group('buildings'):
+		building.operations_paused = true
+	for button in get_tree().get_nodes_in_group('building_buttons'):
+		button.disabled = true
+	var interpolate_time := 1.0
+	var scrh : float = ProjectSettings.get('display/window/size/height')
+	$hud/hbox/vbox/resource_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$hud/hbox/vbox/info_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$victory_tween.interpolate_property($victory_banner_top, 'rect_position:y',  null, 0.0, interpolate_time, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($victory_banner_bottom, 'rect_position:y', null, scrh - $victory_banner_bottom.rect_size.y, interpolate_time, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($hud/hbox/vbox/resource_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($hud/hbox/vbox/info_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($music, 'volume_db', $music.volume_db, -80, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	$victory_tween.interpolate_property($ominous_background, 'volume_db', -80, 0, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	$victory_tween.start()
+	$end_sound.play()
+	$ominous_background.play()
+	$hud/hbox/vbox/resource_bar.visible = false
+	$hud/hbox/vbox/info_bar.visible = false
 
 
 func _on_screen_closed():
@@ -516,3 +534,16 @@ func show_settings_screen():
 func _on_settings_pressed():
 	$placement_preview_sound.play()
 	show_settings_screen()
+
+
+func _on_end_game_btn_pressed():
+	get_tree().paused = true
+	$victory_screen.set_process(true)
+	$victory_screen.set_physics_process(true)
+	$victory_screen.set_process_input(true)
+	$victory_screen/screen.visible = true
+	$victory_screen/fade_out_tween.interpolate_property($victory_screen/screen, 'modulate:a', 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_screen/fade_out_tween.interpolate_property($music, 'volume_db', $music.volume_db, -80, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	$victory_screen/fade_out_tween.start()
+	yield($victory_screen/fade_out_tween, "tween_all_completed")
+	$victory_screen/screen.start()

@@ -140,7 +140,7 @@ func perform_action(action):
 
 
 func _on_cycle_timer_timeout():
-	if decorative:
+	if decorative or operations_paused:
 		return
 	world.produce_pollution(get_pollution_per_cycle())
 	world.consume_resources(get_resource_usage_per_cycle())

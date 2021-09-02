@@ -95,7 +95,9 @@ frame_24/delay_sec = 0.0
 [sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0.25098 )
 
-[node name="Building" type="Node2D"]
+[node name="Building" type="Node2D" groups=[
+"buildings",
+]]
 script = ExtResource( 2 )
 selected = true
 

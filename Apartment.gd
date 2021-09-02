@@ -134,7 +134,7 @@ func perform_action(action):
 
 
 func _on_cycle_timer_timeout():
-	if decorative:
+	if decorative or operations_paused:
 		return
 	world.add_population(get_population_increment())
 

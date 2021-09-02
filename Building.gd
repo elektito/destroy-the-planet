@@ -10,6 +10,7 @@ export(bool) var selected : bool = false setget set_selected, get_selected
 export(bool) var upgrade_available : bool = false setget set_upgrade_available
 export(int, 0, 100) var smoke_rate : int = 1 setget set_smoke_rate, get_smoke_rate
 export(bool) var decorative := false
+export(bool) var operations_paused := false
 
 var outline_material : ShaderMaterial
 
