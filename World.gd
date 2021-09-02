@@ -70,11 +70,8 @@ func _ready():
 
 func create_plants():
 	var textures = [
-		#preload("res://assets/gfx/sprites/plant1.png"),
 		preload("res://assets/gfx/sprites/plant2.png"),
 		preload("res://assets/gfx/sprites/plant3.png"),
-		#preload("res://assets/gfx/sprites/plant4.png"),
-		#preload("res://assets/gfx/sprites/plant5.png"),
 		preload("res://assets/gfx/sprites/plant6.png"),
 		preload("res://assets/gfx/sprites/plant7.png"),
 		preload("res://assets/gfx/sprites/plant8.png"),
