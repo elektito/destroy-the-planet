@@ -12,6 +12,7 @@ func _ready():
 	$master_slider.value = db2linear(AudioServer.get_bus_volume_db(master_bus))
 	$music_slider.value = db2linear(AudioServer.get_bus_volume_db(music_bus))
 	$sfx_slider.value = db2linear(AudioServer.get_bus_volume_db(sfx_bus))
+	$fullscreen_checkbox.pressed = OS.window_fullscreen
 	
 	$master_slider.grab_focus()
 
@@ -23,14 +24,17 @@ func _input(_event):
 
 func _on_master_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(master_bus, linear2db(value))
+	Global.save_settings()
 
 
 func _on_music_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(music_bus, linear2db(value))
+	Global.save_settings()
 
 
 func _on_sfx_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(sfx_bus, linear2db(value))
+	Global.save_settings()
 
 
 func close_screen():
@@ -51,6 +55,7 @@ func _on_exit_btn_pressed():
 
 func _on_fullscreen_checkbox_toggled(button_pressed):
 	OS.window_fullscreen = button_pressed
+	Global.save_settings()
 
 
 func _on_new_game_btn_pressed():

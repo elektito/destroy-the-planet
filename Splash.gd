@@ -1,6 +1,8 @@
 extends Node2D
 
 func _ready():
+	Global.load_settings()
+	
 	randomize()
 	var n = 100
 	for i in range(n):

@@ -1,5 +1,7 @@
 class_name Global
 
+const SETTINGS_FILE := 'settings.json'
+
 enum StatType {
 	LEVEL,
 	POLLUTION,
@@ -92,3 +94,40 @@ static func get_all_node_children(node: Node) -> Array:
 		children.append(child)
 		children.append_array(get_all_node_children(child))
 	return children
+
+
+static func save_settings():
+	var master_bus = AudioServer.get_bus_index('Master')
+	var sfx_bus = AudioServer.get_bus_index('SFX')
+	var music_bus = AudioServer.get_bus_index('Music')
+	
+	var game_data = {
+		'master_volume': db2linear(AudioServer.get_bus_volume_db(master_bus)),
+		'sfx_volume': db2linear(AudioServer.get_bus_volume_db(sfx_bus)),
+		'music_volume': db2linear(AudioServer.get_bus_volume_db(music_bus)),
+		'fullscreen': OS.window_fullscreen,
+	}
+	var file = File.new()
+	file.open(SETTINGS_FILE, File.WRITE)
+	file.store_line(to_json(game_data))
+
+
+static func load_settings():
+	var master_bus = AudioServer.get_bus_index('Master')
+	var sfx_bus = AudioServer.get_bus_index('SFX')
+	var music_bus = AudioServer.get_bus_index('Music')
+	
+	var file = File.new()
+	if not file.file_exists(SETTINGS_FILE):
+		return
+	file.open(SETTINGS_FILE, File.READ)
+	var settings = parse_json(file.get_line())
+
+	if 'master_volume' in settings:
+		AudioServer.set_bus_volume_db(master_bus, linear2db(settings['master_volume']))
+	if 'sfx_volume' in settings:
+		AudioServer.set_bus_volume_db(sfx_bus, linear2db(settings['sfx_volume']))
+	if 'music_volume' in settings:
+		AudioServer.set_bus_volume_db(music_bus, linear2db(settings['music_volume']))
+	if 'fullscreen' in settings:
+		OS.window_fullscreen = settings['fullscreen']
