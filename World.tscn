@@ -14,7 +14,7 @@
 [ext_resource path="res://assets/audio/rumble.ogg" type="AudioStream" id=12]
 [ext_resource path="res://assets/audio/placement_preview.ogg" type="AudioStream" id=13]
 [ext_resource path="res://assets/audio/placement.ogg" type="AudioStream" id=14]
-[ext_resource path="res://assets/audio/Big Eyes.mp3" type="AudioStream" id=15]
+[ext_resource path="res://assets/audio/big-eyes.ogg" type="AudioStream" id=15]
 [ext_resource path="res://Settings.tscn" type="PackedScene" id=16]
 [ext_resource path="res://ToolboxTheme.tres" type="Theme" id=17]
 [ext_resource path="res://assets/gfx/icons/settings.png" type="Texture" id=18]
