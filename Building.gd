@@ -58,7 +58,7 @@ func get_selected() -> bool:
 
 
 func set_smoke_rate(value : int):
-	for node in get_children():
+	for node in Global.get_all_node_children(self):
 		if node.is_in_group('smoke'):
 			if node.rate != value:
 				node.rate = value

@@ -84,3 +84,11 @@ static func get_level_upgrade_stats(current_level, next_level):
 					'value': 'x' + str(multiplier),
 				})
 	return stats
+
+
+static func get_all_node_children(node: Node) -> Array:
+	var children := []
+	for child in node.get_children():
+		children.append(child)
+		children.append_array(get_all_node_children(child))
+	return children
