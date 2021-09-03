@@ -4,6 +4,11 @@ const TRILLION := 1000000000000
 const MAX_RESOURCES := 10000 * TRILLION
 const MAX_POLLUTION := 10000 * TRILLION
 
+const WHEEL_ROTATION_ACCEL := 1.0
+const MAX_ROTATION_SPEED := 4.0
+const ROTATION_DAMP := 0.9
+
+
 var pollution := 0
 var resources := MAX_RESOURCES
 var money := 100
@@ -19,6 +24,7 @@ var used_angles = []
 var placed_buildings = []
 var game_over := false
 var prev_angle = null
+var rotation_speed = 0.0
 
 onready var building_info = {
 	Global.BuildingType.FACTORY: {
@@ -151,6 +157,23 @@ func _unhandled_input(event):
 			selected_building.selected = false
 			selected_building = null
 			update_building_panel()
+		
+		if event.button_index == BUTTON_WHEEL_UP:
+			rotation_speed += WHEEL_ROTATION_ACCEL
+			if rotation_speed > MAX_ROTATION_SPEED:
+				rotation_speed = MAX_ROTATION_SPEED
+		elif event.button_index == BUTTON_WHEEL_DOWN:
+			rotation_speed -= WHEEL_ROTATION_ACCEL
+			if rotation_speed < -MAX_ROTATION_SPEED:
+				rotation_speed = -MAX_ROTATION_SPEED
+
+
+func _physics_process(delta):
+	if rotation_speed != 0.0:
+		$placing_area.rotate(rotation_speed * delta)
+		rotation_speed *= ROTATION_DAMP
+		if is_zero_approx(rotation_speed):
+			rotation_speed = 0.0
 
 
 func click_vfx():
