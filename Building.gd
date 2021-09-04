@@ -13,6 +13,7 @@ export(bool) var decorative := false
 export(bool) var operations_paused := false
 
 var outline_material : ShaderMaterial
+var shaking := false
 
 func _ready():
 	for node in get_children():
@@ -94,6 +95,7 @@ func shake():
 	if Engine.is_editor_hint():
 		return
 	
+	shaking = true
 	var parent_pos = $base.global_position
 	var pos = $base/texture.rect_global_position
 	var initial_rotation = $base.rotation
@@ -121,9 +123,12 @@ func shake():
 	$base.global_position = parent_pos
 	$base/texture.rect_global_position = pos
 	$base.rotation = initial_rotation
+	shaking = false
 
 
 func _on_main_area_mouse_entered():
+	if shaking:
+		return
 	$building_pop_tween.stop_all()
 	$building_pop_tween.interpolate_property(self, 'scale', null, Vector2(1.2, 1.2), BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$building_pop_tween.interpolate_property($base, 'position:y', null, -8, BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
@@ -131,6 +136,8 @@ func _on_main_area_mouse_entered():
 
 
 func _on_main_area_mouse_exited():
+	if shaking:
+		return
 	$building_pop_tween.stop_all()
 	$building_pop_tween.interpolate_property(self, 'scale', null, Vector2(1.0, 1.0), BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$building_pop_tween.interpolate_property($base, 'position:y', null, 0, BUILDING_POP_TIME, Tween.TRANS_LINEAR, Tween.EASE_OUT)
