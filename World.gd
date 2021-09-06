@@ -118,7 +118,7 @@ func _input(event):
 			$placing_area/preview_icon/shape.set_deferred('disabled', true)
 			$placing_area/preview_icon.visible = false
 		
-		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area:
+		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area and is_zero_approx(rotation_speed):
 			if not $placing_area/preview_icon.rotation in used_angles:
 				placing_icon.visible = false
 				$placing_area/preview_icon.visible = false
