@@ -175,7 +175,7 @@ func _physics_process(delta):
 	if rotation_speed != 0.0:
 		$placing_area.rotate(rotation_speed * delta)
 		rotation_speed *= ROTATION_DAMP
-		if is_zero_approx(rotation_speed):
+		if abs(rotation_speed) < 0.1:
 			rotation_speed = 0.0
 
 
