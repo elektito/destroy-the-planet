@@ -115,14 +115,14 @@ func _input(event):
 		if placing >= 0 and event.button_index == BUTTON_RIGHT:
 			placing = -1
 			placing_icon.visible = false
-			$placing_area/preview_icon.monitorable = false
+			$placing_area/preview_icon/shape.set_deferred('disabled', true)
 			$placing_area/preview_icon.visible = false
 		
 		if placing >= 0 and event.button_index == BUTTON_LEFT and inside_placing_area:
 			if not $placing_area/preview_icon.rotation in used_angles:
 				placing_icon.visible = false
 				$placing_area/preview_icon.visible = false
-				$placing_area/preview_icon.monitorable = false
+				$placing_area/preview_icon/shape.set_deferred('disabled', true)
 				var b = building_info[placing]['scene'].instance()
 				b.z_index = -10
 				b.position = $placing_area/preview_icon.position
@@ -387,12 +387,7 @@ func _on_placing_area_mouse_entered():
 	inside_placing_area = true
 	if placing >= 0:
 		$placing_area/preview_icon.visible = true
-		$placing_area/preview_icon.monitorable = true
-		
-		# Workaround for a bug that means plants will not detect a collision
-		# with the preview icons before it's moved. The position will be
-		# immediately fixed so this won't be visible to the player.
-		$placing_area/preview_icon.position += Vector2(1000, 0)
+		$placing_area/preview_icon/shape.set_deferred('disabled', false)
 		
 		placing_icon.visible = false
 
@@ -403,7 +398,7 @@ func _on_placing_area_mouse_exited():
 	inside_placing_area = false
 	if placing >= 0:
 		$placing_area/preview_icon.visible = false
-		$placing_area/preview_icon.monitorable = false
+		$placing_area/preview_icon/shape.set_deferred('disabled', true)
 		placing_icon.visible = true
 
 
