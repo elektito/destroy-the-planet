@@ -19,6 +19,7 @@ func _ready():
 	for node in get_children():
 		if node.is_in_group('smoke_positions'):
 				var smoke = $smoke_blueprint.duplicate()
+				$base.add_child(smoke)
 				smoke.visible = true
 				smoke.emitting = true
 				smoke.position = node.position - $base.position
@@ -26,7 +27,6 @@ func _ready():
 					smoke.rate = 100
 					smoke.preprocess = 10
 				smoke.add_to_group('smoke')
-				$base.add_child(smoke)
 	
 	if decorative:
 		return

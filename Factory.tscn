@@ -11,23 +11,20 @@ texture = ExtResource( 3 )
 [node name="texture" parent="base" index="0"]
 texture = ExtResource( 3 )
 
-[node name="smoke_blueprint" parent="." index="9"]
-emitting = true
-
-[node name="smoke_pos1" type="Position2D" parent="." index="10" groups=[
+[node name="smoke_pos1" type="Position2D" parent="." index="8" groups=[
 "smoke_positions",
 ]]
 position = Vector2( -8.34698, -11.8118 )
 
-[node name="smoke_pos2" type="Position2D" parent="." index="11" groups=[
+[node name="smoke_pos2" type="Position2D" parent="." index="9" groups=[
 "smoke_positions",
 ]]
 position = Vector2( 3.77975, -11.8118 )
 
-[node name="upgrade_available_pos" type="Position2D" parent="." index="12"]
+[node name="upgrade_available_pos" type="Position2D" parent="." index="10"]
 position = Vector2( -15.347, -20.2215 )
 
-[node name="cycle_timer" type="Timer" parent="." index="13"]
+[node name="cycle_timer" type="Timer" parent="." index="11"]
 autostart = true
 
 [connection signal="timeout" from="cycle_timer" to="." method="_on_cycle_timer_timeout"]
