@@ -96,6 +96,13 @@ func get_population_cap():
 	return current_level['base_population_cap']
 
 
+func get_level_upgrade_price(level):
+	if level < 8:
+		return int(pow(100, level))
+	else:
+		return int(pow(100, 7)) * int(pow(2, level - 7))
+
+
 func get_actions():
 	var actions = []
 	if level < levels[-1]['number']:
@@ -104,7 +111,7 @@ func get_actions():
 			'name': 'level',
 			'title': 'Upgrade to Level ' + str(level + 1),
 			'description': 'Upgrade apartment building to level ' + str(level + 1) + '.',
-			'price': int(pow(100, level)),
+			'price': get_level_upgrade_price(level),
 			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
 	
