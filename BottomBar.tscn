@@ -8,9 +8,8 @@
 bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
 
 [node name="BottomBar" type="PanelContainer"]
-margin_top = 684.0
 margin_right = 1065.0
-margin_bottom = 720.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 0, 36 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )

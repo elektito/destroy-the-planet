@@ -517,19 +517,19 @@ func win():
 		button.disabled = true
 	var interpolate_time := 1.0
 	var scrh : float = ProjectSettings.get('display/window/size/height')
-	$hud/hbox/vbox/resource_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	$hud/hbox/vbox/info_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$hud/hbox/vbox/top_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$hud/hbox/vbox/bottom_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$victory_tween.interpolate_property($victory_banner_top, 'rect_position:y',  null, 0.0, interpolate_time, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 	$victory_tween.interpolate_property($victory_banner_bottom, 'rect_position:y', null, scrh - $victory_banner_bottom.rect_size.y, interpolate_time, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-	$victory_tween.interpolate_property($hud/hbox/vbox/resource_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	$victory_tween.interpolate_property($hud/hbox/vbox/info_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($hud/hbox/vbox/top_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($hud/hbox/vbox/bottom_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$victory_tween.interpolate_property($music, 'volume_db', $music.volume_db, -80, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$victory_tween.interpolate_property($ominous_background, 'volume_db', -80, 0, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$victory_tween.start()
 	$end_sound.play()
 	$ominous_background.play()
-	$hud/hbox/vbox/resource_bar.visible = false
-	$hud/hbox/vbox/info_bar.visible = false
+	$hud/hbox/vbox/top_bar.visible = false
+	$hud/hbox/vbox/bottom_bar.visible = false
 
 
 func _on_screen_closed():
