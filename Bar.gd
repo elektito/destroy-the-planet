@@ -1,9 +1,6 @@
 extends 'Building.gd'
 tool
 
-signal upgraded(building)
-signal info_updated(building, item, value)
-
 const type := Global.BuildingType.BAR
 
 var levels = [
