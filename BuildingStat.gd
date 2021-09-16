@@ -20,13 +20,18 @@ var type_info = {
 		'texture': preload("res://assets/gfx/icons/usage.png"),
 		'human_readable': true,
 	},
+	Global.StatType.PROFIT: {
+		'name': 'Profit per Sale',
+		'texture': preload("res://assets/gfx/icons/profit.png"),
+		'human_readable': true,
+	},
 	Global.StatType.MONEY_PER_CYCLE: {
 		'name': 'Money (per cycle)',
 		'texture': preload("res://assets/gfx/icons/money.png"),
 		'human_readable': true,
 	},
-	Global.StatType.ENTERTAINMENT: {
-		'name': 'Entertainment',
+	Global.StatType.ADS: {
+		'name': 'Ads',
 		'texture': preload("res://assets/gfx/icons/entertainment.png"),
 		'human_readable': true,
 	},

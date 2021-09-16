@@ -40,29 +40,29 @@ flags = 5
 atlas = SubResource( 4 )
 region = Rect2( 128, 300, 512, 600 )
 
-[sub_resource type="StreamTexture" id=6]
-flags = 5
-load_path = "res://.import/mine.png-6e597bfb5a7c7612bb55dc80efe8800f.stex"
-
-[sub_resource type="AtlasTexture" id=7]
-flags = 5
-atlas = SubResource( 6 )
-region = Rect2( 128, 320, 512, 600 )
-
-[sub_resource type="AtlasTexture" id=8]
-flags = 5
-atlas = ExtResource( 1 )
-region = Rect2( 128, 320, 512, 600 )
-
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=6]
 flags = 5
 atlas = ExtResource( 2 )
 region = Rect2( 128, 310, 512, 600 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=7]
 flags = 5
 atlas = ExtResource( 5 )
 region = Rect2( 128, 310, 512, 600 )
+
+[sub_resource type="StreamTexture" id=8]
+flags = 5
+load_path = "res://.import/mine.png-6e597bfb5a7c7612bb55dc80efe8800f.stex"
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 5
+atlas = SubResource( 8 )
+region = Rect2( 128, 320, 512, 600 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 5
+atlas = ExtResource( 1 )
+region = Rect2( 128, 320, 512, 600 )
 
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.6, 0.898039, 0.313726, 1 )
@@ -171,7 +171,7 @@ icon = SubResource( 5 )
 flat = false
 expand_icon = true
 
-[node name="mine_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
+[node name="apartment_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
 "building_buttons",
 "toolbox_buttons",
 ]]
@@ -181,11 +181,11 @@ margin_bottom = 80.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
 theme = ExtResource( 17 )
-icon = SubResource( 7 )
+icon = SubResource( 6 )
 flat = false
 expand_icon = true
 
-[node name="powerplant_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
+[node name="bar_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
 "building_buttons",
 "toolbox_buttons",
 ]]
@@ -195,11 +195,11 @@ margin_bottom = 120.0
 rect_min_size = Vector2( 40, 40 )
 focus_mode = 0
 theme = ExtResource( 17 )
-icon = SubResource( 8 )
+icon = SubResource( 7 )
 flat = false
 expand_icon = true
 
-[node name="apartment_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
+[node name="mine_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
 "building_buttons",
 "toolbox_buttons",
 ]]
@@ -213,7 +213,7 @@ icon = SubResource( 9 )
 flat = false
 expand_icon = true
 
-[node name="bar_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
+[node name="powerplant_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
 "building_buttons",
 "toolbox_buttons",
 ]]
@@ -451,7 +451,7 @@ text = "Power:"
 [node name="power_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
 margin_left = 47.0
 margin_top = 8.0
-margin_right = 188.0
+margin_right = 204.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -459,24 +459,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep1" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 192.0
-margin_right = 196.0
+margin_left = 208.0
+margin_right = 212.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="population_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 200.0
+margin_left = 216.0
 margin_top = 8.0
-margin_right = 273.0
+margin_right = 289.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Population:"
 
 [node name="population_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 277.0
+margin_left = 293.0
 margin_top = 8.0
-margin_right = 419.0
+margin_right = 450.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -484,24 +484,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep2" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 423.0
-margin_right = 427.0
+margin_left = 454.0
+margin_right = 458.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="mining_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 431.0
+margin_left = 462.0
 margin_top = 8.0
-margin_right = 478.0
+margin_right = 509.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Mining:"
 
 [node name="mining_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 482.0
+margin_left = 513.0
 margin_top = 8.0
-margin_right = 624.0
+margin_right = 670.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -509,24 +509,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep3" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 628.0
-margin_right = 632.0
+margin_left = 674.0
+margin_right = 678.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
-[node name="entertainment_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 636.0
+[node name="ads_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 682.0
 margin_top = 8.0
-margin_right = 726.0
+margin_right = 708.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
-text = "Entertanment:"
+text = "Ads:"
 
-[node name="entertainment_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 730.0
+[node name="ads_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 712.0
 margin_top = 8.0
-margin_right = 872.0
+margin_right = 869.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -534,28 +534,28 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep4" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 876.0
-margin_right = 880.0
+margin_left = 873.0
+margin_right = 877.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
-[node name="demand_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 884.0
+[node name="reach_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 881.0
 margin_top = 8.0
-margin_right = 940.0
+margin_right = 924.0
 margin_bottom = 23.0
-hint_tooltip = "Demand depends on the population and entertainment."
+hint_tooltip = "Percentage of population that the factories can sell to. Reach depends on the number of ads being produced."
 mouse_filter = 1
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
-text = "Demand:"
+text = "Reach:"
 
-[node name="demand_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 944.0
+[node name="reach_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
+margin_left = 928.0
 margin_top = 8.0
 margin_right = 1086.0
 margin_bottom = 23.0
-hint_tooltip = "Demand depends on the population and entertainment."
+hint_tooltip = "Percentage of population that the factories can sell to. Reach depends on the number of ads being produced."
 mouse_filter = 1
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -685,15 +685,19 @@ bus = "Music"
 wait_time = 0.2
 one_shot = true
 
+[node name="recruiter_cycle_timer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="mouse_entered" from="placing_area" to="." method="_on_placing_area_mouse_entered"]
 [connection signal="mouse_exited" from="placing_area" to="." method="_on_placing_area_mouse_exited"]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/factory_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="hud/hbox/toolbox/vbox/mine_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 2 ]]
-[connection signal="pressed" from="hud/hbox/toolbox/vbox/powerplant_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/apartment_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 3 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/bar_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 4 ]]
+[connection signal="pressed" from="hud/hbox/toolbox/vbox/mine_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="hud/hbox/toolbox/vbox/powerplant_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/settings" to="." method="_on_settings_pressed"]
 [connection signal="tween_completed" from="click_vfx_tween" to="." method="_on_click_vfx_tween_tween_completed"]
 [connection signal="closed" from="settings/screen" to="." method="_on_screen_closed"]
 [connection signal="pressed" from="victory_banner_top/margin/hbox/end_game_btn" to="." method="_on_end_game_btn_pressed"]
 [connection signal="timeout" from="rotation_reset_timer" to="." method="_on_rotation_reset_timer_timeout"]
+[connection signal="timeout" from="recruiter_cycle_timer" to="." method="_on_recruiter_cycle_timer_timeout"]

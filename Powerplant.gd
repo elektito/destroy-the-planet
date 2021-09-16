@@ -121,7 +121,7 @@ func get_actions():
 	return actions
 
 
-func perform_action(action):
+func perform_action(action, _count):
 	match action['name']:
 		'level':
 			level += 1
@@ -149,6 +149,11 @@ func update_smoke():
 	var rate = float(get_pollution_per_cycle()) / max_pollution
 	if rate > 1.0:
 		rate = 1.0
+	
+	# use sqrt so that growth is fast at the beginning, but becomes slower as we
+	# approach one
+	rate = sqrt(rate)
+	
 	rate = int(rate * 100)
 	if rate == 0:
 		rate = 1

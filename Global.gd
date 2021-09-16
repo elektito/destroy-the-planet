@@ -10,13 +10,15 @@ enum StatType {
 	RESOURCE_USAGE_PER_CYCLE,
 	MONEY,
 	MONEY_PER_CYCLE,
-	ENTERTAINMENT,
+	PROFIT,
+	ADS,
 	POWER,
 	MINING,
 	POPULATION,
 	POPULATION_CAP,
 	POPULATION_INCREASE_PER_CYCLE,
-	DEMAND,
+	REACH,
+	RECRUITERS,
 }
 
 enum BuildingType {
@@ -68,23 +70,31 @@ static func human_readable_money(value : int) -> String:
 static func get_level_upgrade_stats(current_level, next_level):
 	var stats = []
 	var key_to_stat_type = {
-		'base_money_per_cycle': StatType.MONEY_PER_CYCLE,
+		'base_profit_per_sale': StatType.PROFIT,
 		'base_pollution_per_cycle': StatType.POLLUTION_PER_CYCLE,
 		'base_resource_usage_per_cycle': StatType.RESOURCE_USAGE_PER_CYCLE,
 		'base_power': StatType.POWER,
-		'base_entertainment': StatType.ENTERTAINMENT,
+		'base_ads': StatType.ADS,
 		'base_population_increment': StatType.POPULATION_INCREASE_PER_CYCLE,
 		'base_population_cap': StatType.POPULATION_CAP,
 		'base_mining': StatType.MINING,
+		'money_per_cycle': StatType.MONEY_PER_CYCLE,
 	}
 	for key in current_level:
 		if key in key_to_stat_type:
 			var multiplier = next_level[key] / current_level[key]
-			if multiplier != 1:
+			if multiplier > 1:
 				stats.append({
 					'type': key_to_stat_type[key],
 					'value': 'x' + str(multiplier),
 				})
+			elif multiplier == 1:
+				var diff = int(next_level[key] - current_level[key])
+				if diff > 0:
+					stats.append({
+						'type': key_to_stat_type[key],
+						'value': '+' + str(diff),
+					})
 	return stats
 
 

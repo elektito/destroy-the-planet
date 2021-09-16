@@ -12,6 +12,10 @@ var pollution := 0
 var resources := MAX_RESOURCES
 var money := 100
 var population := 0
+var recruiters := 1
+var recruiter_price := 10
+var population_inc_per_recruiter := 1
+var recruiter_price_increase := 10
 
 var click_money := 10
 
@@ -213,8 +217,8 @@ func _on_building_info_updated(building, item, _value):
 	for b in placed_buildings:
 		if b != building:
 			b.notify_update(item)
-		if item in [Global.StatType.POPULATION_INCREASE_PER_CYCLE, Global.StatType.ENTERTAINMENT]:
-			b.notify_update(Global.StatType.DEMAND)
+		if item in [Global.StatType.ADS]:
+			b.notify_update(Global.StatType.REACH)
 	
 	# No need to update the building panel anymore here, because building stats
 	# automatically update when the info_updated signal of the building is
@@ -248,14 +252,16 @@ func update_building_panel():
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 		for action in selected_building.get_actions():
 			var widget = preload("res://BuildingWidget.tscn").instance()
+			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 			widget.text = '[b]' + action['title'] + '[/b]\n\n' + action['description']
 			widget.price = action['price']
 			widget.button_disabled = (money < action['price'])
 			if 'button_text' in action:
 				widget.button_text = action['button_text']
+			widget.batch_enabled = action.get('batch_enabled', false)
 			widget.set_stats(action['stats'])
 			widget.connect('action_button_clicked', self, '_on_action_button_clicked', [widget, action])
-			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
+			widget.connect("count_changed", self, '_on_batch_size_changed', [widget, action])
 
 
 func update_resource_bar():
@@ -288,22 +294,26 @@ func update_toolbox():
 
 
 func update_info_bar():
-	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = Global.human_readable_money(get_population()) + '/' + Global.human_readable_money(get_population_cap())
+	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = Global.human_readable_money(get_population()) + '/' + Global.human_readable_money(get_population_cap()) + ' (+' + Global.human_readable_money(get_population_increment_per_cycle()) + ')'
 	$hud/hbox/vbox/info_bar/margin/hbox/power_value_label.text = str(get_power())
 	$hud/hbox/vbox/info_bar/margin/hbox/mining_value_label.text = str(get_mining())
-	$hud/hbox/vbox/info_bar/margin/hbox/entertainment_value_label.text = Global.human_readable_money(get_entertainment())
-	$hud/hbox/vbox/info_bar/margin/hbox/demand_value_label.text = str(get_demand())
+	$hud/hbox/vbox/info_bar/margin/hbox/ads_value_label.text = Global.human_readable_money(get_ads())
+	$hud/hbox/vbox/info_bar/margin/hbox/reach_value_label.text = '%.2f%%' % (get_reach() * 100) #str(get_reach() * 100) + '%'
 
 
 func update_action_widgets():
 	for widget in get_tree().get_nodes_in_group('building_widgets'):
-		widget.button_disabled = (money < widget.price)
+		widget.button_disabled = (money < widget.price * widget.get_selected_count())
 
 
-func _on_action_button_clicked(_widget, action):
-	consume_money(action['price'])
-	selected_building.perform_action(action)
+func _on_action_button_clicked(count, _widget, action):
+	consume_money(action['price'] * count)
+	selected_building.perform_action(action, count)
 	$placement_sound.play()
+
+
+func _on_batch_size_changed(count, widget, action):
+	widget.button_disabled = (money < action['price'] * count)
 
 
 func get_price(building) -> int:
@@ -461,8 +471,29 @@ func add_population(amount):
 		population = cap
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.POPULATION)
-		b.notify_update(Global.StatType.DEMAND)
 	update_info_bar()
+
+
+func hire_recruiter(count: int = 1):
+	recruiters += count
+	recruiter_price += count * recruiter_price_increase
+	for b in placed_buildings:
+		b.notify_update(Global.StatType.POPULATION_INCREASE_PER_CYCLE)
+		b.notify_update(Global.StatType.RECRUITERS)
+	update_building_panel()
+	update_info_bar()
+
+
+func get_recruiter_price():
+	return recruiter_price
+
+
+func get_recruiter_count():
+	return recruiters
+
+
+func get_population_increment_per_cycle():
+	return recruiters * population_inc_per_recruiter
 
 
 func get_population() -> int:
@@ -471,7 +502,7 @@ func get_population() -> int:
 
 func get_population_cap() -> int:
 	var apartments = get_placed_buildings(Global.BuildingType.APARTMENT_BUILDING)
-	var cap := 0
+	var cap := 100 # initial cap
 	for apartment in apartments:
 		cap += apartment.get_population_cap()
 	return cap
@@ -493,25 +524,27 @@ func get_mining() -> int:
 	return mining
 
 
-func get_entertainment() -> int:
+func get_ads() -> int:
 	var bars = get_placed_buildings(Global.BuildingType.BAR)
-	var entertainment := 0
+	var ads := 0
 	for bar in bars:
-		entertainment += bar.get_entertainment()
-	return entertainment
+		ads += bar.get_ads()
+	return ads
 
 
-func get_demand() -> int:
-	var pop = get_population()
-	if pop == 0:
-		pop = 1
-	var entertainment = get_entertainment()
-	if entertainment == 0:
-		entertainment = 1
-	var demand = int(log(pop * entertainment) / log(10) )
-	if demand == 0:
-		demand = 1
-	return demand
+func get_reach() -> float:
+	var ads = get_ads()
+	
+	# the following function ensures that reach is always in range [0, 1]. 
+	# you can adjust a and b parameters to change the rate of the function.
+	var a := 20.0
+	var b := 2.0
+	var reach := 1 - log(a) / log(a + b * ads)
+	
+	if reach < 0.01:
+		return 0.01
+	
+	return reach
 
 
 func win():
@@ -568,3 +601,7 @@ func _on_end_game_btn_pressed():
 func _on_rotation_reset_timer_timeout():
 	if not Input.is_action_pressed("rotate_left") and not Input.is_action_pressed("rotate_right"):
 		rotation_accel = 0.0
+
+
+func _on_recruiter_cycle_timer_timeout():
+	add_population(recruiters * population_inc_per_recruiter)

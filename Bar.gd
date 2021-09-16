@@ -7,37 +7,37 @@ var levels = [
 	{
 		'number': 1,
 		'description': 'Level 1 bar.',
-		'base_entertainment': 2,
+		'base_ads': 1,
 	},
 	{
 		'number': 2,
 		'description': 'Level 2 bar.',
-		'base_entertainment': 10,
+		'base_ads': 2,
 	},
 	{
 		'number': 3,
 		'description': 'Level 3 bar.',
-		'base_entertainment': 500,
+		'base_ads': 3,
 	},
 	{
 		'number': 4,
 		'description': 'Level 4 bar.',
-		'base_entertainment': 25000,
+		'base_ads': 4,
 	},
 	{
 		'number': 5,
 		'description': 'Level 5 bar.',
-		'base_entertainment': 1000000,
+		'base_ads': 5,
 	},
 	{
 		'number': 6,
 		'description': 'Level 6 bar.',
-		'base_entertainment': 50000000,
+		'base_ads': 6,
 	},
 	{
 		'number': 7,
 		'description': 'Level 7 bar.',
-		'base_entertainment': 1000000000,
+		'base_ads': 7,
 	},
 ]
 var current_level = levels[0]
@@ -60,14 +60,14 @@ func get_stats():
 			'value': str(level),
 		},
 		{
-			'type': Global.StatType.ENTERTAINMENT,
-			'value': str(get_entertainment()),
+			'type': Global.StatType.ADS,
+			'value': str(get_ads()),
 		},
 	]
 
 
-func get_entertainment():
-	return current_level['base_entertainment']
+func get_ads():
+	return current_level['base_ads']
 
 
 func get_actions():
@@ -85,13 +85,13 @@ func get_actions():
 	return actions
 
 
-func perform_action(action):
+func perform_action(action, _count):
 	match action['name']:
 		'level':
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
-			emit_signal("info_updated", self, Global.StatType.ENTERTAINMENT, get_entertainment())
+			emit_signal("info_updated", self, Global.StatType.ADS, get_ads())
 			update_upgrade_label(self)
 
 

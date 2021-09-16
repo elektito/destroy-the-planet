@@ -78,22 +78,8 @@ func get_pollution_per_cycle():
 	return current_level['base_pollution_per_cycle']
 
 
-func get_demand_factor():
-	var factor = world.get_demand() * 10
-	if factor == 0:
-		factor = 1
-	return factor
-
-
-func get_power_factor():
-	var factor = world.get_power()
-	if factor == 0:
-		factor = 1
-	return factor
-
-
 func get_resource_usage_per_cycle():
-	return current_level['base_resource_usage_per_cycle'] * get_demand_factor() * get_power_factor()
+	return 0
 
 
 func get_mining():
@@ -124,7 +110,7 @@ func get_actions():
 	return actions
 
 
-func perform_action(action):
+func perform_action(action, _count):
 	match action['name']:
 		'level':
 			level += 1
