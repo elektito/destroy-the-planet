@@ -21,6 +21,7 @@
 [ext_resource path="res://EndScreen.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/audio/ominous-background.ogg" type="AudioStream" id=20]
 [ext_resource path="res://TopBar.tscn" type="PackedScene" id=21]
+[ext_resource path="res://BottomBar.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 22 )
@@ -75,9 +76,6 @@ font_data = ExtResource( 7 )
 [sub_resource type="DynamicFont" id=13]
 use_filter = true
 font_data = ExtResource( 6 )
-
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
 
 [sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0, 0, 0, 1 )
@@ -321,152 +319,7 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="info_bar" type="PanelContainer" parent="hud/hbox/vbox"]
-margin_top = 684.0
-margin_right = 1065.0
-margin_bottom = 720.0
-rect_min_size = Vector2( 0, 36 )
-mouse_filter = 2
-custom_styles/panel = SubResource( 14 )
-
-[node name="margin" type="MarginContainer" parent="hud/hbox/vbox/info_bar"]
-margin_right = 1065.0
-margin_bottom = 36.0
-mouse_filter = 2
-custom_constants/margin_right = 2
-custom_constants/margin_top = 2
-custom_constants/margin_left = 2
-custom_constants/margin_bottom = 2
-
-[node name="hbox" type="HBoxContainer" parent="hud/hbox/vbox/info_bar/margin"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 1063.0
-margin_bottom = 34.0
-mouse_filter = 2
-alignment = 1
-
-[node name="power_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_top = 8.0
-margin_right = 43.0
-margin_bottom = 23.0
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Power:"
-
-[node name="power_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 47.0
-margin_top = 8.0
-margin_right = 199.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "0"
-
-[node name="sep1" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 203.0
-margin_right = 207.0
-margin_bottom = 32.0
-theme = ExtResource( 10 )
-
-[node name="population_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 211.0
-margin_top = 8.0
-margin_right = 284.0
-margin_bottom = 23.0
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Population:"
-
-[node name="population_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 288.0
-margin_top = 8.0
-margin_right = 440.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "0"
-
-[node name="sep2" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 444.0
-margin_right = 448.0
-margin_bottom = 32.0
-theme = ExtResource( 10 )
-
-[node name="mining_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 452.0
-margin_top = 8.0
-margin_right = 499.0
-margin_bottom = 23.0
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Mining:"
-
-[node name="mining_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 503.0
-margin_top = 8.0
-margin_right = 655.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "0"
-
-[node name="sep3" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 659.0
-margin_right = 663.0
-margin_bottom = 32.0
-theme = ExtResource( 10 )
-
-[node name="ads_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 667.0
-margin_top = 8.0
-margin_right = 693.0
-margin_bottom = 23.0
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Ads:"
-
-[node name="ads_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 697.0
-margin_top = 8.0
-margin_right = 849.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "0"
-
-[node name="sep4" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 853.0
-margin_right = 857.0
-margin_bottom = 32.0
-theme = ExtResource( 10 )
-
-[node name="reach_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 861.0
-margin_top = 8.0
-margin_right = 904.0
-margin_bottom = 23.0
-hint_tooltip = "Percentage of population that the factories can sell to. Reach depends on the number of ads being produced."
-mouse_filter = 1
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Reach:"
-
-[node name="reach_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 908.0
-margin_top = 8.0
-margin_right = 1061.0
-margin_bottom = 23.0
-hint_tooltip = "Percentage of population that the factories can sell to. Reach depends on the number of ads being produced."
-mouse_filter = 1
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "0"
+[node name="bottom_bar" parent="hud/hbox/vbox" instance=ExtResource( 22 )]
 
 [node name="placing_icon" type="Sprite" parent="hud"]
 visible = false

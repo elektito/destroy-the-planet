@@ -76,9 +76,9 @@ func _ready():
 	
 	update_toolbox()
 	update_building_panel()
-	update_info_bar()
 	
 	$hud/hbox/vbox/top_bar.init(self)
+	$hud/hbox/vbox/bottom_bar.init(self)
 
 
 func create_plants():
@@ -145,7 +145,6 @@ func _input(event):
 				used_angles.append($placing_area/preview_icon.rotation)
 				placed_buildings.append(b)
 				update_toolbox()
-				update_info_bar()
 				update_building_panel()
 				emit_signal("info_updated", self, Global.StatType.MONEY, money)
 
@@ -213,7 +212,6 @@ func _on_building_clicked(building):
 
 func _on_building_upgraded(_building):
 	update_building_panel()
-	update_info_bar()
 
 
 func _on_building_info_updated(building, item, _value):
@@ -287,14 +285,6 @@ func update_toolbox():
 		var building_price = get_price(building_type)
 		btn.hint_tooltip = building_name + '\nCost: ' + Global.human_readable(building_price)
 		btn.disabled = (money < building_price)
-
-
-func update_info_bar():
-	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = Global.human_readable(get_population()) + '/' + Global.human_readable(get_population_cap()) + ' (+' + Global.human_readable(get_population_increment_per_cycle()) + ')'
-	$hud/hbox/vbox/info_bar/margin/hbox/power_value_label.text = str(get_power())
-	$hud/hbox/vbox/info_bar/margin/hbox/mining_value_label.text = str(get_mining())
-	$hud/hbox/vbox/info_bar/margin/hbox/ads_value_label.text = Global.human_readable(get_ads())
-	$hud/hbox/vbox/info_bar/margin/hbox/reach_value_label.text = '%.2f%%' % (get_reach() * 100) #str(get_reach() * 100) + '%'
 
 
 func update_action_widgets():
@@ -467,7 +457,7 @@ func add_population(amount):
 		population = cap
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.POPULATION)
-	update_info_bar()
+	emit_signal("info_updated", self, Global.StatType.POPULATION, population)
 
 
 func hire_recruiter(count: int = 1):
@@ -477,7 +467,7 @@ func hire_recruiter(count: int = 1):
 		b.notify_update(Global.StatType.POPULATION_INCREASE_PER_CYCLE)
 		b.notify_update(Global.StatType.RECRUITERS)
 	update_building_panel()
-	update_info_bar()
+	emit_signal("info_updated", self, Global.StatType.POPULATION_INCREASE_PER_CYCLE, get_population_increment_per_cycle())
 
 
 func get_recruiter_price():
@@ -504,32 +494,8 @@ func get_population_cap() -> int:
 	return cap
 
 
-func get_power() -> int:
-	var powerplants = get_placed_buildings(Global.BuildingType.POWERPLANT)
-	var power := 0
-	for powerplant in powerplants:
-		power += powerplant.get_power_generation()
-	return power
-
-
-func get_mining() -> int:
-	var mines = get_placed_buildings(Global.BuildingType.MINE)
-	var mining := 0
-	for mine in mines:
-		mining += mine.get_mining()
-	return mining
-
-
-func get_ads() -> int:
-	var bars = get_placed_buildings(Global.BuildingType.BAR)
-	var ads := 0
-	for bar in bars:
-		ads += bar.get_ads()
-	return ads
-
-
 func get_reach() -> float:
-	var ads = get_ads()
+	var ads = get_total_property(Global.StatType.ADS)
 	
 	# the following function ensures that reach is always in range [0, 1]. 
 	# you can adjust a and b parameters to change the rate of the function.

@@ -105,7 +105,7 @@ func get_stats():
 
 
 func get_power_factor():
-	var power = world.get_power()
+	var power = world.get_total_property(Global.StatType.POWER)
 	var factor := 0
 	var counter = 0
 	var next_level = 10
@@ -120,7 +120,7 @@ func get_power_factor():
 
 
 func get_mining_factor():
-	var factor = world.get_mining()
+	var factor = world.get_total_property(Global.StatType.MINING)
 	return factor
 
 
