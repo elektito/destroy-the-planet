@@ -2,6 +2,11 @@ extends 'Building.gd'
 tool
 
 const type := Global.BuildingType.MINE
+const effects := [
+	Global.StatType.RESOURCE_USAGE_PER_CYCLE,
+	Global.StatType.POLLUTION_PER_CYCLE,
+	Global.StatType.MINING,
+]
 
 var levels = [
 	{
@@ -84,6 +89,18 @@ func get_resource_usage_per_cycle():
 
 func get_mining():
 	return current_level['base_mining']
+
+
+func get_property(property):
+	match property:
+		Global.StatType.MINING:
+			return get_mining()
+		Global.StatType.POLLUTION_PER_CYCLE:
+			return get_pollution_per_cycle()
+		Global.StatType.RESOURCE_USAGE_PER_CYCLE:
+			return get_resource_usage_per_cycle()
+		_:
+			return 0
 
 
 func get_actions():

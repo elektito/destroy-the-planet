@@ -1,5 +1,7 @@
 extends Node2D
 
+signal info_updated(world, item)
+
 const TRILLION := 1000000000000
 const MAX_RESOURCES := 10000 * TRILLION
 const MAX_POLLUTION := 10000 * TRILLION
@@ -74,8 +76,9 @@ func _ready():
 	
 	update_toolbox()
 	update_building_panel()
-	update_resource_bar()
 	update_info_bar()
+	
+	$hud/hbox/vbox/top_bar.init(self)
 
 
 func create_plants():
@@ -144,7 +147,7 @@ func _input(event):
 				update_toolbox()
 				update_info_bar()
 				update_building_panel()
-				update_resource_bar()
+				emit_signal("info_updated", self, Global.StatType.MONEY, money)
 
 
 func _unhandled_input(event):
@@ -220,6 +223,9 @@ func _on_building_info_updated(building, item, _value):
 		if item in [Global.StatType.ADS]:
 			b.notify_update(Global.StatType.REACH)
 	
+	for property in Global.get_stat_types():
+		emit_signal("info_updated", self, property, get_total_property(property))
+	
 	# No need to update the building panel anymore here, because building stats
 	# automatically update when the info_updated signal of the building is
 	# emitted, and the actions do not change when building_info is updated right
@@ -264,24 +270,14 @@ func update_building_panel():
 			widget.connect("count_changed", self, '_on_batch_size_changed', [widget, action])
 
 
-func update_resource_bar():
-	var money_per_cycle = 0
+func get_total_property(property):
+	var total = 0
 	
 	for b in placed_buildings:
-		if b.type == Global.BuildingType.FACTORY:
-			money_per_cycle += b.get_money_per_cycle()
+		if property in b.effects:
+			total += b.get_property(property)
 	
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = Global.human_readable(money) + ' (+' + Global.human_readable(money_per_cycle) + ')'
-	
-	var tooltip = 'Money (+Money-per-Cycle): ' + str(money) + ' (+' + str(money_per_cycle) + ')'
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.hint_tooltip = tooltip
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_label.hint_tooltip = tooltip
-	
-	var resources_percent = int(float(resources) / MAX_RESOURCES * 100)
-	$hud/hbox/vbox/resource_bar/margin/hbox/resources_value_label.text = str(resources) + ' (' + str(resources_percent) + '%)'
-	
-	var pollution_percent = int(float(pollution) / MAX_POLLUTION * 100)
-	$hud/hbox/vbox/resource_bar/margin/hbox/pollution_value_label.text = str(pollution) + ' (' + str(pollution_percent) + '%)'
+	return total
 
 
 func update_toolbox():
@@ -415,7 +411,7 @@ func produce_money(amount):
 	money += amount
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.MONEY)
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
 	update_action_widgets()
 
@@ -426,7 +422,7 @@ func consume_money(amount):
 	money -= amount
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.MONEY)
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
 	update_action_widgets()
 
@@ -441,7 +437,7 @@ func produce_pollution(amount):
 		b.notify_update(Global.StatType.POLLUTION)
 	if pollution == MAX_POLLUTION:
 		win()
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.POLLUTION, pollution)
 	
 	$bg_layer/background.color = lerp(Color('00bbff'), Color.lightblue, float(pollution) / MAX_POLLUTION)
 	$bg_layer/background.modulate = lerp(Color.white, Color('999999'), float(pollution) / MAX_POLLUTION)
@@ -457,7 +453,7 @@ func consume_resources(amount):
 		b.notify_update(Global.StatType.RESOURCES)
 	if resources == 0:
 		win()
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.RESOURCES, resources)
 	
 	$placing_area/planet.modulate = lerp(Color.white, Color('666666'), float(pollution) / MAX_POLLUTION)
 

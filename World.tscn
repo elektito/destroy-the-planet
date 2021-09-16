@@ -20,6 +20,7 @@
 [ext_resource path="res://assets/gfx/icons/settings.png" type="Texture" id=18]
 [ext_resource path="res://EndScreen.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/audio/ominous-background.ogg" type="AudioStream" id=20]
+[ext_resource path="res://TopBar.tscn" type="PackedScene" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 22 )
@@ -79,9 +80,6 @@ font_data = ExtResource( 6 )
 bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
 
 [sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
-
-[sub_resource type="StyleBoxFlat" id=16]
 bg_color = Color( 0, 0, 0, 1 )
 
 [node name="World" type="Node2D"]
@@ -248,9 +246,9 @@ expand_icon = true
 
 [node name="building_panel" type="PanelContainer" parent="hud/hbox"]
 margin_left = 40.0
-margin_right = 190.0
+margin_right = 215.0
 margin_bottom = 720.0
-rect_min_size = Vector2( 150, 0 )
+rect_min_size = Vector2( 175, 0 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 11 )
 __meta__ = {
@@ -258,7 +256,7 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="hud/hbox/building_panel"]
-margin_right = 150.0
+margin_right = 175.0
 margin_bottom = 720.0
 mouse_filter = 2
 custom_constants/margin_right = 4
@@ -272,12 +270,12 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="hud/hbox/building_panel/MarginContainer"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 146.0
+margin_right = 171.0
 margin_bottom = 716.0
 mouse_filter = 2
 
 [node name="description" type="RichTextLabel" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer"]
-margin_right = 142.0
+margin_right = 167.0
 margin_bottom = 48.0
 custom_fonts/bold_font = SubResource( 12 )
 custom_fonts/normal_font = SubResource( 13 )
@@ -302,114 +300,22 @@ text = "foobar"
 
 [node name="BuildingWidget" parent="hud/hbox/building_panel/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
 margin_top = 74.0
-margin_right = 142.0
+margin_right = 167.0
 margin_bottom = 132.0
 
 [node name="vbox" type="VBoxContainer" parent="hud/hbox"]
-margin_left = 190.0
+margin_left = 215.0
 margin_right = 1280.0
 margin_bottom = 720.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="resource_bar" type="PanelContainer" parent="hud/hbox/vbox"]
-margin_right = 1090.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 0, 36 )
-mouse_filter = 2
-size_flags_horizontal = 3
-custom_styles/panel = SubResource( 14 )
-
-[node name="margin" type="MarginContainer" parent="hud/hbox/vbox/resource_bar"]
-margin_right = 1090.0
-margin_bottom = 36.0
-mouse_filter = 2
-custom_constants/margin_right = 2
-custom_constants/margin_top = 2
-custom_constants/margin_left = 2
-custom_constants/margin_bottom = 2
-
-[node name="hbox" type="HBoxContainer" parent="hud/hbox/vbox/resource_bar/margin"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 1088.0
-margin_bottom = 34.0
-mouse_filter = 2
-alignment = 1
-
-[node name="pollution_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_top = 8.0
-margin_right = 61.0
-margin_bottom = 23.0
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Pollution:"
-
-[node name="pollution_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 65.0
-margin_top = 8.0
-margin_right = 333.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "0 (0%)"
-
-[node name="sep1" type="VSeparator" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 337.0
-margin_right = 341.0
-margin_bottom = 32.0
-theme = ExtResource( 10 )
-
-[node name="resources_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 345.0
-margin_top = 8.0
-margin_right = 484.0
-margin_bottom = 23.0
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Remaining Resources:"
-
-[node name="resources_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 488.0
-margin_top = 8.0
-margin_right = 756.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "10000 (100%)"
-
-[node name="sep2" type="VSeparator" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 760.0
-margin_right = 764.0
-margin_bottom = 32.0
-theme = ExtResource( 10 )
-
-[node name="money_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 768.0
-margin_top = 8.0
-margin_right = 814.0
-margin_bottom = 23.0
-mouse_filter = 1
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "Money:"
-
-[node name="money_value_label" type="Label" parent="hud/hbox/vbox/resource_bar/margin/hbox"]
-margin_left = 818.0
-margin_top = 8.0
-margin_right = 1086.0
-margin_bottom = 23.0
-mouse_filter = 1
-size_flags_horizontal = 3
-theme = ExtResource( 10 )
-custom_fonts/font = ExtResource( 11 )
-text = "0"
+[node name="top_bar" parent="hud/hbox/vbox" instance=ExtResource( 21 )]
+margin_right = 1065.0
 
 [node name="empty" type="Control" parent="hud/hbox/vbox"]
 margin_top = 40.0
-margin_right = 1090.0
+margin_right = 1065.0
 margin_bottom = 680.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -417,14 +323,14 @@ size_flags_vertical = 3
 
 [node name="info_bar" type="PanelContainer" parent="hud/hbox/vbox"]
 margin_top = 684.0
-margin_right = 1090.0
+margin_right = 1065.0
 margin_bottom = 720.0
 rect_min_size = Vector2( 0, 36 )
 mouse_filter = 2
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 14 )
 
 [node name="margin" type="MarginContainer" parent="hud/hbox/vbox/info_bar"]
-margin_right = 1090.0
+margin_right = 1065.0
 margin_bottom = 36.0
 mouse_filter = 2
 custom_constants/margin_right = 2
@@ -435,7 +341,7 @@ custom_constants/margin_bottom = 2
 [node name="hbox" type="HBoxContainer" parent="hud/hbox/vbox/info_bar/margin"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1088.0
+margin_right = 1063.0
 margin_bottom = 34.0
 mouse_filter = 2
 alignment = 1
@@ -451,7 +357,7 @@ text = "Power:"
 [node name="power_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
 margin_left = 47.0
 margin_top = 8.0
-margin_right = 204.0
+margin_right = 199.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -459,24 +365,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep1" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 208.0
-margin_right = 212.0
+margin_left = 203.0
+margin_right = 207.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="population_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 216.0
+margin_left = 211.0
 margin_top = 8.0
-margin_right = 289.0
+margin_right = 284.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Population:"
 
 [node name="population_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 293.0
+margin_left = 288.0
 margin_top = 8.0
-margin_right = 450.0
+margin_right = 440.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -484,24 +390,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep2" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 454.0
-margin_right = 458.0
+margin_left = 444.0
+margin_right = 448.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="mining_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 462.0
+margin_left = 452.0
 margin_top = 8.0
-margin_right = 509.0
+margin_right = 499.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Mining:"
 
 [node name="mining_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 513.0
+margin_left = 503.0
 margin_top = 8.0
-margin_right = 670.0
+margin_right = 655.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -509,24 +415,24 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep3" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 674.0
-margin_right = 678.0
+margin_left = 659.0
+margin_right = 663.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="ads_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 682.0
+margin_left = 667.0
 margin_top = 8.0
-margin_right = 708.0
+margin_right = 693.0
 margin_bottom = 23.0
 theme = ExtResource( 10 )
 custom_fonts/font = ExtResource( 11 )
 text = "Ads:"
 
 [node name="ads_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 712.0
+margin_left = 697.0
 margin_top = 8.0
-margin_right = 869.0
+margin_right = 849.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 theme = ExtResource( 10 )
@@ -534,15 +440,15 @@ custom_fonts/font = ExtResource( 11 )
 text = "0"
 
 [node name="sep4" type="VSeparator" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 873.0
-margin_right = 877.0
+margin_left = 853.0
+margin_right = 857.0
 margin_bottom = 32.0
 theme = ExtResource( 10 )
 
 [node name="reach_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 881.0
+margin_left = 861.0
 margin_top = 8.0
-margin_right = 924.0
+margin_right = 904.0
 margin_bottom = 23.0
 hint_tooltip = "Percentage of population that the factories can sell to. Reach depends on the number of ads being produced."
 mouse_filter = 1
@@ -551,9 +457,9 @@ custom_fonts/font = ExtResource( 11 )
 text = "Reach:"
 
 [node name="reach_value_label" type="Label" parent="hud/hbox/vbox/info_bar/margin/hbox"]
-margin_left = 928.0
+margin_left = 908.0
 margin_top = 8.0
-margin_right = 1086.0
+margin_right = 1061.0
 margin_bottom = 23.0
 hint_tooltip = "Percentage of population that the factories can sell to. Reach depends on the number of ads being produced."
 mouse_filter = 1
@@ -600,16 +506,16 @@ layer = 3
 visible = false
 
 [node name="victory_banner_top" type="PanelContainer" parent="."]
-margin_left = 190.0
+margin_left = 215.0
 margin_top = -36.0
 margin_right = 1280.0
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="margin" type="MarginContainer" parent="victory_banner_top"]
-margin_right = 1090.0
+margin_right = 1065.0
 margin_bottom = 36.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
@@ -619,7 +525,7 @@ custom_constants/margin_bottom = 4
 [node name="hbox" type="HBoxContainer" parent="victory_banner_top/margin"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 1086.0
+margin_right = 1061.0
 margin_bottom = 32.0
 
 [node name="label" type="Label" parent="victory_banner_top/margin/hbox"]
@@ -631,29 +537,29 @@ text = "Congratulations! You've destroyed the planet."
 
 [node name="filler" type="Control" parent="victory_banner_top/margin/hbox"]
 margin_left = 299.0
-margin_right = 999.0
+margin_right = 974.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 
 [node name="end_game_btn" type="Button" parent="victory_banner_top/margin/hbox"]
-margin_left = 1003.0
-margin_right = 1082.0
+margin_left = 978.0
+margin_right = 1057.0
 margin_bottom = 28.0
 theme = ExtResource( 10 )
 text = "End Game"
 
 [node name="victory_banner_bottom" type="PanelContainer" parent="."]
-margin_left = 190.0
+margin_left = 215.0
 margin_top = 720.0
 margin_right = 1280.0
 margin_bottom = 756.0
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="margin" type="MarginContainer" parent="victory_banner_bottom"]
-margin_right = 1090.0
+margin_right = 1065.0
 margin_bottom = 36.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
@@ -663,11 +569,11 @@ custom_constants/margin_bottom = 4
 [node name="hbox" type="HBoxContainer" parent="victory_banner_bottom/margin"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 1086.0
+margin_right = 1061.0
 margin_bottom = 32.0
 
 [node name="filler" type="Control" parent="victory_banner_bottom/margin/hbox"]
-margin_right = 1082.0
+margin_right = 1057.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 

@@ -2,6 +2,7 @@ extends 'Building.gd'
 tool
 
 const type := Global.BuildingType.APARTMENT_BUILDING
+const effects := [Global.StatType.POPULATION_CAP]
 
 var levels = [
 	{
@@ -74,6 +75,11 @@ func get_stats():
 
 func get_population_cap():
 	return current_level['base_population_cap']
+
+
+func get_property(property):
+	if property == Global.StatType.POPULATION_CAP:
+		return get_population_cap()
 
 
 func get_level_upgrade_price(level):

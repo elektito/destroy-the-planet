@@ -2,6 +2,11 @@ extends 'Building.gd'
 tool
 
 const type := Global.BuildingType.POWERPLANT
+const effects := [
+	Global.StatType.POWER,
+	Global.StatType.POLLUTION_PER_CYCLE,
+	Global.StatType.RESOURCE_USAGE_PER_CYCLE,
+]
 
 var levels = [
 	{
@@ -104,6 +109,16 @@ func get_resource_usage_per_cycle():
 
 func get_power_generation():
 	return current_level['base_power']
+
+
+func get_property(property):
+	match property:
+		Global.StatType.POWER:
+			return get_power_generation()
+		Global.StatType.POLLUTION_PER_CYCLE:
+			return get_pollution_per_cycle()
+		Global.StatType.RESOURCE_USAGE_PER_CYCLE:
+			return get_resource_usage_per_cycle()
 
 
 func get_actions():

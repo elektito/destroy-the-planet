@@ -2,6 +2,11 @@ extends 'Building.gd'
 tool
 
 const type = Global.BuildingType.FACTORY
+const effects := [
+	Global.StatType.MONEY_PER_CYCLE,
+	Global.StatType.RESOURCE_USAGE_PER_CYCLE,
+	Global.StatType.POLLUTION_PER_CYCLE,
+]
 
 var levels = [
 	{
@@ -66,6 +71,12 @@ func init(_world):
 	world = _world
 	update_upgrade_label(self)
 	update_smoke()
+	
+	# emit these signals so that anyone interested can update iteself
+	emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
+	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 
 
 func get_stats():
@@ -142,6 +153,18 @@ func get_resource_usage_per_cycle():
 	return 0
 
 
+func get_property(property):
+	match property:
+		Global.StatType.MONEY_PER_CYCLE:
+			return get_money_per_cycle()
+		Global.StatType.POLLUTION_PER_CYCLE:
+			return get_pollution_per_cycle()
+		Global.StatType.RESOURCE_USAGE_PER_CYCLE:
+			return get_resource_usage_per_cycle()
+		_:
+			return 0
+
+
 func get_actions():
 	var actions = []
 	if level < levels[-1]['number']:
@@ -175,6 +198,7 @@ func perform_action(action, _count):
 			emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
 			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
 			emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
+			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
 			update_smoke()
 			update_upgrade_label(self)
 		'cycle':

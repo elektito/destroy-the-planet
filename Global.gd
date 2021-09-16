@@ -3,6 +3,8 @@ class_name Global
 const SETTINGS_FILE := 'settings.json'
 
 enum StatType {
+	__FIRST,
+	
 	LEVEL,
 	POLLUTION,
 	POLLUTION_PER_CYCLE,
@@ -19,6 +21,8 @@ enum StatType {
 	POPULATION_INCREASE_PER_CYCLE,
 	REACH,
 	RECRUITERS,
+	
+	__LAST,
 }
 
 enum BuildingType {
@@ -28,6 +32,10 @@ enum BuildingType {
 	APARTMENT_BUILDING,
 	BAR,
 }
+
+
+static func get_stat_types():
+	return range(StatType.__FIRST + 1, StatType.__LAST)
 
 
 static func get_building_types():
