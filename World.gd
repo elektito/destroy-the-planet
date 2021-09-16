@@ -248,7 +248,7 @@ func update_building_panel():
 			var widget = preload("res://BuildingStat.tscn").instance()
 			widget.type = stat['type']
 			widget.init(selected_building)
-			widget.text = Global.human_readable_money(int(stat['value']))
+			widget.text = Global.human_readable(int(stat['value']))
 			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
 		for action in selected_building.get_actions():
 			var widget = preload("res://BuildingWidget.tscn").instance()
@@ -271,7 +271,7 @@ func update_resource_bar():
 		if b.type == Global.BuildingType.FACTORY:
 			money_per_cycle += b.get_money_per_cycle()
 	
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = Global.human_readable_money(money) + ' (+' + Global.human_readable_money(money_per_cycle) + ')'
+	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = Global.human_readable(money) + ' (+' + Global.human_readable(money_per_cycle) + ')'
 	
 	var tooltip = 'Money (+Money-per-Cycle): ' + str(money) + ' (+' + str(money_per_cycle) + ')'
 	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.hint_tooltip = tooltip
@@ -289,15 +289,15 @@ func update_toolbox():
 		var btn : Button = building_info[building_type]['button']
 		var building_name := Global.get_building_name(building_type)
 		var building_price = get_price(building_type)
-		btn.hint_tooltip = building_name + '\nCost: ' + Global.human_readable_money(building_price)
+		btn.hint_tooltip = building_name + '\nCost: ' + Global.human_readable(building_price)
 		btn.disabled = (money < building_price)
 
 
 func update_info_bar():
-	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = Global.human_readable_money(get_population()) + '/' + Global.human_readable_money(get_population_cap()) + ' (+' + Global.human_readable_money(get_population_increment_per_cycle()) + ')'
+	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = Global.human_readable(get_population()) + '/' + Global.human_readable(get_population_cap()) + ' (+' + Global.human_readable(get_population_increment_per_cycle()) + ')'
 	$hud/hbox/vbox/info_bar/margin/hbox/power_value_label.text = str(get_power())
 	$hud/hbox/vbox/info_bar/margin/hbox/mining_value_label.text = str(get_mining())
-	$hud/hbox/vbox/info_bar/margin/hbox/ads_value_label.text = Global.human_readable_money(get_ads())
+	$hud/hbox/vbox/info_bar/margin/hbox/ads_value_label.text = Global.human_readable(get_ads())
 	$hud/hbox/vbox/info_bar/margin/hbox/reach_value_label.text = '%.2f%%' % (get_reach() * 100) #str(get_reach() * 100) + '%'
 
 

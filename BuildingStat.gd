@@ -66,7 +66,7 @@ func _on_info_updated(_object: Object, item: int, value):
 	if item == type:
 		var human_readable :  bool = type_info[item]['human_readable']
 		if human_readable:
-			$hbox/label.text = Global.human_readable_money(value)
+			$hbox/label.text = Global.human_readable(value)
 		else:
 			$hbox/label.text = str(value)
 
