@@ -62,6 +62,11 @@ var world
 func init(_world):
 	world = _world
 	update_upgrade_label(self)
+	
+	# notify any interested listeners that there might be some changes
+	emit_signal("info_updated", self, Global.StatType.POPULATION_CAP, get_population_cap())
+	
+	world.connect("info_updated", self, "_on_world_info_updated")
 
 
 func get_stats():
@@ -128,6 +133,6 @@ func perform_action(action, count):
 			world.hire_recruiter(count)
 
 
-func notify_update(item):
+func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_upgrade_label(self)
