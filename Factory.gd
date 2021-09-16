@@ -77,6 +77,8 @@ func init(_world):
 	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
 	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
 	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
+	
+	world.connect("info_updated", self, "_on_world_info_updated")
 
 
 func get_stats():
@@ -213,7 +215,7 @@ func _on_cycle_timer_timeout():
 	world.consume_resources(get_resource_usage_per_cycle())
 
 
-func notify_update(item):
+func _on_world_info_updated(_world, item, _value):
 	var interesting = [
 		Global.StatType.ADS,
 		Global.StatType.POWER,

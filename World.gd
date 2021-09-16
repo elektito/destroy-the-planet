@@ -215,22 +215,16 @@ func _on_building_upgraded(_building):
 
 
 func _on_building_info_updated(building, item, _value):
-	for b in placed_buildings:
-		if b != building:
-			b.notify_update(item)
-		if item in [Global.StatType.ADS]:
-			b.notify_update(Global.StatType.REACH)
+	if item == Global.StatType.ADS:
+		emit_signal("info_updated", self, Global.StatType.REACH, get_reach())
 	
-	for property in Global.get_stat_types():
+	var notifiable = [
+		Global.StatType.POLLUTION_PER_CYCLE,
+		Global.StatType.RESOURCE_USAGE_PER_CYCLE,
+		Global.StatType.MONEY_PER_CYCLE,
+	]
+	for property in notifiable:
 		emit_signal("info_updated", self, property, get_total_property(property))
-	
-	# No need to update the building panel anymore here, because building stats
-	# automatically update when the info_updated signal of the building is
-	# emitted, and the actions do not change when building_info is updated right
-	# now. This means, stat tooltips do not disappear on each update (which can
-	# happen frequently in end-game, making reading the tooltips difficult).
-	# If actions could change, then this would still be necessary.
-	#update_building_panel()
 
 
 func update_building_panel():
@@ -399,8 +393,6 @@ func produce_money(amount):
 	if game_over:
 		return
 	money += amount
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.MONEY)
 	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
 	update_action_widgets()
@@ -410,8 +402,6 @@ func consume_money(amount):
 	if game_over:
 		return
 	money -= amount
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.MONEY)
 	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
 	update_action_widgets()
@@ -423,8 +413,6 @@ func produce_pollution(amount):
 	pollution += amount
 	if pollution > MAX_POLLUTION or pollution < 0: # overflow
 		pollution = MAX_POLLUTION
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.POLLUTION)
 	if pollution == MAX_POLLUTION:
 		win()
 	emit_signal("info_updated", self, Global.StatType.POLLUTION, pollution)
@@ -439,8 +427,6 @@ func consume_resources(amount):
 	resources -= amount
 	if resources < 0:
 		resources = 0
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.RESOURCES)
 	if resources == 0:
 		win()
 	emit_signal("info_updated", self, Global.StatType.RESOURCES, resources)
@@ -455,19 +441,15 @@ func add_population(amount):
 	var cap := get_population_cap()
 	if population > cap:
 		population = cap
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.POPULATION)
 	emit_signal("info_updated", self, Global.StatType.POPULATION, population)
 
 
 func hire_recruiter(count: int = 1):
 	recruiters += count
 	recruiter_price += count * recruiter_price_increase
-	for b in placed_buildings:
-		b.notify_update(Global.StatType.POPULATION_INCREASE_PER_CYCLE)
-		b.notify_update(Global.StatType.RECRUITERS)
 	update_building_panel()
 	emit_signal("info_updated", self, Global.StatType.POPULATION_INCREASE_PER_CYCLE, get_population_increment_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.RECRUITERS, recruiters)
 
 
 func get_recruiter_price():

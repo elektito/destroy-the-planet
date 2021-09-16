@@ -56,6 +56,11 @@ var world
 func init(_world):
 	world = _world
 	update_upgrade_label(self)
+	
+	# notify any interested listeners that there might be some changes
+	emit_signal("info_updated", self, Global.StatType.MINING, get_mining())
+	
+	world.connect("info_updated", self, "_on_world_info_updated")
 
 
 func get_stats():
@@ -146,6 +151,6 @@ func _on_cycle_timer_timeout():
 	world.consume_resources(get_resource_usage_per_cycle())
 
 
-func notify_update(item):
+func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_upgrade_label(self)
