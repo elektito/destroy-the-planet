@@ -7,55 +7,46 @@ var levels = [
 	{
 		'number': 1,
 		'description': 'Tiny apartment building.',
-		'base_population_increment': 1,
 		'base_population_cap': 100,
 	},
 	{
 		'number': 2,
 		'description': 'Small apartment building.',
-		'base_population_increment': 10,
 		'base_population_cap': 5000,
 	},
 	{
 		'number': 3,
 		'description': 'Not quite medium apartment building.',
-		'base_population_increment': 100,
 		'base_population_cap': 100000,
 	},
 	{
 		'number': 4,
 		'description': 'Medium-sized apartment building.',
-		'base_population_increment': 1000,
 		'base_population_cap': 500000,
 	},
 	{
 		'number': 5,
 		'description': 'Above-average apartment building',
-		'base_population_increment': 10000,
 		'base_population_cap': 5000000,
 	},
 	{
 		'number': 6,
 		'description': 'Big apartment building.',
-		'base_population_increment': 50000,
 		'base_population_cap': 10000000,
 	},
 	{
 		'number': 7,
 		'description': 'Huge apartment building.',
-		'base_population_increment': 250000,
 		'base_population_cap': 50000000,
 	},
 	{
 		'number': 8,
 		'description': 'Gigantic apartment building.',
-		'base_population_increment': 1000000,
 		'base_population_cap': 100000000,
 	},
 	{
 		'number': 9,
 		'description': 'Colossal apartment building.',
-		'base_population_increment': 10000000,
 		'base_population_cap': 1000000000,
 	},
 ]
@@ -78,15 +69,7 @@ func get_stats():
 			'type': Global.StatType.POPULATION_CAP,
 			'value': str(get_population_cap()),
 		},
-		{
-			'type': Global.StatType.POPULATION_INCREASE_PER_CYCLE,
-			'value': str(get_population_increment()),
-		},
 	]
-
-
-func get_population_increment():
-	return current_level['base_population_increment']
 
 
 func get_population_cap():
@@ -111,36 +94,32 @@ func get_actions():
 			'price': get_level_upgrade_price(level),
 			'stats': Global.get_level_upgrade_stats(current_level, next_level),
 		})
-	
 	actions.append({
-		'name': 'cycle',
-		'title': 'Manual Cycle',
-		'description': 'Manually perform one cycle of building operation by clicking the button.',
-		'price': 0,
-		'stats': [],
-		'button_text': 'Perform',
+		'name': 'recruiter',
+		'title': 'Hire Recruiter',
+		'description': 'Hire a recruiter to help you get more people into your planet paradise. Each recruiter recruits one person per cycle. Recruiters are shared between all apartment buildings. Current recruiters in the world: ' + str(world.get_recruiter_count()),
+		'price': world.get_recruiter_price(),
+		'stats': [{
+			'type': Global.StatType.POPULATION_INCREASE_PER_CYCLE,
+			'value': '+1',
+		}],
+		'batch_enabled': true,
+		'button_text': 'Hire',
 	})
 	
 	return actions
 
 
-func perform_action(action):
+func perform_action(action, count):
 	match action['name']:
 		'level':
 			level += 1
 			current_level = levels[level - 1]
 			emit_signal("upgraded", self)
 			emit_signal("info_updated", self, Global.StatType.POPULATION_CAP, get_population_cap())
-			emit_signal("info_updated", self, Global.StatType.POPULATION_INCREASE_PER_CYCLE, get_population_increment())
 			update_upgrade_label(self)
-		'cycle':
-			_on_cycle_timer_timeout()
-
-
-func _on_cycle_timer_timeout():
-	if decorative or operations_paused:
-		return
-	world.add_population(get_population_increment())
+		'recruiter':
+			world.hire_recruiter(count)
 
 
 func notify_update(item):
