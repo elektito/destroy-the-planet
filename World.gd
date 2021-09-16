@@ -1,5 +1,7 @@
 extends Node2D
 
+signal info_updated(world, item)
+
 const TRILLION := 1000000000000
 const MAX_RESOURCES := 10000 * TRILLION
 const MAX_POLLUTION := 10000 * TRILLION
@@ -74,8 +76,9 @@ func _ready():
 	
 	update_toolbox()
 	update_building_panel()
-	update_resource_bar()
-	update_info_bar()
+	
+	$hud/hbox/vbox/top_bar.init(self)
+	$hud/hbox/vbox/bottom_bar.init(self)
 
 
 func create_plants():
@@ -142,9 +145,8 @@ func _input(event):
 				used_angles.append($placing_area/preview_icon.rotation)
 				placed_buildings.append(b)
 				update_toolbox()
-				update_info_bar()
 				update_building_panel()
-				update_resource_bar()
+				emit_signal("info_updated", self, Global.StatType.MONEY, money)
 
 
 func _unhandled_input(event):
@@ -210,7 +212,6 @@ func _on_building_clicked(building):
 
 func _on_building_upgraded(_building):
 	update_building_panel()
-	update_info_bar()
 
 
 func _on_building_info_updated(building, item, _value):
@@ -219,6 +220,9 @@ func _on_building_info_updated(building, item, _value):
 			b.notify_update(item)
 		if item in [Global.StatType.ADS]:
 			b.notify_update(Global.StatType.REACH)
+	
+	for property in Global.get_stat_types():
+		emit_signal("info_updated", self, property, get_total_property(property))
 	
 	# No need to update the building panel anymore here, because building stats
 	# automatically update when the info_updated signal of the building is
@@ -264,24 +268,14 @@ func update_building_panel():
 			widget.connect("count_changed", self, '_on_batch_size_changed', [widget, action])
 
 
-func update_resource_bar():
-	var money_per_cycle = 0
+func get_total_property(property):
+	var total = 0
 	
 	for b in placed_buildings:
-		if b.type == Global.BuildingType.FACTORY:
-			money_per_cycle += b.get_money_per_cycle()
+		if property in b.effects:
+			total += b.get_property(property)
 	
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.text = Global.human_readable(money) + ' (+' + Global.human_readable(money_per_cycle) + ')'
-	
-	var tooltip = 'Money (+Money-per-Cycle): ' + str(money) + ' (+' + str(money_per_cycle) + ')'
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_value_label.hint_tooltip = tooltip
-	$hud/hbox/vbox/resource_bar/margin/hbox/money_label.hint_tooltip = tooltip
-	
-	var resources_percent = int(float(resources) / MAX_RESOURCES * 100)
-	$hud/hbox/vbox/resource_bar/margin/hbox/resources_value_label.text = str(resources) + ' (' + str(resources_percent) + '%)'
-	
-	var pollution_percent = int(float(pollution) / MAX_POLLUTION * 100)
-	$hud/hbox/vbox/resource_bar/margin/hbox/pollution_value_label.text = str(pollution) + ' (' + str(pollution_percent) + '%)'
+	return total
 
 
 func update_toolbox():
@@ -291,14 +285,6 @@ func update_toolbox():
 		var building_price = get_price(building_type)
 		btn.hint_tooltip = building_name + '\nCost: ' + Global.human_readable(building_price)
 		btn.disabled = (money < building_price)
-
-
-func update_info_bar():
-	$hud/hbox/vbox/info_bar/margin/hbox/population_value_label.text = Global.human_readable(get_population()) + '/' + Global.human_readable(get_population_cap()) + ' (+' + Global.human_readable(get_population_increment_per_cycle()) + ')'
-	$hud/hbox/vbox/info_bar/margin/hbox/power_value_label.text = str(get_power())
-	$hud/hbox/vbox/info_bar/margin/hbox/mining_value_label.text = str(get_mining())
-	$hud/hbox/vbox/info_bar/margin/hbox/ads_value_label.text = Global.human_readable(get_ads())
-	$hud/hbox/vbox/info_bar/margin/hbox/reach_value_label.text = '%.2f%%' % (get_reach() * 100) #str(get_reach() * 100) + '%'
 
 
 func update_action_widgets():
@@ -415,7 +401,7 @@ func produce_money(amount):
 	money += amount
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.MONEY)
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
 	update_action_widgets()
 
@@ -426,7 +412,7 @@ func consume_money(amount):
 	money -= amount
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.MONEY)
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
 	update_action_widgets()
 
@@ -441,7 +427,7 @@ func produce_pollution(amount):
 		b.notify_update(Global.StatType.POLLUTION)
 	if pollution == MAX_POLLUTION:
 		win()
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.POLLUTION, pollution)
 	
 	$bg_layer/background.color = lerp(Color('00bbff'), Color.lightblue, float(pollution) / MAX_POLLUTION)
 	$bg_layer/background.modulate = lerp(Color.white, Color('999999'), float(pollution) / MAX_POLLUTION)
@@ -457,7 +443,7 @@ func consume_resources(amount):
 		b.notify_update(Global.StatType.RESOURCES)
 	if resources == 0:
 		win()
-	update_resource_bar()
+	emit_signal("info_updated", self, Global.StatType.RESOURCES, resources)
 	
 	$placing_area/planet.modulate = lerp(Color.white, Color('666666'), float(pollution) / MAX_POLLUTION)
 
@@ -471,7 +457,7 @@ func add_population(amount):
 		population = cap
 	for b in placed_buildings:
 		b.notify_update(Global.StatType.POPULATION)
-	update_info_bar()
+	emit_signal("info_updated", self, Global.StatType.POPULATION, population)
 
 
 func hire_recruiter(count: int = 1):
@@ -481,7 +467,7 @@ func hire_recruiter(count: int = 1):
 		b.notify_update(Global.StatType.POPULATION_INCREASE_PER_CYCLE)
 		b.notify_update(Global.StatType.RECRUITERS)
 	update_building_panel()
-	update_info_bar()
+	emit_signal("info_updated", self, Global.StatType.POPULATION_INCREASE_PER_CYCLE, get_population_increment_per_cycle())
 
 
 func get_recruiter_price():
@@ -508,32 +494,8 @@ func get_population_cap() -> int:
 	return cap
 
 
-func get_power() -> int:
-	var powerplants = get_placed_buildings(Global.BuildingType.POWERPLANT)
-	var power := 0
-	for powerplant in powerplants:
-		power += powerplant.get_power_generation()
-	return power
-
-
-func get_mining() -> int:
-	var mines = get_placed_buildings(Global.BuildingType.MINE)
-	var mining := 0
-	for mine in mines:
-		mining += mine.get_mining()
-	return mining
-
-
-func get_ads() -> int:
-	var bars = get_placed_buildings(Global.BuildingType.BAR)
-	var ads := 0
-	for bar in bars:
-		ads += bar.get_ads()
-	return ads
-
-
 func get_reach() -> float:
-	var ads = get_ads()
+	var ads = get_total_property(Global.StatType.ADS)
 	
 	# the following function ensures that reach is always in range [0, 1]. 
 	# you can adjust a and b parameters to change the rate of the function.
@@ -555,19 +517,19 @@ func win():
 		button.disabled = true
 	var interpolate_time := 1.0
 	var scrh : float = ProjectSettings.get('display/window/size/height')
-	$hud/hbox/vbox/resource_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	$hud/hbox/vbox/info_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$hud/hbox/vbox/top_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$hud/hbox/vbox/bottom_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$victory_tween.interpolate_property($victory_banner_top, 'rect_position:y',  null, 0.0, interpolate_time, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 	$victory_tween.interpolate_property($victory_banner_bottom, 'rect_position:y', null, scrh - $victory_banner_bottom.rect_size.y, interpolate_time, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-	$victory_tween.interpolate_property($hud/hbox/vbox/resource_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	$victory_tween.interpolate_property($hud/hbox/vbox/info_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($hud/hbox/vbox/top_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$victory_tween.interpolate_property($hud/hbox/vbox/bottom_bar, 'modulate:a', null, 0.0, interpolate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$victory_tween.interpolate_property($music, 'volume_db', $music.volume_db, -80, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$victory_tween.interpolate_property($ominous_background, 'volume_db', -80, 0, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$victory_tween.start()
 	$end_sound.play()
 	$ominous_background.play()
-	$hud/hbox/vbox/resource_bar.visible = false
-	$hud/hbox/vbox/info_bar.visible = false
+	$hud/hbox/vbox/top_bar.visible = false
+	$hud/hbox/vbox/bottom_bar.visible = false
 
 
 func _on_screen_closed():

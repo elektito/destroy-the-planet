@@ -2,6 +2,7 @@ extends 'Building.gd'
 tool
 
 const type := Global.BuildingType.BAR
+const effects := [Global.StatType.ADS]
 
 var levels = [
 	{
@@ -68,6 +69,11 @@ func get_stats():
 
 func get_ads():
 	return current_level['base_ads']
+
+
+func get_property(property):
+	if property == Global.StatType.ADS:
+		return get_ads()
 
 
 func get_actions():
