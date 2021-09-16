@@ -88,7 +88,7 @@ func update_action_button():
 		$margin/vbox/action_btn.text = button_text
 	else:
 		var count = get_selected_count()
-		$margin/vbox/action_btn.text = button_text + ' ($' + str(Global.human_readable_money(price * count)) + ')'
+		$margin/vbox/action_btn.text = button_text + ' ($' + str(Global.human_readable(price * count)) + ')'
 
 
 func _on_action_btn_pressed():

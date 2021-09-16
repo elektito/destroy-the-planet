@@ -51,7 +51,7 @@ static func get_building_name(building_type) -> String:
 	return names[building_type]
 
 
-static func human_readable_money(value : int) -> String:
+static func human_readable(value : int) -> String:
 	var suffixes = ['K', 'M', 'B', 'T']
 	var fvalue = float(value)
 	var i = -1
