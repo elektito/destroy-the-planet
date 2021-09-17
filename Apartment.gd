@@ -60,7 +60,7 @@ func init_data():
 		{
 			'number': 8,
 			'description': 'Gigantic apartment building.',
-			'base_population_cap': 100000000,
+			'base_population_cap': 200000000,
 		},
 		{
 			'number': 9,

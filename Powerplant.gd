@@ -71,14 +71,14 @@ func init_data():
 			'description': 'Huge powerplant.',
 			'base_pollution_per_cycle': 4000,
 			'base_resource_usage_per_cycle': 400,
-			'base_power': 1600,
+			'base_power': 4000,
 		},
 		{
 			'number': 8,
 			'description': 'Gigantic powerplant.',
 			'base_pollution_per_cycle': 20000,
 			'base_resource_usage_per_cycle': 800,
-			'base_power': 3200,
+			'base_power': 16000,
 		},
 	]
 	current_level = levels[0]

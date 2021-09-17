@@ -51,14 +51,14 @@ func init_data():
 			'description': 'Medium-sized mine.',
 			'base_pollution_per_cycle': 500,
 			'base_resource_usage_per_cycle': 100000,
-			'base_mining': 16,
+			'base_mining': 40,
 		},
 		{
 			'number': 5,
 			'description': 'Big mine.',
 			'base_pollution_per_cycle': 1000,
 			'base_resource_usage_per_cycle': 200000,
-			'base_mining': 32,
+			'base_mining': 200,
 		},
 	]
 	current_level = levels[0]
