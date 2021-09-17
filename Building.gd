@@ -128,6 +128,26 @@ func shake():
 	shaking = false
 
 
+func get_level_upgrade_price(level):
+	# buildings can override this to have custom pricing methods
+	return int(pow(100, level))
+
+
+func add_upgrade_action(level, levels):
+	var action = preload("res://BuildingAction.tscn").instance()
+	action.name = 'level' + str(level + 1)
+	action.title = 'Upgrade to level ' + str(level + 1)
+	action.description = 'Upgrade building to level ' + str(level + 1) + '.'
+	action.price = get_level_upgrade_price(level)
+	
+	var current_level = levels[level - 1]
+	var next_level = levels[level]
+	action.stats = Global.get_level_upgrade_stats(current_level, next_level)
+	
+	$actions.add_child(action)
+	$actions.move_child(action, 0)
+
+
 func _on_main_area_mouse_entered():
 	if shaking:
 		return
@@ -151,3 +171,4 @@ func _on_main_area_gui_input(event):
 		return
 	if event is InputEventMouseButton and not event.pressed:
 		emit_signal("clicked")
+

@@ -3,8 +3,6 @@ class_name Global
 const SETTINGS_FILE := 'settings.json'
 
 enum StatType {
-	__FIRST,
-	
 	LEVEL,
 	POLLUTION,
 	POLLUTION_PER_CYCLE,
@@ -21,8 +19,11 @@ enum StatType {
 	POPULATION_INCREASE_PER_CYCLE,
 	REACH,
 	RECRUITERS,
-	
-	__LAST,
+	ACTIONS,
+	ACTION_STATS,
+	PRICE,
+	TITLE,
+	DESCRIPTION,
 }
 
 enum BuildingType {
@@ -32,10 +33,6 @@ enum BuildingType {
 	APARTMENT_BUILDING,
 	BAR,
 }
-
-
-static func get_stat_types():
-	return range(StatType.__FIRST + 1, StatType.__LAST)
 
 
 static func get_building_types():
@@ -92,17 +89,17 @@ static func get_level_upgrade_stats(current_level, next_level):
 		if key in key_to_stat_type:
 			var multiplier = next_level[key] / current_level[key]
 			if multiplier > 1:
-				stats.append({
-					'type': key_to_stat_type[key],
-					'value': 'x' + str(multiplier),
-				})
+				var stat = Stat.new()
+				stat.type = key_to_stat_type[key]
+				stat.value = 'x' + str(multiplier)
+				stats.append(stat)
 			elif multiplier == 1:
 				var diff = int(next_level[key] - current_level[key])
 				if diff > 0:
-					stats.append({
-						'type': key_to_stat_type[key],
-						'value': '+' + str(diff),
-					})
+					var stat = Stat.new()
+					stat.type = key_to_stat_type[key]
+					stat.value = '+' + str(diff)
+					stats.append(stat)
 	return stats
 
 
@@ -149,3 +146,10 @@ static func load_settings():
 		AudioServer.set_bus_volume_db(music_bus, linear2db(settings['music_volume']))
 	if 'fullscreen' in settings:
 		OS.window_fullscreen = settings['fullscreen']
+
+
+static func new_stat(type: int, value):
+	var stat = Stat.new()
+	stat.type = type
+	stat.value = str(value)
+	return stat

@@ -76,6 +76,7 @@ var world
 func init(_world):
 	world = _world
 	update_upgrade_label(self)
+	add_upgrade_action(level, levels)
 	
 	# notify any interested listeners that there might be some changes
 	emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
@@ -85,22 +86,10 @@ func init(_world):
 
 func get_stats():
 	return [
-		{
-			'type': Global.StatType.LEVEL,
-			'value': str(level),
-		},
-		{
-			'type': Global.StatType.POLLUTION_PER_CYCLE,
-			'value': str(get_pollution_per_cycle()),
-		},
-		{
-			'type': Global.StatType.RESOURCE_USAGE_PER_CYCLE,
-			'value': str(get_resource_usage_per_cycle()),
-		},
-		{
-			'type': Global.StatType.POWER,
-			'value': str(get_power_generation()),
-		},
+		Global.new_stat(Global.StatType.LEVEL, level),
+		Global.new_stat(Global.StatType.POPULATION_CAP, get_pollution_per_cycle()),
+		Global.new_stat(Global.StatType.POPULATION_CAP, get_resource_usage_per_cycle()),
+		Global.new_stat(Global.StatType.POPULATION_CAP, get_power_generation()),
 	]
 
 
@@ -127,29 +116,31 @@ func get_property(property):
 
 
 func get_actions():
-	var actions = []
-	if level < levels[-1]['number']:
-		var next_level = levels[level] # level is one based, so levels[level] is next level
-		actions.append({
-			'name': 'level',
-			'title': 'Upgrade to Level ' + str(level + 1),
-			'description': 'Upgrade powerplant to level ' + str(level + 1) + '.',
-			'price': int(pow(100, level)),
-			'stats': Global.get_level_upgrade_stats(current_level, next_level),
-		})
-	
-	return actions
+	return $actions.get_children()
 
 
 func perform_action(action, _count):
-	match action['name']:
-		'level':
-			level += 1
-			current_level = levels[level - 1]
+	if action.name.begins_with("level"):
+		# just remove the child from the list. the widget will free it later.
+		$actions.remove_child(action)
+		print('action %s removed from tree' % action.name)
+		
+		level += 1
+		current_level = levels[level - 1]
+		if level < len(levels):
+			add_upgrade_action(level, levels)
+			
 			emit_signal("upgraded", self)
+			
 			emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
+			
 			update_smoke()
-			update_upgrade_label(self)
+		
+		update_upgrade_label(self)
+		emit_signal("info_updated", self, Global.StatType.LEVEL, level)
+		emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())
+		
+		return
 
 
 func _on_cycle_timer_timeout():

@@ -75,10 +75,10 @@ func _ready():
 	create_plants()
 	
 	update_toolbox()
-	update_building_panel()
 	
 	$hud/hbox/vbox/top_bar.init(self)
 	$hud/hbox/vbox/bottom_bar.init(self)
+	$hud/hbox/building_panel.init(self, null)
 
 
 func create_plants():
@@ -145,7 +145,6 @@ func _input(event):
 				used_angles.append($placing_area/preview_icon.rotation)
 				placed_buildings.append(b)
 				update_toolbox()
-				update_building_panel()
 				emit_signal("info_updated", self, Global.StatType.MONEY, money)
 
 
@@ -162,7 +161,7 @@ func _unhandled_input(event):
 		if placing < 0 and selected_building != null and event.button_index == BUTTON_RIGHT:
 			selected_building.selected = false
 			selected_building = null
-			update_building_panel()
+			$hud/hbox/building_panel.building = null
 		
 		if Input.is_action_pressed("rotate_left"):
 			rotation_accel -= ROTATION_ACCEL_INC
@@ -207,11 +206,11 @@ func _on_building_clicked(building):
 	building.selected = true
 	selected_building = building
 	
-	update_building_panel()
+	$hud/hbox/building_panel.building = building
 
 
 func _on_building_upgraded(_building):
-	update_building_panel()
+	pass
 
 
 func _on_building_info_updated(building, item, _value):
@@ -225,41 +224,6 @@ func _on_building_info_updated(building, item, _value):
 	]
 	for property in notifiable:
 		emit_signal("info_updated", self, property, get_total_property(property))
-
-
-func update_building_panel():
-	if selected_building == null:
-		$hud/hbox/building_panel/MarginContainer/VBoxContainer/description.bbcode_text = ''
-	else:
-		$hud/hbox/building_panel/MarginContainer/VBoxContainer/description.bbcode_text = '[b]' + selected_building.building_name + '[/b]\n\n' + selected_building.description
-	
-	for widget in get_tree().get_nodes_in_group('building_widgets'):
-		widget.visible = false
-		widget.queue_free()
-	
-	for widget in get_tree().get_nodes_in_group('building_stats'):
-		widget.visible = false
-		widget.queue_free()
-	
-	if selected_building:
-		for stat in selected_building.get_stats():
-			var widget = preload("res://BuildingStat.tscn").instance()
-			widget.type = stat['type']
-			widget.init(selected_building)
-			widget.text = Global.human_readable(int(stat['value']))
-			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
-		for action in selected_building.get_actions():
-			var widget = preload("res://BuildingWidget.tscn").instance()
-			$hud/hbox/building_panel/MarginContainer/VBoxContainer.add_child(widget)
-			widget.text = '[b]' + action['title'] + '[/b]\n\n' + action['description']
-			widget.price = action['price']
-			widget.button_disabled = (money < action['price'])
-			if 'button_text' in action:
-				widget.button_text = action['button_text']
-			widget.batch_enabled = action.get('batch_enabled', false)
-			widget.set_stats(action['stats'])
-			widget.connect('action_button_clicked', self, '_on_action_button_clicked', [widget, action])
-			widget.connect("count_changed", self, '_on_batch_size_changed', [widget, action])
 
 
 func get_total_property(property):
@@ -281,13 +245,8 @@ func update_toolbox():
 		btn.disabled = (money < building_price)
 
 
-func update_action_widgets():
-	for widget in get_tree().get_nodes_in_group('building_widgets'):
-		widget.button_disabled = (money < widget.price * widget.get_selected_count())
-
-
-func _on_action_button_clicked(count, _widget, action):
-	consume_money(action['price'] * count)
+func _on_action_button_clicked(_widget, action, count):
+	consume_money(action.price * count)
 	selected_building.perform_action(action, count)
 	$placement_sound.play()
 
@@ -395,7 +354,6 @@ func produce_money(amount):
 	money += amount
 	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
-	update_action_widgets()
 
 
 func consume_money(amount):
@@ -404,7 +362,6 @@ func consume_money(amount):
 	money -= amount
 	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	update_toolbox()
-	update_action_widgets()
 
 
 func produce_pollution(amount):
@@ -447,7 +404,6 @@ func add_population(amount):
 func hire_recruiter(count: int = 1):
 	recruiters += count
 	recruiter_price += count * recruiter_price_increase
-	update_building_panel()
 	emit_signal("info_updated", self, Global.StatType.POPULATION_INCREASE_PER_CYCLE, get_population_increment_per_cycle())
 	emit_signal("info_updated", self, Global.StatType.RECRUITERS, recruiters)
 

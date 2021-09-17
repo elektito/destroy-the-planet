@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Building.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Factory.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/sprites/factory.png" type="Texture" id=3]
+[ext_resource path="res://BuildingAction.tscn" type="PackedScene" id=4]
 
 [node name="Factory" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -26,5 +27,11 @@ position = Vector2( -15.347, -20.2215 )
 
 [node name="cycle_timer" type="Timer" parent="." index="11"]
 autostart = true
+
+[node name="actions" type="Node" parent="." index="12"]
+
+[node name="cycle" parent="actions" index="0" instance=ExtResource( 4 )]
+title = "Manual Cycle"
+description = "Manually perform one cycle of building operation by clicking the button."
 
 [connection signal="timeout" from="cycle_timer" to="." method="_on_cycle_timer_timeout"]

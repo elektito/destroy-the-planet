@@ -62,6 +62,8 @@ var world
 func init(_world):
 	world = _world
 	update_upgrade_label(self)
+	update_recruiter_action_desc()
+	add_upgrade_action(level, levels)
 	
 	# notify any interested listeners that there might be some changes
 	emit_signal("info_updated", self, Global.StatType.POPULATION_CAP, get_population_cap())
@@ -71,10 +73,8 @@ func init(_world):
 
 func get_stats():
 	return [
-		{
-			'type': Global.StatType.POPULATION_CAP,
-			'value': str(get_population_cap()),
-		},
+		Global.new_stat(Global.StatType.LEVEL, level),
+		Global.new_stat(Global.StatType.POPULATION_CAP, get_population_cap()),
 	]
 
 
@@ -95,44 +95,41 @@ func get_level_upgrade_price(level):
 
 
 func get_actions():
-	var actions = []
-	if level < levels[-1]['number']:
-		var next_level = levels[level] # level is one based, so levels[level] is next level
-		actions.append({
-			'name': 'level',
-			'title': 'Upgrade to Level ' + str(level + 1),
-			'description': 'Upgrade apartment building to level ' + str(level + 1) + '.',
-			'price': get_level_upgrade_price(level),
-			'stats': Global.get_level_upgrade_stats(current_level, next_level),
-		})
-	actions.append({
-		'name': 'recruiter',
-		'title': 'Hire Recruiter',
-		'description': 'Hire a recruiter to help you get more people into your planet paradise. Each recruiter recruits one person per cycle. Recruiters are shared between all apartment buildings. Current recruiters in the world: ' + str(world.get_recruiter_count()),
-		'price': world.get_recruiter_price(),
-		'stats': [{
-			'type': Global.StatType.POPULATION_INCREASE_PER_CYCLE,
-			'value': '+1',
-		}],
-		'batch_enabled': true,
-		'button_text': 'Hire',
-	})
-	
-	return actions
+	return $actions.get_children()
 
 
 func perform_action(action, count):
-	match action['name']:
-		'level':
-			level += 1
-			current_level = levels[level - 1]
+	if action.name.begins_with("level"):
+		# just remove the child from the list. the widget will free it later.
+		$actions.remove_child(action)
+		print('action %s removed from tree' % action.name)
+		
+		level += 1
+		current_level = levels[level - 1]
+		if level < len(levels):
+			add_upgrade_action(level, levels)
+			
 			emit_signal("upgraded", self)
+			
 			emit_signal("info_updated", self, Global.StatType.POPULATION_CAP, get_population_cap())
-			update_upgrade_label(self)
+		
+		update_upgrade_label(self)
+		emit_signal("info_updated", self, Global.StatType.LEVEL, level)
+		emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())
+		
+		return
+	
+	match action.name:
 		'recruiter':
 			world.hire_recruiter(count)
+
+
+func update_recruiter_action_desc():
+	$actions/recruiter.description = 'Hire a recruiter to help you get more people into your planet paradise. Each recruiter recruits one person per cycle. Recruiters are shared between all apartment buildings. Current recruiters in the world: ' + str(world.recruiters)
 
 
 func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_upgrade_label(self)
+	if item == Global.StatType.RECRUITERS:
+		update_recruiter_action_desc()
