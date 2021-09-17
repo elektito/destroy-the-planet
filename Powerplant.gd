@@ -121,6 +121,7 @@ func get_actions():
 
 func post_level_upgrade():
 	emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
+	update_smoke()
 
 
 func perform_action(action, _count):
