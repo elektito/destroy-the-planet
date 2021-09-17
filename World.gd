@@ -53,10 +53,10 @@ onready var building_info = {
 		'preview_icon': preload("res://assets/gfx/sprites/apartment.png"),
 		'scene': preload("res://Apartment.tscn"),
 	},
-	Global.BuildingType.BAR: {
-		'button': $hud/hbox/toolbox/vbox/bar_btn,
-		'preview_icon': preload("res://assets/gfx/sprites/bar.png"),
-		'scene': preload("res://Bar.tscn"),
+	Global.BuildingType.AD_AGENCY: {
+		'button': $hud/hbox/toolbox/vbox/ad_agency_btn,
+		'preview_icon': preload("res://assets/gfx/sprites/ad-agency.png"),
+		'scene': preload("res://AdAgency.tscn"),
 	},
 }
 
@@ -266,9 +266,9 @@ func get_price(building) -> int:
 		Global.BuildingType.APARTMENT_BUILDING:
 			base_price = 200
 			exponent = get_building_count(Global.BuildingType.APARTMENT_BUILDING)
-		Global.BuildingType.BAR:
+		Global.BuildingType.AD_AGENCY:
 			base_price = 200
-			exponent = get_building_count(Global.BuildingType.BAR)
+			exponent = get_building_count(Global.BuildingType.AD_AGENCY)
 	
 	var price
 	if base_price == 100:

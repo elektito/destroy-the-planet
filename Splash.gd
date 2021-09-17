@@ -17,14 +17,14 @@ func _ready():
 func create_building():
 	var scenes = {
 		Global.BuildingType.APARTMENT_BUILDING: preload('res://Apartment.tscn'),
-		Global.BuildingType.BAR: preload('res://Bar.tscn'),
+		Global.BuildingType.AD_AGENCY: preload('res://AdAgency.tscn'),
 		Global.BuildingType.FACTORY: preload('res://Factory.tscn'),
 		Global.BuildingType.MINE: preload('res://Mine.tscn'),
 		Global.BuildingType.POWERPLANT: preload('res://Powerplant.tscn'),
 	}
 	var building_types = [
 		Global.BuildingType.APARTMENT_BUILDING,
-		Global.BuildingType.BAR,
+		Global.BuildingType.AD_AGENCY,
 		Global.BuildingType.FACTORY,
 		Global.BuildingType.FACTORY,
 		Global.BuildingType.FACTORY,

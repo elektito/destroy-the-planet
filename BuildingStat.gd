@@ -32,7 +32,7 @@ var type_info = {
 	},
 	Global.StatType.ADS: {
 		'name': 'Ads',
-		'texture': preload("res://assets/gfx/icons/entertainment.png"),
+		'texture': preload("res://assets/gfx/icons/ads.png"),
 		'human_readable': true,
 	},
 	Global.StatType.POWER: {
