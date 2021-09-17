@@ -7,6 +7,7 @@ onready var ads_value_label = $margin/hbox/ads_value_label
 onready var reach_value_label = $margin/hbox/reach_value_label
 
 var world
+var world_updated := false
 
 func init(world):
 	self.world = world
@@ -27,5 +28,11 @@ func update():
 	reach_value_label.text = '%.2f%%' % (world.get_reach() * 100) #str(get_reach() * 100) + '%'
 
 
+func _process(delta):
+	if world_updated:
+		update()
+		world_updated = false
+
+
 func _on_world_info_updated(_world, _item, _value):
-	update()
+	world_updated = true

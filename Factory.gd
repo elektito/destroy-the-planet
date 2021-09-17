@@ -11,6 +11,8 @@ const effects := [
 var building_name = 'Factory'
 var description = 'A good ol\' factory. Consumes some resources and pollutes a heck of a lot more, while also making money for you. Profit per sale will increase the more power production and mining you have, while total sale depends on population and advertising.'
 
+var updated_items = {}
+
 func init(world):
 	.init(world)
 	
@@ -94,17 +96,7 @@ func get_stats():
 
 func get_power_factor():
 	var power = world.get_total_property(Global.StatType.POWER)
-	var factor := 0
-	var counter = 0
-	var next_level = 10
-	var step = 1
-	while counter < power:
-		factor += 1
-		counter += step
-		if counter >= next_level:
-			step += next_level / 10
-			next_level *= 10
-	return factor
+	return sqrt(power)
 
 
 func get_mining_factor():
@@ -176,6 +168,25 @@ func perform_action(action, _count):
 			_on_cycle_timer_timeout()
 
 
+func _process(delta):
+	var interesting = [
+		Global.StatType.ADS,
+		Global.StatType.POWER,
+		Global.StatType.MINING,
+		Global.StatType.POPULATION,
+	]
+	for item in updated_items.keys():
+		if item in interesting:
+			update_smoke()
+			emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
+			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
+			emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
+			emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
+		if item == Global.StatType.MONEY:
+			update_upgrade_label()
+	updated_items = {}
+
+
 func _on_cycle_timer_timeout():
 	if decorative or operations_paused:
 		return
@@ -185,20 +196,7 @@ func _on_cycle_timer_timeout():
 
 
 func _on_world_info_updated(_world, item, _value):
-	var interesting = [
-		Global.StatType.ADS,
-		Global.StatType.POWER,
-		Global.StatType.MINING,
-		Global.StatType.POPULATION,
-	]
-	if item in interesting:
-		update_smoke()
-		emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
-		emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
-		emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
-		emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
-	if item == Global.StatType.MONEY:
-		update_upgrade_label()
+	updated_items[item] = true
 
 
 func update_smoke():

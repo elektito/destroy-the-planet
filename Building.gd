@@ -17,6 +17,7 @@ var outline_material : ShaderMaterial
 var shaking := false
 
 var world
+var smoke_nodes := []
 
 # these should be initialized in the sub-classes
 var level = 1
@@ -26,6 +27,10 @@ var current_level = null
 func init(world):
 	self.world = world
 	init_data()
+	
+	for node in Global.get_all_node_children(self):
+		if node.is_in_group('smoke') and node != $smoke_blueprint:
+			smoke_nodes.append(node)
 
 
 func init_data():
@@ -78,10 +83,12 @@ func get_selected() -> bool:
 
 
 func set_smoke_rate(value : int):
-	for node in Global.get_all_node_children(self):
-		if node.is_in_group('smoke'):
-			if node.rate != value:
-				node.rate = value
+	# Instead of using `for node in smoke_nodes` we're using this way to iterate,
+	# because according to the profiler this is a good bit faster.
+	for i in range(len(smoke_nodes)):
+		var node = smoke_nodes[i]
+		if node.rate != value:
+			node.rate = value
 
 
 func get_smoke_rate() -> int:
