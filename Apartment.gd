@@ -62,7 +62,7 @@ var world
 func init(_world):
 	world = _world
 	update_upgrade_label(self)
-	update_recruiter_action_desc()
+	update_recruiter_action()
 	add_upgrade_action(level, levels)
 	
 	# notify any interested listeners that there might be some changes
@@ -122,14 +122,16 @@ func perform_action(action, count):
 	match action.name:
 		'recruiter':
 			world.hire_recruiter(count)
+			action.price = world.get_recruiter_price()
 
 
-func update_recruiter_action_desc():
+func update_recruiter_action():
 	$actions/recruiter.description = 'Hire a recruiter to help you get more people into your planet paradise. Each recruiter recruits one person per cycle. Recruiters are shared between all apartment buildings. Current recruiters in the world: ' + str(world.recruiters)
+	$actions/recruiter.price = world.get_recruiter_price()
 
 
 func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_upgrade_label(self)
 	if item == Global.StatType.RECRUITERS:
-		update_recruiter_action_desc()
+		update_recruiter_action()
