@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Panel
 
 signal action_button_clicked()
 
