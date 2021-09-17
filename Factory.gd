@@ -8,67 +8,16 @@ const effects := [
 	Global.StatType.POLLUTION_PER_CYCLE,
 ]
 
-var levels = [
-	{
-		'number': 1,
-		'description': 'Your rudimentary basic factory.',
-		'base_profit_per_sale': 1,
-		'base_pollution_per_cycle': 100,
-		'base_resource_usage_per_cycle': 1,
-	},
-	{
-		'number': 2,
-		'description': 'Small factory.',
-		'base_profit_per_sale': 5,
-		'base_pollution_per_cycle': 1000,
-		'base_resource_usage_per_cycle': 10,
-	},
-	{
-		'number': 3,
-		'description': 'Partially upgraded factory.',
-		'base_profit_per_sale': 10,
-		'base_pollution_per_cycle': 2000,
-		'base_resource_usage_per_cycle': 100,
-	},
-	{
-		'number': 4,
-		'description': 'Medium-sized factory.',
-		'base_profit_per_sale': 20,
-		'base_pollution_per_cycle': 4000,
-		'base_resource_usage_per_cycle': 500,
-	},
-	{
-		'number': 5,
-		'description': 'Above-medium factory.',
-		'base_profit_per_sale': 40,
-		'base_pollution_per_cycle': 8000,
-		'base_resource_usage_per_cycle': 1000,
-	},
-	{
-		'number': 6,
-		'description': 'Almost-there factory.',
-		'base_profit_per_sale': 80,
-		'base_pollution_per_cycle': 16000,
-		'base_resource_usage_per_cycle': 2000,
-	},
-	{
-		'number': 7,
-		'description': 'Beast of a factory.',
-		'base_profit_per_sale': 160,
-		'base_pollution_per_cycle': 32000,
-		'base_resource_usage_per_cycle': 4000,
-	},
-]
-var current_level = levels[0]
-
 var building_name = 'Factory'
 var description = 'A good ol\' factory. Consumes some resources and pollutes a heck of a lot more, while also making money for you. Profit per sale will increase the more power production and mining you have, while total sale depends on population and advertising.'
-var level := 1
 
 var world
 
 func init(_world):
 	world = _world
+	
+	init_data()
+	
 	update_upgrade_label(self)
 	update_smoke()
 	add_upgrade_action(level, levels)
@@ -80,6 +29,61 @@ func init(_world):
 	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 	
 	world.connect("info_updated", self, "_on_world_info_updated")
+
+
+func init_data():
+	levels = [
+		{
+			'number': 1,
+			'description': 'Your rudimentary basic factory.',
+			'base_profit_per_sale': 1,
+			'base_pollution_per_cycle': 100,
+			'base_resource_usage_per_cycle': 1,
+		},
+		{
+			'number': 2,
+			'description': 'Small factory.',
+			'base_profit_per_sale': 5,
+			'base_pollution_per_cycle': 1000,
+			'base_resource_usage_per_cycle': 10,
+		},
+		{
+			'number': 3,
+			'description': 'Partially upgraded factory.',
+			'base_profit_per_sale': 10,
+			'base_pollution_per_cycle': 2000,
+			'base_resource_usage_per_cycle': 100,
+		},
+		{
+			'number': 4,
+			'description': 'Medium-sized factory.',
+			'base_profit_per_sale': 20,
+			'base_pollution_per_cycle': 4000,
+			'base_resource_usage_per_cycle': 500,
+		},
+		{
+			'number': 5,
+			'description': 'Above-medium factory.',
+			'base_profit_per_sale': 40,
+			'base_pollution_per_cycle': 8000,
+			'base_resource_usage_per_cycle': 1000,
+		},
+		{
+			'number': 6,
+			'description': 'Almost-there factory.',
+			'base_profit_per_sale': 80,
+			'base_pollution_per_cycle': 16000,
+			'base_resource_usage_per_cycle': 2000,
+		},
+		{
+			'number': 7,
+			'description': 'Beast of a factory.',
+			'base_profit_per_sale': 160,
+			'base_pollution_per_cycle': 32000,
+			'base_resource_usage_per_cycle': 4000,
+		},
+	]
+	current_level = levels[0]
 
 
 func get_stats():
@@ -157,28 +161,18 @@ func get_actions():
 	return $actions.get_children()
 
 
+func post_level_upgrade():
+	emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
+	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
+	
+	update_smoke()
+
+
 func perform_action(action, _count):
 	if action.name.begins_with("level"):
-		# just remove the child from the list. the widget will free it later.
-		$actions.remove_child(action)
-		print('action %s removed from tree' % action.name)
-		
-		level += 1
-		current_level = levels[level - 1]
-		if level < len(levels):
-			add_upgrade_action(level, levels)
-			
-			emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
-			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
-			emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
-			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
-			
-			update_smoke()
-		
-		update_upgrade_label(self)
-		emit_signal("info_updated", self, Global.StatType.LEVEL, level)
-		emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())
-		
+		perform_level_upgrade(action)
 		return
 	
 	match action.name:
