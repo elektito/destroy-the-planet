@@ -109,8 +109,6 @@ func perform_action(action, count):
 		if level < len(levels):
 			add_upgrade_action(level, levels)
 			
-			emit_signal("upgraded", self)
-			
 			emit_signal("info_updated", self, Global.StatType.POPULATION_CAP, get_population_cap())
 		
 		update_upgrade_label(self)

@@ -4,7 +4,6 @@ tool
 const BUILDING_POP_TIME := 0.075
 
 signal clicked()
-signal upgraded(building)
 signal info_updated(building, item, value)
 
 export(Texture) var texture : Texture = null setget set_texture, get_texture
