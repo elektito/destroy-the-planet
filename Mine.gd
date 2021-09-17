@@ -112,8 +112,6 @@ func perform_action(action, _count):
 		if level < len(levels):
 			add_upgrade_action(level, levels)
 			
-			emit_signal("upgraded", self)
-			
 			emit_signal("info_updated", self, Global.StatType.MINING, get_mining())
 		
 		update_upgrade_label(self)

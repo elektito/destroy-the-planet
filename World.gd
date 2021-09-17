@@ -136,7 +136,6 @@ func _input(event):
 				b.rotation = $placing_area/preview_icon.rotation
 				$placing_area.add_child(b)
 				b.connect('clicked', self, '_on_building_clicked', [b])
-				b.connect('upgraded', self, '_on_building_upgraded')
 				b.connect('info_updated', self, '_on_building_info_updated')
 				consume_money(get_price(b.type))
 				b.init(self)
@@ -207,10 +206,6 @@ func _on_building_clicked(building):
 	selected_building = building
 	
 	$hud/hbox/building_panel.building = building
-
-
-func _on_building_upgraded(_building):
-	pass
 
 
 func _on_building_info_updated(building, item, _value):

@@ -168,8 +168,6 @@ func perform_action(action, _count):
 		if level < len(levels):
 			add_upgrade_action(level, levels)
 			
-			emit_signal("upgraded", self)
-			
 			emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
 			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
 			emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
