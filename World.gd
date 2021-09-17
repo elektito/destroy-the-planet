@@ -32,6 +32,11 @@ var prev_angle = null
 var rotation_accel = 0.0
 var rotation_speed = 0.0
 
+# This dictionary is used for caching the result of the get_total_property
+# function. Profiling showed that's an expensive function, so using this,
+# we cache the results. The cache is reset on every physics frame.
+var totals := {}
+
 onready var building_info = {
 	Global.BuildingType.FACTORY: {
 		'button': $hud/hbox/toolbox/vbox/factory_btn,
@@ -171,6 +176,8 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta):
+	totals = {}
+	
 	rotation_speed += rotation_accel * delta
 	if rotation_speed > MAX_ROTATION_SPEED:
 		rotation_speed = MAX_ROTATION_SPEED
@@ -222,11 +229,16 @@ func _on_building_info_updated(building, item, _value):
 
 
 func get_total_property(property):
+	if property in totals:
+		return totals[property]
+	
 	var total = 0
 	
 	for b in placed_buildings:
 		if property in b.effects:
 			total += b.get_property(property)
+	
+	totals[property] = total
 	
 	return total
 

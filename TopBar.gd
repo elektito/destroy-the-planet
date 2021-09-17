@@ -6,6 +6,7 @@ onready var money_label = $margin/hbox/money_label
 onready var money_value_label = $margin/hbox/money_value_label
 
 var world
+var world_updated = false
 
 func init(world):
 	self.world = world
@@ -34,5 +35,11 @@ func update():
 	pollution_value_label.text = str(world.pollution) + ' (' + str(pollution_percent) + '%)'
 
 
+func _process(delta):
+	if world_updated:
+		update()
+		world_updated = false
+
+
 func _on_world_info_updated(world, _item, _value):
-	update()
+	world_updated = true
