@@ -11,14 +11,10 @@ const effects := [
 var building_name = 'Factory'
 var description = 'A good ol\' factory. Consumes some resources and pollutes a heck of a lot more, while also making money for you. Profit per sale will increase the more power production and mining you have, while total sale depends on population and advertising.'
 
-var world
-
-func init(_world):
-	world = _world
+func init(world):
+	.init(world)
 	
-	init_data()
-	
-	update_upgrade_label(self)
+	update_upgrade_label()
 	update_smoke()
 	add_upgrade_action(level, levels)
 	
@@ -202,7 +198,7 @@ func _on_world_info_updated(_world, item, _value):
 		emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
 		emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 	if item == Global.StatType.MONEY:
-		update_upgrade_label(self)
+		update_upgrade_label()
 
 
 func update_smoke():

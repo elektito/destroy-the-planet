@@ -13,7 +13,6 @@ export(bool) var batch_enabled := false
 export(Array, Resource) var stats := [] setget set_stats
 
 func set_stats(value: Array):
-	var x: Stat
 	for stat in value:
 		if stat.get_script() == null or stat.get_script().get_path() != "res://Stat.gd":
 			push_error("Only Stat resources can be set in BuildingAction.stats")

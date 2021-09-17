@@ -16,10 +16,22 @@ export(bool) var operations_paused := false
 var outline_material : ShaderMaterial
 var shaking := false
 
+var world
+
 # these should be initialized in the sub-classes
 var level = 1
 var levels = null
 var current_level = null
+
+func init(world):
+	self.world = world
+	init_data()
+
+
+func init_data():
+	# to be overridden in sub-classes
+	pass
+
 
 func _ready():
 	for node in get_children():
@@ -89,12 +101,20 @@ func set_upgrade_available(value : bool):
 	$upgrade_label.visible = value
 
 
-func update_upgrade_label(parent):
-	var actions = parent.get_actions()
-	if len(actions) > 0 and actions[0]['name'] == 'level':
-		set_upgrade_available(parent.world.money >= actions[0]['price'])
-	else:
+func find_upgrade_action(actions):
+	for action in actions:
+		if action.name.begins_with('level'):
+			return action
+	return null
+
+
+func update_upgrade_label():
+	var actions = get_actions()
+	var upgrade_action = find_upgrade_action(actions)
+	if upgrade_action == null:
 		set_upgrade_available(false)
+	else:
+		set_upgrade_available(world.money >= actions[0]['price'])
 
 
 func shake():
@@ -179,7 +199,7 @@ func perform_level_upgrade(action):
 	if level < len(levels):
 		add_upgrade_action(level, levels)
 	
-	update_upgrade_label(self)
+	update_upgrade_label()
 	
 	emit_signal("info_updated", self, Global.StatType.LEVEL, level)
 	emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())

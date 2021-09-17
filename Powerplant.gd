@@ -11,14 +11,10 @@ const effects := [
 var building_name = 'Coal Powerplant'
 var description = 'The best kind of power plant there is.'
 
-var world
-
-func init(_world):
-	world = _world
+func init(world):
+	.init(world)
 	
-	init_data()
-	
-	update_upgrade_label(self)
+	update_upgrade_label()
 	add_upgrade_action(level, levels)
 	
 	# notify any interested listeners that there might be some changes
@@ -142,7 +138,7 @@ func _on_cycle_timer_timeout():
 
 func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
-		update_upgrade_label(self)
+		update_upgrade_label()
 
 
 func update_smoke():

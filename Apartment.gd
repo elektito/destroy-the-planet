@@ -7,14 +7,10 @@ const effects := [Global.StatType.POPULATION_CAP]
 var building_name = 'Apartment Building'
 var description = 'Provides housing for the ultimate resource users and pollution producers: people.'
 
-var world
-
-func init(_world):
-	world = _world
+func init(world):
+	.init(world)
 	
-	init_data()
-	
-	update_upgrade_label(self)
+	update_upgrade_label()
 	update_recruiter_action()
 	add_upgrade_action(level, levels)
 	
@@ -124,6 +120,6 @@ func update_recruiter_action():
 
 func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
-		update_upgrade_label(self)
+		update_upgrade_label()
 	if item == Global.StatType.RECRUITERS:
 		update_recruiter_action()
