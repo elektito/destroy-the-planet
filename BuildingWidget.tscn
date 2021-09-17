@@ -32,8 +32,8 @@ __meta__ = {
 }
 
 [node name="margin" type="MarginContainer" parent="."]
-margin_right = 105.0
-margin_bottom = 90.0
+margin_right = 78.0
+margin_bottom = 62.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -42,14 +42,14 @@ custom_constants/margin_bottom = 4
 [node name="vbox" type="VBoxContainer" parent="margin"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 101.0
-margin_bottom = 86.0
+margin_right = 74.0
+margin_bottom = 58.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="description" type="RichTextLabel" parent="margin/vbox"]
-margin_right = 97.0
+margin_right = 70.0
 margin_bottom = 16.0
 custom_fonts/bold_italics_font = SubResource( 2 )
 custom_fonts/italics_font = SubResource( 3 )
@@ -59,6 +59,11 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 fit_content_height = true
 scroll_active = false
+
+[node name="stats" type="VBoxContainer" parent="margin/vbox"]
+margin_top = 20.0
+margin_right = 70.0
+margin_bottom = 20.0
 
 [node name="batch" type="HBoxContainer" parent="margin/vbox"]
 visible = false
@@ -81,13 +86,14 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 size_flags_horizontal = 3
 theme = ExtResource( 6 )
+text = "1"
+items = [ "1", null, false, 0, null, "10", null, false, 1, null, "100", null, false, 2, null, "1000", null, false, 3, null, "10000", null, false, 4, null, "100000", null, false, 5, null ]
 selected = 0
 
 [node name="action_btn" type="Button" parent="margin/vbox"]
-margin_left = 27.0
-margin_top = 20.0
-margin_right = 97.0
-margin_bottom = 50.0
+margin_top = 24.0
+margin_right = 70.0
+margin_bottom = 54.0
 rect_min_size = Vector2( 70, 30 )
 focus_mode = 0
 size_flags_horizontal = 8

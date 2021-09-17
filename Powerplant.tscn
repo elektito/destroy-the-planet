@@ -22,4 +22,6 @@ position = Vector2( -15.347, -18.2215 )
 [node name="cycle_timer" type="Timer" parent="." index="10"]
 autostart = true
 
+[node name="actions" type="Node" parent="." index="11"]
+
 [connection signal="timeout" from="cycle_timer" to="." method="_on_cycle_timer_timeout"]

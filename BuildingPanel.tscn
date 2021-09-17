@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://BuildingPanel.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Secuela-Regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/Secuela-Bold.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://BuildingStat.tscn" type="PackedScene" id=5]
+[ext_resource path="res://BuildingWidget.tscn" type="PackedScene" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.898039, 0.313726, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0.501961 )
+
+[node name="BuildingPanel" type="PanelContainer"]
+margin_right = 175.0
+margin_bottom = 720.0
+rect_min_size = Vector2( 175, 0 )
+mouse_filter = 2
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="margin" type="MarginContainer" parent="."]
+margin_right = 175.0
+margin_bottom = 720.0
+mouse_filter = 2
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="margin"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 171.0
+margin_bottom = 716.0
+mouse_filter = 2
+
+[node name="description" type="RichTextLabel" parent="margin/vbox"]
+margin_right = 167.0
+margin_bottom = 48.0
+custom_fonts/bold_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 3 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]foobar[/b]
+
+foo bar spam eggs"
+text = "foobar
+
+foo bar spam eggs"
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stats" type="VBoxContainer" parent="margin/vbox"]
+margin_top = 52.0
+margin_right = 167.0
+margin_bottom = 70.0
+
+[node name="BuildingStat" parent="margin/vbox/stats" instance=ExtResource( 5 )]
+margin_right = 54.0
+text = "foobar"
+
+[node name="widgets" type="VBoxContainer" parent="margin/vbox"]
+margin_top = 74.0
+margin_right = 167.0
+margin_bottom = 136.0
+
+[node name="BuildingWidget" parent="margin/vbox/widgets" instance=ExtResource( 6 )]
+margin_right = 167.0
+margin_bottom = 62.0
+custom_styles/panel = SubResource( 4 )
