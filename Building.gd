@@ -16,6 +16,11 @@ export(bool) var operations_paused := false
 var outline_material : ShaderMaterial
 var shaking := false
 
+# these should be initialized in the sub-classes
+var level = 1
+var levels = null
+var current_level = null
+
 func _ready():
 	for node in get_children():
 		if node.is_in_group('smoke_positions'):
@@ -132,6 +137,16 @@ func get_level_upgrade_price(level):
 	return int(pow(100, level))
 
 
+func post_level_upgrade():
+	# should be overridden in the sub-classes if necessary.
+	pass
+
+
+func get_actions():
+	# should be overridden in the sub-classes if necessary.
+	return []
+
+
 func add_upgrade_action(level, levels):
 	var action = preload("res://BuildingAction.tscn").instance()
 	action.name = 'level' + str(level + 1)
@@ -145,6 +160,29 @@ func add_upgrade_action(level, levels):
 	
 	$actions.add_child(action)
 	$actions.move_child(action, 0)
+
+
+func perform_level_upgrade(action):
+	# this function contains generic level upgrade functionality for all
+	# buildings
+	
+	# just remove the child from the actions list. the widget will free it later.
+	$actions.remove_child(action)
+	print('action %s removed from tree' % action.name)
+	
+	level += 1
+	current_level = levels[level - 1]
+	
+	# perform post-level-upgrade, possibly overridden in the sub-classes
+	post_level_upgrade()
+	
+	if level < len(levels):
+		add_upgrade_action(level, levels)
+	
+	update_upgrade_label(self)
+	
+	emit_signal("info_updated", self, Global.StatType.LEVEL, level)
+	emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())
 
 
 func _on_main_area_mouse_entered():

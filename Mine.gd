@@ -8,53 +8,16 @@ const effects := [
 	Global.StatType.MINING,
 ]
 
-var levels = [
-	{
-		'number': 1,
-		'description': 'Tiny mine.',
-		'base_pollution_per_cycle': 1,
-		'base_resource_usage_per_cycle': 100,
-		'base_mining': 2,
-	},
-	{
-		'number': 2,
-		'description': 'Small mine.',
-		'base_pollution_per_cycle': 10,
-		'base_resource_usage_per_cycle': 10000,
-		'base_mining': 4,
-	},
-	{
-		'number': 3,
-		'description': 'Partially upgraded mine.',
-		'base_pollution_per_cycle': 100,
-		'base_resource_usage_per_cycle': 50000,
-		'base_mining': 8,
-	},
-	{
-		'number': 4,
-		'description': 'Medium-sized mine.',
-		'base_pollution_per_cycle': 500,
-		'base_resource_usage_per_cycle': 100000,
-		'base_mining': 16,
-	},
-	{
-		'number': 5,
-		'description': 'Big mine.',
-		'base_pollution_per_cycle': 1000,
-		'base_resource_usage_per_cycle': 200000,
-		'base_mining': 32,
-	},
-]
-var current_level = levels[0]
-
 var building_name = 'Mine'
 var description = 'Mines resource from the planet, accelerating certain doom.'
-var level := 1
 
 var world
 
 func init(_world):
 	world = _world
+	
+	init_data()
+	
 	update_upgrade_label(self)
 	add_upgrade_action(level, levels)
 	
@@ -62,6 +25,47 @@ func init(_world):
 	emit_signal("info_updated", self, Global.StatType.MINING, get_mining())
 	
 	world.connect("info_updated", self, "_on_world_info_updated")
+
+
+func init_data():
+	levels = [
+		{
+			'number': 1,
+			'description': 'Tiny mine.',
+			'base_pollution_per_cycle': 1,
+			'base_resource_usage_per_cycle': 100,
+			'base_mining': 2,
+		},
+		{
+			'number': 2,
+			'description': 'Small mine.',
+			'base_pollution_per_cycle': 10,
+			'base_resource_usage_per_cycle': 10000,
+			'base_mining': 4,
+		},
+		{
+			'number': 3,
+			'description': 'Partially upgraded mine.',
+			'base_pollution_per_cycle': 100,
+			'base_resource_usage_per_cycle': 50000,
+			'base_mining': 8,
+		},
+		{
+			'number': 4,
+			'description': 'Medium-sized mine.',
+			'base_pollution_per_cycle': 500,
+			'base_resource_usage_per_cycle': 100000,
+			'base_mining': 16,
+		},
+		{
+			'number': 5,
+			'description': 'Big mine.',
+			'base_pollution_per_cycle': 1000,
+			'base_resource_usage_per_cycle': 200000,
+			'base_mining': 32,
+		},
+	]
+	current_level = levels[0]
 
 
 func get_stats():
@@ -101,23 +105,13 @@ func get_actions():
 	return $actions.get_children()
 
 
+func post_level_upgrade():
+	emit_signal("info_updated", self, Global.StatType.MINING, get_mining())
+
+
 func perform_action(action, _count):
 	if action.name.begins_with("level"):
-		# just remove the child from the list. the widget will free it later.
-		$actions.remove_child(action)
-		print('action %s removed from tree' % action.name)
-		
-		level += 1
-		current_level = levels[level - 1]
-		if level < len(levels):
-			add_upgrade_action(level, levels)
-			
-			emit_signal("info_updated", self, Global.StatType.MINING, get_mining())
-		
-		update_upgrade_label(self)
-		emit_signal("info_updated", self, Global.StatType.LEVEL, level)
-		emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())
-		
+		perform_level_upgrade(action)
 		return
 	
 	match action['name']:
