@@ -31,7 +31,7 @@ enum BuildingType {
 	POWERPLANT,
 	MINE,
 	APARTMENT_BUILDING,
-	BAR,
+	AD_AGENCY,
 }
 
 
@@ -41,7 +41,7 @@ static func get_building_types():
 		BuildingType.POWERPLANT,
 		BuildingType.MINE,
 		BuildingType.APARTMENT_BUILDING,
-		BuildingType.BAR,
+		BuildingType.AD_AGENCY,
 	]
 
 
@@ -51,7 +51,7 @@ static func get_building_name(building_type) -> String:
 		BuildingType.POWERPLANT: 'Powerplant',
 		BuildingType.MINE: 'Mine',
 		BuildingType.APARTMENT_BUILDING: 'Apartment Building',
-		BuildingType.BAR: 'Bar',
+		BuildingType.AD_AGENCY: 'Ad Agency',
 	}
 	return names[building_type]
 

@@ -1,11 +1,11 @@
 extends 'Building.gd'
 tool
 
-const type := Global.BuildingType.BAR
+const type := Global.BuildingType.AD_AGENCY
 const effects := [Global.StatType.ADS]
 
-var building_name = 'Bar'
-var description = 'Where people go to have fun. Happy people consume more!'
+var building_name = 'Ad Agency'
+var description = 'Pumping ads 24/7 towards the populace. Guaranteed to increase sales.'
 
 var world
 
@@ -27,37 +27,37 @@ func init_data():
 	levels = [
 		{
 			'number': 1,
-			'description': 'Level 1 bar.',
+			'description': 'Level 1 ad agency.',
 			'base_ads': 1,
 		},
 		{
 			'number': 2,
-			'description': 'Level 2 bar.',
+			'description': 'Level 2 ad agency.',
 			'base_ads': 2,
 		},
 		{
 			'number': 3,
-			'description': 'Level 3 bar.',
+			'description': 'Level 3 ad agency.',
 			'base_ads': 3,
 		},
 		{
 			'number': 4,
-			'description': 'Level 4 bar.',
+			'description': 'Level 4 ad agency.',
 			'base_ads': 4,
 		},
 		{
 			'number': 5,
-			'description': 'Level 5 bar.',
+			'description': 'Level 5 ad agency.',
 			'base_ads': 5,
 		},
 		{
 			'number': 6,
-			'description': 'Level 6 bar.',
+			'description': 'Level 6 ad agency.',
 			'base_ads': 6,
 		},
 		{
 			'number': 7,
-			'description': 'Level 7 bar.',
+			'description': 'Level 7 ad agency.',
 			'base_ads': 7,
 		},
 	]

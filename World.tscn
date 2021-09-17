@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/gfx/sprites/apartment.png" type="Texture" id=2]
 [ext_resource path="res://World.gd" type="Script" id=3]
 [ext_resource path="res://assets/gfx/sprites/planet.png" type="Texture" id=4]
-[ext_resource path="res://assets/gfx/sprites/bar.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/sprites/ad-agency.png" type="Texture" id=5]
 [ext_resource path="res://BuildingPanel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Theme.tres" type="Theme" id=10]
 [ext_resource path="res://BoldLabelFont.tres" type="DynamicFont" id=11]
@@ -63,7 +63,7 @@ flags = 5
 atlas = ExtResource( 1 )
 region = Rect2( 128, 320, 512, 600 )
 
-[sub_resource type="StyleBoxFlat" id=14]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0, 0, 0, 1 )
 
 [node name="World" type="Node2D"]
@@ -167,7 +167,7 @@ icon = SubResource( 6 )
 flat = false
 expand_icon = true
 
-[node name="bar_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
+[node name="ad_agency_btn" type="ToolButton" parent="hud/hbox/toolbox/vbox" groups=[
 "building_buttons",
 "toolbox_buttons",
 ]]
@@ -295,7 +295,7 @@ visible = false
 margin_left = 215.0
 margin_top = -36.0
 margin_right = 1280.0
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -339,7 +339,7 @@ margin_left = 215.0
 margin_top = 720.0
 margin_right = 1280.0
 margin_bottom = 756.0
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -384,7 +384,7 @@ autostart = true
 [connection signal="mouse_exited" from="placing_area" to="." method="_on_placing_area_mouse_exited"]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/factory_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/apartment_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 3 ]]
-[connection signal="pressed" from="hud/hbox/toolbox/vbox/bar_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 4 ]]
+[connection signal="pressed" from="hud/hbox/toolbox/vbox/ad_agency_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 4 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/mine_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 2 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/powerplant_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/settings" to="." method="_on_settings_pressed"]
