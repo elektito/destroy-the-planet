@@ -63,7 +63,7 @@ func init_data():
 func get_stats():
 	return [
 		Global.new_stat(Global.StatType.LEVEL, level),
-		Global.new_stat(Global.StatType.POPULATION_CAP, get_ads()),
+		Global.new_stat(Global.StatType.ADS, get_ads()),
 	]
 
 

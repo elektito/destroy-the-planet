@@ -67,9 +67,9 @@ func init_data():
 func get_stats():
 	return [
 		Global.new_stat(Global.StatType.LEVEL, level),
-		Global.new_stat(Global.StatType.POPULATION_CAP, get_pollution_per_cycle()),
-		Global.new_stat(Global.StatType.POPULATION_CAP, get_resource_usage_per_cycle()),
-		Global.new_stat(Global.StatType.POPULATION_CAP, get_mining()),
+		Global.new_stat(Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle()),
+		Global.new_stat(Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle()),
+		Global.new_stat(Global.StatType.MINING, get_mining()),
 	]
 
 
