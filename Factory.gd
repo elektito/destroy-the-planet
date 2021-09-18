@@ -35,49 +35,49 @@ func init_data():
 			'number': 1,
 			'description': 'Your rudimentary basic factory.',
 			'base_profit_per_sale': 1,
-			'base_pollution_per_cycle': 100,
+			'base_pollution_per_cycle': 10,
 			'base_resource_usage_per_cycle': 1,
 		},
 		{
 			'number': 2,
 			'description': 'Small factory.',
 			'base_profit_per_sale': 5,
-			'base_pollution_per_cycle': 1000,
+			'base_pollution_per_cycle': 20,
 			'base_resource_usage_per_cycle': 10,
 		},
 		{
 			'number': 3,
 			'description': 'Partially upgraded factory.',
 			'base_profit_per_sale': 10,
-			'base_pollution_per_cycle': 2000,
+			'base_pollution_per_cycle': 100,
 			'base_resource_usage_per_cycle': 100,
 		},
 		{
 			'number': 4,
 			'description': 'Medium-sized factory.',
 			'base_profit_per_sale': 20,
-			'base_pollution_per_cycle': 4000,
+			'base_pollution_per_cycle': 200,
 			'base_resource_usage_per_cycle': 500,
 		},
 		{
 			'number': 5,
 			'description': 'Above-medium factory.',
 			'base_profit_per_sale': 80,
-			'base_pollution_per_cycle': 8000,
+			'base_pollution_per_cycle': 400,
 			'base_resource_usage_per_cycle': 1000,
 		},
 		{
 			'number': 6,
 			'description': 'Almost-there factory.',
 			'base_profit_per_sale': 160,
-			'base_pollution_per_cycle': 16000,
+			'base_pollution_per_cycle': 800,
 			'base_resource_usage_per_cycle': 2000,
 		},
 		{
 			'number': 7,
 			'description': 'Beast of a factory.',
 			'base_profit_per_sale': 800,
-			'base_pollution_per_cycle': 32000,
+			'base_pollution_per_cycle': 1600,
 			'base_resource_usage_per_cycle': 4000,
 		},
 	]
@@ -124,9 +124,14 @@ func get_money_per_cycle():
 	return result
 
 
-func get_pollution_per_cycle(population=null, reach=null):
+func get_pollution_per_cycle(population=null, reach=null, level_idx=null):
 	var sales = get_sales(population, reach)
-	return sales * 3
+	var base_pollution_per_cycle := 0
+	if level_idx == null:
+		base_pollution_per_cycle = current_level['base_pollution_per_cycle']
+	else:
+		base_pollution_per_cycle = levels[level_idx]['base_pollution_per_cycle']
+	return sales * base_pollution_per_cycle
 
 
 func get_resource_usage_per_cycle():
@@ -202,7 +207,7 @@ func _on_world_info_updated(_world, item, _value):
 func update_smoke():
 	var population = 3000000000
 	var reach = 0.18
-	var max_pollution = get_pollution_per_cycle(population, reach)
+	var max_pollution = get_pollution_per_cycle(population, reach, -1)
 	var rate = float(get_pollution_per_cycle()) / max_pollution
 	if rate > 1.0:
 		rate = 1.0
