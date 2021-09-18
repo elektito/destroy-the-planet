@@ -87,9 +87,9 @@ func init_data():
 func get_stats():
 	return [
 		Global.new_stat(Global.StatType.LEVEL, level),
-		Global.new_stat(Global.StatType.POPULATION_CAP, get_pollution_per_cycle()),
-		Global.new_stat(Global.StatType.POPULATION_CAP, get_resource_usage_per_cycle()),
-		Global.new_stat(Global.StatType.POPULATION_CAP, get_power_generation()),
+		Global.new_stat(Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle()),
+		Global.new_stat(Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle()),
+		Global.new_stat(Global.StatType.POWER, get_power_generation()),
 	]
 
 
@@ -121,6 +121,8 @@ func get_actions():
 
 func post_level_upgrade():
 	emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
+	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 	update_smoke()
 
 
