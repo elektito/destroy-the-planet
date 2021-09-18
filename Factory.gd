@@ -180,15 +180,21 @@ func _process(delta):
 		Global.StatType.MINING,
 		Global.StatType.POPULATION,
 	]
+	var something_interesting_changed = false
 	for item in updated_items.keys():
 		if item in interesting:
-			update_smoke()
-			emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
-			emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
-			emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
-			emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
+			something_interesting_changed = true
 		if item == Global.StatType.MONEY:
 			update_upgrade_label()
+	if something_interesting_changed:
+		var money_per_cycle = get_money_per_cycle()
+		var pollution_per_cycle = get_pollution_per_cycle()
+		update_smoke()
+		emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
+		emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, money_per_cycle)
+		emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, pollution_per_cycle)
+		emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
+		$actions/cycle.description = 'Manually perform one cycle of building operation by clicking the button. This generates $%s of money and %s tons of pollution.' % [Global.human_readable(money_per_cycle), Global.human_readable(pollution_per_cycle)]
 	updated_items = {}
 
 
