@@ -65,16 +65,16 @@ decorative = true
 margin_left = 819.0
 margin_top = 93.0
 margin_right = 1213.0
-margin_bottom = 301.0
+margin_bottom = 558.0
 custom_fonts/bold_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 3 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 bbcode_enabled = true
 bbcode_text = "[b]Destroy the Planet[/b]
 
-A game by elektito.
+A game by [b]elektito[/b].
 
-This is a submission to [b]Godot Wild Jam #36[/b]. The theme of the Jam was [b]Uncontrollable Growth[/b].
+This game was originally a submission to the [b]Godot Wild Jam #36[/b]. The theme of the Jam was [b]Uncontrollable Growth[/b].
 
 This game is made using the [b]Godot[/b] game engine. Some third-party sounds and fonts used. Check out the game page for details.
 
@@ -83,7 +83,7 @@ text = "Destroy the Planet
 
 A game by elektito.
 
-This is a submission to Godot Wild Jam #36. The theme of the Jam was Uncontrollable Growth.
+This game was originally a submission to the Godot Wild Jam #36. The theme of the Jam was Uncontrollable Growth.
 
 This game is made using the Godot game engine. Some third-party sounds and fonts used. Check out the game page for details.
 
