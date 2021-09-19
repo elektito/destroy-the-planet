@@ -5,7 +5,7 @@ const type := Global.BuildingType.APARTMENT_BUILDING
 const effects := [Global.StatType.POPULATION_CAP]
 
 var building_name = 'Apartment Building'
-var description = 'Provides housing for the ultimate resource users and pollution producers: people.'
+var description = 'Provides housing for the ultimate pollution producers: people.'
 
 func init(world):
 	.init(world)

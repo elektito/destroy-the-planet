@@ -3,7 +3,6 @@ extends Node2D
 signal info_updated(world, item)
 
 const TRILLION := 1000000000000
-const MAX_RESOURCES := 10000 * TRILLION
 const MAX_POLLUTION := 10000 * TRILLION
 
 const MAX_ROTATION_SPEED := 4.0
@@ -11,7 +10,6 @@ const ROTATION_DAMP := 0.95
 const ROTATION_ACCEL_INC := 1.2
 
 var pollution := 0
-var resources := MAX_RESOURCES
 var money := 100
 var population := 0
 var recruiters := 1
@@ -221,7 +219,6 @@ func _on_building_info_updated(building, item, _value):
 	
 	var notifiable = [
 		Global.StatType.POLLUTION_PER_CYCLE,
-		Global.StatType.RESOURCE_USAGE_PER_CYCLE,
 		Global.StatType.MONEY_PER_CYCLE,
 	]
 	for property in notifiable:
@@ -383,19 +380,6 @@ func produce_pollution(amount):
 	
 	$bg_layer/background.color = lerp(Color('00bbff'), Color.lightblue, float(pollution) / MAX_POLLUTION)
 	$bg_layer/background.modulate = lerp(Color.white, Color('999999'), float(pollution) / MAX_POLLUTION)
-
-
-func consume_resources(amount):
-	if game_over:
-		return
-	resources -= amount
-	if resources < 0:
-		resources = 0
-	if resources == 0:
-		win()
-	emit_signal("info_updated", self, Global.StatType.RESOURCES, resources)
-	
-	$placing_area/planet.modulate = lerp(Color.white, Color('666666'), float(pollution) / MAX_POLLUTION)
 
 
 func add_population(amount):

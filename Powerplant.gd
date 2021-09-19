@@ -5,7 +5,6 @@ const type := Global.BuildingType.POWERPLANT
 const effects := [
 	Global.StatType.POWER,
 	Global.StatType.POLLUTION_PER_CYCLE,
-	Global.StatType.RESOURCE_USAGE_PER_CYCLE,
 ]
 
 var building_name = 'Coal Powerplant'
@@ -29,55 +28,48 @@ func init_data():
 			'number': 1,
 			'description': 'Tiny powerplant.',
 			'base_pollution_per_cycle': 1562500000,
-			'base_resource_usage_per_cycle': 1,
 			'base_power': 2,
 		},
 		{
 			'number': 2,
 			'description': 'Small powerplant.',
 			'base_pollution_per_cycle': 3125000000,
-			'base_resource_usage_per_cycle': 5,
 			'base_power': 10,
 		},
 		{
 			'number': 3,
 			'description': 'Not quite medium powerplant.',
 			'base_pollution_per_cycle': 6250000000,
-			'base_resource_usage_per_cycle': 10,
 			'base_power': 25,
 		},
 		{
 			'number': 4,
 			'description': 'Medium-sized powerplant.',
 			'base_pollution_per_cycle': 12500000000,
-			'base_resource_usage_per_cycle': 20,
 			'base_power': 125,
 		},
 		{
 			'number': 5,
+			'description': 'Above-medium powerplant.',
 			'base_pollution_per_cycle': 25000000000,
-			'base_resource_usage_per_cycle': 100,
 			'base_power': 500,
 		},
 		{
 			'number': 6,
 			'description': 'Big powerplant.',
 			'base_pollution_per_cycle': 50000000000,
-			'base_resource_usage_per_cycle': 200,
 			'base_power': 2000,
 		},
 		{
 			'number': 7,
 			'description': 'Huge powerplant.',
 			'base_pollution_per_cycle': 100000000000,
-			'base_resource_usage_per_cycle': 400,
 			'base_power': 16000,
 		},
 		{
 			'number': 8,
 			'description': 'Gigantic powerplant.',
 			'base_pollution_per_cycle': 200000000000,
-			'base_resource_usage_per_cycle': 800,
 			'base_power': 48000,
 		},
 	]
@@ -88,17 +80,12 @@ func get_stats():
 	return [
 		Global.new_stat(Global.StatType.LEVEL, level),
 		Global.new_stat(Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle()),
-		Global.new_stat(Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle()),
 		Global.new_stat(Global.StatType.POWER, get_power_generation()),
 	]
 
 
 func get_pollution_per_cycle():
 	return current_level['base_pollution_per_cycle']
-
-
-func get_resource_usage_per_cycle():
-	return current_level['base_resource_usage_per_cycle']
 
 
 func get_power_generation():
@@ -111,8 +98,6 @@ func get_property(property):
 			return get_power_generation()
 		Global.StatType.POLLUTION_PER_CYCLE:
 			return get_pollution_per_cycle()
-		Global.StatType.RESOURCE_USAGE_PER_CYCLE:
-			return get_resource_usage_per_cycle()
 
 
 func get_actions():
@@ -122,7 +107,6 @@ func get_actions():
 func post_level_upgrade():
 	emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
 	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
-	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 	update_smoke()
 
 
@@ -136,7 +120,6 @@ func _on_cycle_timer_timeout():
 	if decorative or operations_paused:
 		return
 	world.produce_pollution(get_pollution_per_cycle())
-	world.consume_resources(get_resource_usage_per_cycle())
 
 
 func _on_world_info_updated(_world, item, _value):
