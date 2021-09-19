@@ -3,13 +3,11 @@ tool
 
 const type := Global.BuildingType.MINE
 const effects := [
-	Global.StatType.RESOURCE_USAGE_PER_CYCLE,
-	Global.StatType.POLLUTION_PER_CYCLE,
 	Global.StatType.MINING,
 ]
 
 var building_name = 'Mine'
-var description = 'Mines resource from the planet, accelerating certain doom.'
+var description = 'Mines resources from the planet, accelerating certain doom.'
 
 func init(world):
 	.init(world)
@@ -28,36 +26,26 @@ func init_data():
 		{
 			'number': 1,
 			'description': 'Tiny mine.',
-			'base_pollution_per_cycle': 1,
-			'base_resource_usage_per_cycle': 100,
 			'base_mining': 2,
 		},
 		{
 			'number': 2,
 			'description': 'Small mine.',
-			'base_pollution_per_cycle': 10,
-			'base_resource_usage_per_cycle': 10000,
 			'base_mining': 4,
 		},
 		{
 			'number': 3,
 			'description': 'Partially upgraded mine.',
-			'base_pollution_per_cycle': 100,
-			'base_resource_usage_per_cycle': 50000,
 			'base_mining': 8,
 		},
 		{
 			'number': 4,
 			'description': 'Medium-sized mine.',
-			'base_pollution_per_cycle': 500,
-			'base_resource_usage_per_cycle': 100000,
 			'base_mining': 40,
 		},
 		{
 			'number': 5,
 			'description': 'Big mine.',
-			'base_pollution_per_cycle': 1000,
-			'base_resource_usage_per_cycle': 200000,
 			'base_mining': 200,
 		},
 	]
@@ -67,18 +55,8 @@ func init_data():
 func get_stats():
 	return [
 		Global.new_stat(Global.StatType.LEVEL, level),
-		Global.new_stat(Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle()),
-		Global.new_stat(Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle()),
 		Global.new_stat(Global.StatType.MINING, get_mining()),
 	]
-
-
-func get_pollution_per_cycle():
-	return current_level['base_pollution_per_cycle']
-
-
-func get_resource_usage_per_cycle():
-	return 0
 
 
 func get_mining():
@@ -89,10 +67,6 @@ func get_property(property):
 	match property:
 		Global.StatType.MINING:
 			return get_mining()
-		Global.StatType.POLLUTION_PER_CYCLE:
-			return get_pollution_per_cycle()
-		Global.StatType.RESOURCE_USAGE_PER_CYCLE:
-			return get_resource_usage_per_cycle()
 		_:
 			return 0
 
@@ -109,17 +83,6 @@ func perform_action(action, _count):
 	if action.name.begins_with("level"):
 		perform_level_upgrade(action)
 		return
-	
-	match action['name']:
-		'cycle':
-			_on_cycle_timer_timeout()
-
-
-func _on_cycle_timer_timeout():
-	if decorative or operations_paused:
-		return
-	world.produce_pollution(get_pollution_per_cycle())
-	world.consume_resources(get_resource_usage_per_cycle())
 
 
 func _on_world_info_updated(_world, item, _value):

@@ -1,7 +1,6 @@
 extends PanelContainer
 
 onready var pollution_value_label = $margin/hbox/pollution_value_label
-onready var resources_value_label = $margin/hbox/resources_value_label
 onready var money_label = $margin/hbox/money_label
 onready var money_value_label = $margin/hbox/money_value_label
 
@@ -27,9 +26,6 @@ func update():
 	var tooltip = 'Money (+Money-per-Cycle): ' + str(world.money) + ' (+' + str(money_per_cycle) + ')'
 	money_value_label.hint_tooltip = tooltip
 	money_label.hint_tooltip = tooltip
-	
-	var resources_percent = int(float(world.resources) / world.MAX_RESOURCES * 100)
-	resources_value_label.text = str(world.resources) + ' (' + str(resources_percent) + '%)'
 	
 	var pollution_percent = int(float(world.pollution) / world.MAX_POLLUTION * 100)
 	pollution_value_label.text = str(world.pollution) + ' (' + str(pollution_percent) + '%)'

@@ -6,8 +6,6 @@ enum StatType {
 	LEVEL,
 	POLLUTION,
 	POLLUTION_PER_CYCLE,
-	RESOURCES,
-	RESOURCE_USAGE_PER_CYCLE,
 	MONEY,
 	MONEY_PER_CYCLE,
 	PROFIT,
@@ -77,7 +75,6 @@ static func get_level_upgrade_stats(current_level, next_level):
 	var key_to_stat_type = {
 		'base_profit_per_sale': StatType.PROFIT,
 		'base_pollution_per_cycle': StatType.POLLUTION_PER_CYCLE,
-		'base_resource_usage_per_cycle': StatType.RESOURCE_USAGE_PER_CYCLE,
 		'base_power': StatType.POWER,
 		'base_ads': StatType.ADS,
 		'base_population_increment': StatType.POPULATION_INCREASE_PER_CYCLE,

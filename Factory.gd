@@ -4,12 +4,11 @@ tool
 const type = Global.BuildingType.FACTORY
 const effects := [
 	Global.StatType.MONEY_PER_CYCLE,
-	Global.StatType.RESOURCE_USAGE_PER_CYCLE,
 	Global.StatType.POLLUTION_PER_CYCLE,
 ]
 
 var building_name = 'Factory'
-var description = 'A good ol\' factory. Consumes some resources and pollutes a heck of a lot more, while also making money for you. Profit per sale will increase the more power production and mining you have, while total sale depends on population and advertising.'
+var description = 'A good ol\' factory. Can potentially pollute a heck of a lot, while also making money for you. Profit per sale will increase the more power production and mining you have, while total sale depends on population and advertising.'
 
 var updated_items = {}
 
@@ -24,7 +23,6 @@ func init(world):
 	emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
 	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
 	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
-	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 	
 	world.connect("info_updated", self, "_on_world_info_updated")
 
@@ -36,49 +34,42 @@ func init_data():
 			'description': 'Your rudimentary basic factory.',
 			'base_profit_per_sale': 1,
 			'base_pollution_per_cycle': 10,
-			'base_resource_usage_per_cycle': 1,
 		},
 		{
 			'number': 2,
 			'description': 'Small factory.',
 			'base_profit_per_sale': 5,
 			'base_pollution_per_cycle': 20,
-			'base_resource_usage_per_cycle': 10,
 		},
 		{
 			'number': 3,
 			'description': 'Partially upgraded factory.',
 			'base_profit_per_sale': 10,
 			'base_pollution_per_cycle': 100,
-			'base_resource_usage_per_cycle': 100,
 		},
 		{
 			'number': 4,
 			'description': 'Medium-sized factory.',
 			'base_profit_per_sale': 20,
 			'base_pollution_per_cycle': 200,
-			'base_resource_usage_per_cycle': 500,
 		},
 		{
 			'number': 5,
 			'description': 'Above-medium factory.',
 			'base_profit_per_sale': 80,
 			'base_pollution_per_cycle': 400,
-			'base_resource_usage_per_cycle': 1000,
 		},
 		{
 			'number': 6,
 			'description': 'Almost-there factory.',
 			'base_profit_per_sale': 160,
 			'base_pollution_per_cycle': 800,
-			'base_resource_usage_per_cycle': 2000,
 		},
 		{
 			'number': 7,
 			'description': 'Beast of a factory.',
 			'base_profit_per_sale': 800,
 			'base_pollution_per_cycle': 1600,
-			'base_resource_usage_per_cycle': 4000,
 		},
 	]
 	current_level = levels[0]
@@ -90,7 +81,6 @@ func get_stats():
 		Global.new_stat(Global.StatType.PROFIT, get_profit_per_sale()),
 		Global.new_stat(Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle()),
 		Global.new_stat(Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle()),
-		Global.new_stat(Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle()),
 	]
 
 
@@ -134,18 +124,12 @@ func get_pollution_per_cycle(population=null, reach=null, level_idx=null):
 	return sales * base_pollution_per_cycle
 
 
-func get_resource_usage_per_cycle():
-	return 0
-
-
 func get_property(property):
 	match property:
 		Global.StatType.MONEY_PER_CYCLE:
 			return get_money_per_cycle()
 		Global.StatType.POLLUTION_PER_CYCLE:
 			return get_pollution_per_cycle()
-		Global.StatType.RESOURCE_USAGE_PER_CYCLE:
-			return get_resource_usage_per_cycle()
 		_:
 			return 0
 
@@ -157,7 +141,6 @@ func get_actions():
 func post_level_upgrade():
 	emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
 	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
-	emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
 	
 	update_smoke()
@@ -193,7 +176,6 @@ func _process(delta):
 		emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
 		emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, money_per_cycle)
 		emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, pollution_per_cycle)
-		emit_signal("info_updated", self, Global.StatType.RESOURCE_USAGE_PER_CYCLE, get_resource_usage_per_cycle())
 		$actions/cycle.description = 'Manually perform one cycle of building operation by clicking the button. This generates $%s of money and %s tons of pollution.' % [Global.human_readable(money_per_cycle), Global.human_readable(pollution_per_cycle)]
 	updated_items = {}
 
@@ -203,7 +185,6 @@ func _on_cycle_timer_timeout():
 		return
 	world.produce_money(get_money_per_cycle())
 	world.produce_pollution(get_pollution_per_cycle())
-	world.consume_resources(get_resource_usage_per_cycle())
 
 
 func _on_world_info_updated(_world, item, _value):

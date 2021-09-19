@@ -15,11 +15,6 @@ var type_info = {
 		'texture': preload("res://assets/gfx/icons/pollution.png"),
 		'human_readable': true,
 	},
-	Global.StatType.RESOURCE_USAGE_PER_CYCLE: {
-		'name': 'Resource Usage (per cycle)',
-		'texture': preload("res://assets/gfx/icons/usage.png"),
-		'human_readable': true,
-	},
 	Global.StatType.PROFIT: {
 		'name': 'Profit per Sale',
 		'texture': preload("res://assets/gfx/icons/profit.png"),
