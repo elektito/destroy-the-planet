@@ -12,6 +12,7 @@ var description = 'The best kind of power plant there is.'
 
 func init(world):
 	.init(world)
+	supports_boost = true
 	
 	update_upgrade_label()
 	add_upgrade_action(level, levels)
@@ -84,12 +85,16 @@ func get_stats():
 	]
 
 
+func get_boost_factor():
+	return pow(10, boost)
+
+
 func get_pollution_per_cycle():
-	return current_level['base_pollution_per_cycle']
+	return current_level['base_pollution_per_cycle'] * get_boost_factor()
 
 
 func get_power_generation():
-	return current_level['base_power']
+	return current_level['base_power'] * get_boost_factor()
 
 
 func get_property(property):
@@ -104,16 +109,24 @@ func get_actions():
 	return $actions.get_children()
 
 
-func post_level_upgrade():
+func update():
 	emit_signal("info_updated", self, Global.StatType.POWER, get_power_generation())
 	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
 	update_smoke()
+
+
+func post_level_upgrade():
+	update()
 
 
 func perform_action(action, _count):
 	if action.name.begins_with("level"):
 		perform_level_upgrade(action)
 		return
+
+
+func _boost_changed():
+	update()
 
 
 func _on_cycle_timer_timeout():

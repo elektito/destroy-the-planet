@@ -10,6 +10,8 @@ var description = 'Pumping ads 24/7 towards the populace. Guaranteed to increase
 func init(world):
 	.init(world)
 	
+	supports_boost = true
+	
 	update_upgrade_label()
 	add_upgrade_action(level, levels)
 	
@@ -67,8 +69,12 @@ func get_stats():
 	]
 
 
+func get_boost_factor():
+	return pow(10, boost)
+
+
 func get_ads():
-	return current_level['base_ads']
+	return current_level['base_ads'] * get_boost_factor()
 
 
 func get_property(property):
@@ -80,14 +86,22 @@ func get_actions():
 	return $actions.get_children()
 
 
-func post_level_upgrade():
+func update():
 	emit_signal("info_updated", self, Global.StatType.ADS, get_ads())
+
+
+func post_level_upgrade():
+	update()
 
 
 func perform_action(action, _count):
 	if action.name.begins_with("level"):
 		perform_level_upgrade(action)
 		return
+
+
+func _boost_changed():
+	update()
 
 
 func _on_world_info_updated(_world, item, _value):
