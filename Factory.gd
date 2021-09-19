@@ -14,15 +14,12 @@ var updated_items = {}
 
 func init(world):
 	.init(world)
+	supports_boost = true
 	
 	update_upgrade_label()
-	update_smoke()
 	add_upgrade_action(level, levels)
 	
-	# emit these signals so that anyone interested can update iteself
-	emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
-	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
-	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
+	update()
 	
 	world.connect("info_updated", self, "_on_world_info_updated")
 
@@ -94,6 +91,10 @@ func get_mining_factor():
 	return factor
 
 
+func get_boost_factor():
+	return pow(5, boost)
+
+
 func get_sales(population=null, reach=null):
 	if population == null:
 		population = world.get_population()
@@ -104,7 +105,7 @@ func get_sales(population=null, reach=null):
 
 func get_profit_per_sale():
 	var performance_factor = get_mining_factor() + get_power_factor()
-	return current_level['base_profit_per_sale'] + performance_factor
+	return (current_level['base_profit_per_sale'] + performance_factor) * get_boost_factor()
 
 
 func get_money_per_cycle():
@@ -121,7 +122,7 @@ func get_pollution_per_cycle(population=null, reach=null, level_idx=null):
 		base_pollution_per_cycle = current_level['base_pollution_per_cycle']
 	else:
 		base_pollution_per_cycle = levels[level_idx]['base_pollution_per_cycle']
-	return sales * base_pollution_per_cycle
+	return sales * base_pollution_per_cycle * get_boost_factor()
 
 
 func get_property(property):
@@ -138,12 +139,16 @@ func get_actions():
 	return $actions.get_children()
 
 
-func post_level_upgrade():
+func update():
 	emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
-	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, get_pollution_per_cycle())
 	emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, get_money_per_cycle())
 	
 	update_smoke()
+
+
+func post_level_upgrade():
+	update()
 
 
 func perform_action(action, _count):
@@ -172,12 +177,13 @@ func _process(delta):
 	if something_interesting_changed:
 		var money_per_cycle = get_money_per_cycle()
 		var pollution_per_cycle = get_pollution_per_cycle()
-		update_smoke()
-		emit_signal("info_updated", self, Global.StatType.PROFIT, get_profit_per_sale())
-		emit_signal("info_updated", self, Global.StatType.MONEY_PER_CYCLE, money_per_cycle)
-		emit_signal("info_updated", self, Global.StatType.POLLUTION_PER_CYCLE, pollution_per_cycle)
+		update()
 		$actions/cycle.description = 'Manually perform one cycle of building operation by clicking the button. This generates $%s of money and %s tons of pollution.' % [Global.human_readable(money_per_cycle), Global.human_readable(pollution_per_cycle)]
 	updated_items = {}
+
+
+func _boost_changed():
+	update()
 
 
 func _on_cycle_timer_timeout():

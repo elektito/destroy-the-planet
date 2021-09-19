@@ -12,6 +12,8 @@ var description = 'Mines resources from the planet, accelerating certain doom.'
 func init(world):
 	.init(world)
 	
+	supports_boost = true
+	
 	update_upgrade_label()
 	add_upgrade_action(level, levels)
 	
@@ -59,8 +61,12 @@ func get_stats():
 	]
 
 
+func get_boost_factor():
+	return pow(3, boost)
+
+
 func get_mining():
-	return current_level['base_mining']
+	return current_level['base_mining'] * get_boost_factor()
 
 
 func get_property(property):
@@ -75,14 +81,22 @@ func get_actions():
 	return $actions.get_children()
 
 
-func post_level_upgrade():
+func update():
 	emit_signal("info_updated", self, Global.StatType.MINING, get_mining())
+
+
+func post_level_upgrade():
+	update()
 
 
 func perform_action(action, _count):
 	if action.name.begins_with("level"):
 		perform_level_upgrade(action)
 		return
+
+
+func _boost_changed():
+	update()
 
 
 func _on_world_info_updated(_world, item, _value):

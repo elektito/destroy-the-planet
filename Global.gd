@@ -32,6 +32,11 @@ enum BuildingType {
 	AD_AGENCY,
 }
 
+enum ActionType {
+	NORMAL,
+	BOOST,
+}
+
 
 static func get_building_types():
 	return [

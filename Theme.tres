@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=14 format=2]
+[gd_resource type="Theme" load_steps=17 format=2]
 
 [ext_resource path="res://assets/fonts/Secuela-Bold.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Secuela-Regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://BoldLabelFont.tres" type="DynamicFont" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -85,6 +86,28 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 expand_margin_top = 1.0
 
+[sub_resource type="StyleBoxFlat" id=12]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.215686, 0.580392, 0.431373, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.6, 0.898039, 0.313726, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 2 )
 
@@ -145,6 +168,11 @@ PopupMenu/styles/labeled_separator_right = null
 PopupMenu/styles/panel = SubResource( 7 )
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = null
+ProgressBar/colors/font_color = Color( 0, 0, 0, 1 )
+ProgressBar/colors/font_color_shadow = Color( 1, 1, 1, 1 )
+ProgressBar/fonts/font = ExtResource( 3 )
+ProgressBar/styles/bg = SubResource( 12 )
+ProgressBar/styles/fg = SubResource( 13 )
 TooltipLabel/colors/font_color = Color( 1, 1, 1, 1 )
 TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
 TooltipLabel/constants/shadow_offset_x = 0

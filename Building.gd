@@ -19,6 +19,9 @@ var shaking := false
 var world
 var smoke_nodes := []
 
+var supports_boost := false
+var boost := 0 setget set_boost
+
 # these should be initialized in the sub-classes
 var level = 1
 var levels = null
@@ -93,6 +96,16 @@ func set_smoke_rate(value : int):
 
 func get_smoke_rate() -> int:
 	return smoke_rate
+
+
+func set_boost(value: int):
+	boost = value
+	_boost_changed()
+
+
+func _boost_changed():
+	# to be overridden in sub-classes
+	pass
 
 
 func set_upgrade_available(value : bool):
@@ -205,11 +218,30 @@ func perform_level_upgrade(action):
 	
 	if level < len(levels):
 		add_upgrade_action(level, levels)
+	elif supports_boost:
+		add_boost_action()
 	
 	update_upgrade_label()
 	
 	emit_signal("info_updated", self, Global.StatType.LEVEL, level)
 	emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())
+
+
+func add_boost_action():
+	var action = preload("res://BuildingAction.tscn").instance()
+	action.name = 'boost'
+	action.type = Global.ActionType.BOOST
+	action.title = 'Boost Building'
+	action.description = 'Temporarily boost building performance.'
+	$actions.add_child(action)
+
+
+func _process(delta):
+	return
+	for x in $actions.get_children():
+		if x.type == Global.ActionType.BOOST:
+			print('moving to ', $actions.get_child_count() - 1)
+			$actions.move_child(x, $actions.get_child_count() - 1)
 
 
 func _on_main_area_mouse_entered():

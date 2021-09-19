@@ -47,6 +47,25 @@ func build_panel():
 
 
 func create_widget_for_action(action):
+	var widget: Node
+	match action.type:
+		Global.ActionType.BOOST:
+			widget = create_boost_widget(action)
+		_:
+			widget = create_normal_widget(action)
+	
+	widget.name = 'widget_for_action_' + action.name
+	return widget
+
+
+func create_boost_widget(action):
+	var widget = preload("res://BoostWidget.tscn").instance()
+	widget.init(world, building, action)
+	widget.set_meta('action', action)
+	return widget
+
+
+func create_normal_widget(action):
 	var widget = preload("res://BuildingWidget.tscn").instance()
 	widget.init(world, building, action)
 	widget.set_meta('action', action)
@@ -77,6 +96,13 @@ func _on_building_info_updated(building, item, value):
 				# the parent building only removes it from the tree.
 				widget.get_meta('action').queue_free()
 				print('action %s queued for freeing' % widget.get_meta('action').name)
+				
+				# Even though the widget is about to be freed, it's not removed
+				# from the scene yet, and its existence causes issues in the
+				# following loop we want to add widgets at the same location as
+				# the action in the $actions list. So we move it to the end of
+				# the list of children, so it doesn't interfere.
+				$margin/vbox/widgets.move_child(widget, $margin/vbox/widgets.get_child_count() - 1)
 		
 		# look among new actions and add a widget for the ones that do not have
 		# one

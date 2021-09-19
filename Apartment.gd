@@ -10,6 +10,8 @@ var description = 'Provides housing for the ultimate pollution producers: people
 func init(world):
 	.init(world)
 	
+	supports_boost = false
+	
 	update_upgrade_label()
 	update_recruiter_action()
 	add_upgrade_action(level, levels)
