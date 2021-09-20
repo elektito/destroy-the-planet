@@ -69,15 +69,15 @@ scroll_active = false
 [node name="progress_bar" type="ProgressBar" parent="margin/vbox"]
 margin_top = 52.0
 margin_right = 1272.0
-margin_bottom = 75.0
+margin_bottom = 67.0
 theme = ExtResource( 4 )
 max_value = 1.0
 
 [node name="action_btn" type="Button" parent="margin/vbox"]
 margin_left = 1202.0
-margin_top = 79.0
+margin_top = 71.0
 margin_right = 1272.0
-margin_bottom = 109.0
+margin_bottom = 101.0
 rect_min_size = Vector2( 70, 30 )
 size_flags_horizontal = 8
 theme = ExtResource( 4 )

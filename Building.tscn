@@ -33,6 +33,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="animation" type="AnimatedSprite" parent="base"]
+visible = false
+
 [node name="main_area" type="Control" parent="."]
 margin_left = -16.0
 margin_top = -32.0

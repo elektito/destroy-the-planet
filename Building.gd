@@ -7,6 +7,7 @@ signal clicked()
 signal info_updated(building, item, value)
 
 export(Texture) var texture : Texture = null setget set_texture, get_texture
+export(SpriteFrames) var animation: SpriteFrames = null setget set_animation, get_animation
 export(bool) var selected : bool = false setget set_selected, get_selected
 export(bool) var upgrade_available : bool = false setget set_upgrade_available
 export(int, 0, 100) var smoke_rate : int = 1 setget set_smoke_rate, get_smoke_rate
@@ -65,6 +66,10 @@ func _ready():
 
 
 func set_texture(value):
+	if value != null:
+		$base/animation.visible = false
+		$base/texture.visible = true
+		$base/animation.playing = false
 	$base/texture.texture = value
 
 
@@ -72,13 +77,42 @@ func get_texture():
 	return $base/texture.texture
 
 
+func set_animation(value: SpriteFrames):
+	var anim_name := 'default'
+	
+	$base/animation.frames = value
+	
+	if value != null:
+		$base/animation.visible = true
+		$base/texture.visible = false
+
+		var frame_size = $base/animation.frames.get_frame(anim_name, 0).get_size()
+		var target_size = $base/texture.rect_size
+		var anim_scale = target_size / frame_size
+		$base/animation.scale = anim_scale
+		
+		var anim_names = value.get_animation_names()
+		if len(anim_names) > 0:
+			$base/animation.play(anim_names[0])
+		else:
+			$base/animation.playing = false
+	else:
+		$base/animation.playing = false
+
+
+func get_animation() -> SpriteFrames:
+	return $base/animation.frames
+
+
 func set_selected(value : bool):
 	if not is_inside_tree():
 		return
 	if value:
 		$base/texture.material = outline_material
+		$base/animation.material = outline_material
 	else:
 		$base/texture.material = null
+		$base/animation.material = null
 
 
 func get_selected() -> bool:
