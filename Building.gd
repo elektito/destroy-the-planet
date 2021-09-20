@@ -236,14 +236,6 @@ func add_boost_action():
 	$actions.add_child(action)
 
 
-func _process(delta):
-	return
-	for x in $actions.get_children():
-		if x.type == Global.ActionType.BOOST:
-			print('moving to ', $actions.get_child_count() - 1)
-			$actions.move_child(x, $actions.get_child_count() - 1)
-
-
 func _on_main_area_mouse_entered():
 	if shaking:
 		return
