@@ -58,7 +58,7 @@ onready var building_info = {
 	},
 	Global.BuildingType.AD_AGENCY: {
 		'button': $hud/hbox/toolbox/vbox/ad_agency_btn,
-		'preview_icon': preload("res://assets/gfx/sprites/ad-agency0000.png"),
+		'preview_icon': preload("res://assets/gfx/sprites/ad-agency.png"),
 		'scene': preload("res://AdAgency.tscn"),
 	},
 }

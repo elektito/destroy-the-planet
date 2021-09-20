@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/gfx/sprites/apartment.png" type="Texture" id=2]
 [ext_resource path="res://World.gd" type="Script" id=3]
 [ext_resource path="res://assets/gfx/sprites/planet.png" type="Texture" id=4]
-[ext_resource path="res://assets/gfx/sprites/ad-agency0000.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/sprites/ad-agency.png" type="Texture" id=5]
 [ext_resource path="res://BuildingPanel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Theme.tres" type="Theme" id=10]
 [ext_resource path="res://BoldLabelFont.tres" type="DynamicFont" id=11]
@@ -47,7 +47,7 @@ region = Rect2( 128, 310, 512, 600 )
 [sub_resource type="AtlasTexture" id=7]
 flags = 5
 atlas = ExtResource( 5 )
-region = Rect2( 128, 50, 512, 600 )
+region = Rect2( 128, 350, 512, 600 )
 
 [sub_resource type="StreamTexture" id=8]
 flags = 5
