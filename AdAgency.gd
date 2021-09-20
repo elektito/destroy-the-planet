@@ -15,8 +15,6 @@ func init(world):
 	update_upgrade_label()
 	add_upgrade_action(level, levels)
 	
-	$base/speaker.play()
-	
 	# notify any interested listeners that there might be some changes
 	emit_signal("info_updated", self, Global.StatType.ADS, get_ads())
 	
@@ -102,16 +100,6 @@ func perform_action(action, _count):
 		return
 
 
-func set_selected(value:  bool):
-	.set_selected(value)
-	
-	if $base/speaker != null:
-		if value:
-			$base/speaker.material = outline_material
-		else:
-			$base/speaker.material = null
-
-
 func _boost_changed():
 	update()
 
@@ -119,7 +107,3 @@ func _boost_changed():
 func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_upgrade_label()
-
-
-func _on_flip_timer_timeout():
-	$base/speaker.flip_h = not $base/speaker.flip_h
