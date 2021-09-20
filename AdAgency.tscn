@@ -43,7 +43,6 @@ visible = false
 visible = true
 scale = Vector2( 0.0625, 0.0625 )
 frames = SubResource( 1 )
-frame = 8
 playing = true
 
 [node name="upgrade_available_pos" type="Position2D" parent="." index="8"]
