@@ -43,10 +43,16 @@ visible = false
 visible = true
 scale = Vector2( 0.0625, 0.0625 )
 frames = SubResource( 1 )
-frame = 14
+frame = 8
 playing = true
 
 [node name="upgrade_available_pos" type="Position2D" parent="." index="8"]
 position = Vector2( -13.347, -36 )
 
 [node name="actions" type="Node" parent="." index="9"]
+
+[node name="flip_timer" type="Timer" parent="." index="10"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="flip_timer" to="." method="_on_flip_timer_timeout"]

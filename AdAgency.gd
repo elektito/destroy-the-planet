@@ -107,3 +107,11 @@ func _boost_changed():
 func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_upgrade_label()
+
+
+func _on_flip_timer_timeout():
+	$base/animation.flip_h = not $base/animation.flip_h
+	if $base/animation.flip_h:
+		$base/animation.position.x += 1
+	else:
+		$base/animation.position.x -= 1
