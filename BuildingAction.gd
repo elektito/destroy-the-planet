@@ -49,7 +49,6 @@ class TimedProperty:
 		self.timeout_action_object = object
 		self.timeout_action_method = method_name
 		self.timeout_action_args = args
-		self.parent.add_child(self.timer)
 	
 	func get_elapsed_time() -> float:
 		var now := OS.get_ticks_usec()
