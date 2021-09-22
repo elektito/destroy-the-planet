@@ -161,7 +161,7 @@ func perform_action(action, _count):
 			_on_cycle_timer_timeout()
 
 
-func _process(delta):
+func _process(_delta):
 	var interesting = [
 		Global.StatType.ADS,
 		Global.StatType.POWER,

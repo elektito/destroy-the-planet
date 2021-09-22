@@ -5,11 +5,11 @@ signal action_button_clicked()
 var world
 var building setget set_building
 
-func init(world, building):
-	self.world = world
+func init(_world, _building):
+	world = _world
 	world.connect("info_updated", self, "_on_world_info_updated")
 	
-	set_building(building)
+	set_building(_building)
 
 
 func set_building(new_building):
@@ -77,7 +77,7 @@ func _on_world_info_updated(_world, _item, _value):
 	pass
 
 
-func _on_building_info_updated(building, item, value):
+func _on_building_info_updated(_building, item, value):
 	if item == Global.StatType.ACTIONS:
 		var actions = value
 		

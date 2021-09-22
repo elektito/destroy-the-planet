@@ -18,10 +18,10 @@ func _ready():
 	$margin/vbox/batch/batch_sizes.add_item("100000")
 
 
-func init(world, building, action):
-	self.world = world
-	self.building = building
-	self.action = action
+func init(_world, _building, _action):
+	world = _world
+	building = _building
+	action = _action
 	
 	world.connect("info_updated", self, "_on_world_info_updated")
 	building.connect("info_updated", self, "_on_building_info_updated")
@@ -80,7 +80,7 @@ func _on_batch_sizes_item_selected(_index):
 	emit_signal("count_changed", get_selected_count())
 
 
-func _on_world_info_updated(_world, item, value):
+func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_action_button()
 

@@ -213,7 +213,7 @@ func _on_building_clicked(building):
 	$hud/hbox/building_panel.building = building
 
 
-func _on_building_info_updated(building, item, _value):
+func _on_building_info_updated(_building, item, _value):
 	if item == Global.StatType.ADS:
 		emit_signal("info_updated", self, Global.StatType.REACH, get_reach())
 	

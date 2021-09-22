@@ -75,7 +75,6 @@ shape = SubResource( 2 )
 [node name="smoke_blueprint" parent="." instance=ExtResource( 1 )]
 visible = false
 position = Vector2( -11.4905, -6.36396 )
-emitting = true
 
 [connection signal="gui_input" from="main_area" to="." method="_on_main_area_gui_input"]
 [connection signal="mouse_entered" from="main_area" to="." method="_on_main_area_mouse_entered"]

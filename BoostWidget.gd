@@ -8,10 +8,10 @@ var boost_property
 var boost_time := 5.0
 var boost_level := 1
 
-func init(world, building, action):
-	self.world = world
-	self.building = building
-	self.action = action
+func init(_world, _building, _action):
+	world = _world
+	building = _building
+	action = _action
 	
 	boost_property = action.get_timed_property('boost')
 	if boost_property == null:
@@ -37,7 +37,7 @@ func update_progress():
 		$margin/vbox/action_btn.disabled = boost_property.is_in_progress()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if $margin/vbox/action_btn.disabled:
 		update_progress()
 

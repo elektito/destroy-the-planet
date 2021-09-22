@@ -24,15 +24,15 @@ class TimedProperty:
 	var timeout_action_args
 	var timer: Timer
 	
-	func init(parent: Node, name: String, timeout: float):
-		self.parent = parent
-		self.name = name
-		self.timeout = timeout
+	func init(_parent: Node, _name: String, _timeout: float):
+		self.parent = _parent
+		self.name = _name
+		self.timeout = _timeout
 		
 		self.timer = Timer.new()
 		self.timer.one_shot = true
 		self.timer.wait_time = self.timeout
-		self.timer.connect("timeout", self, "_on_timer_timeout")
+		self.timer.connect("timeout", self, "_on_timer_timeout") # warning-ignore: return_value_discarded
 		self.parent.add_child(self.timer)
 		
 		return self
@@ -119,4 +119,4 @@ func get_timed_property(name: String) -> TimedProperty:
 func remove_timed_property(name: String):
 	var property = timed_properties[name]
 	property.cleanup()
-	timed_properties.erase(name)
+	timed_properties.erase(name) # warning-ignore: return_value_discarded

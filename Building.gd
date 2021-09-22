@@ -28,8 +28,8 @@ var level = 1
 var levels = null
 var current_level = null
 
-func init(world):
-	self.world = world
+func init(_world):
+	world = _world
 	init_data()
 	
 	for node in Global.get_all_node_children(self):
@@ -206,9 +206,9 @@ func shake():
 	shaking = false
 
 
-func get_level_upgrade_price(level):
+func get_level_upgrade_price(_level):
 	# buildings can override this to have custom pricing methods
-	return int(pow(100, level))
+	return int(pow(100, _level))
 
 
 func post_level_upgrade():
@@ -221,15 +221,14 @@ func get_actions():
 	return []
 
 
-func add_upgrade_action(level, levels):
+func add_upgrade_action(_level, _levels):
 	var action = preload("res://BuildingAction.tscn").instance()
-	action.name = 'level' + str(level + 1)
-	action.title = 'Upgrade to level ' + str(level + 1)
-	action.description = 'Upgrade building to level ' + str(level + 1) + '.'
-	action.price = get_level_upgrade_price(level)
+	action.name = 'level' + str(_level + 1)
+	action.title = 'Upgrade to level ' + str(_level + 1)
+	action.description = 'Upgrade building to level ' + str(_level + 1) + '.'
+	action.price = get_level_upgrade_price(_level)
 	
-	var current_level = levels[level - 1]
-	var next_level = levels[level]
+	var next_level = _levels[_level]
 	action.stats = Global.get_level_upgrade_stats(current_level, next_level)
 	
 	$actions.add_child(action)

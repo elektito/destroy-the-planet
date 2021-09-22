@@ -66,6 +66,7 @@ func _on_new_game_btn_pressed():
 
 func _on_confirm_dialog_confirmed():
 	if action_after_confirm == 'reset':
-		get_tree().reload_current_scene()
+		if get_tree().reload_current_scene() != OK:
+			print('Cannot reload current scene. Run for your lives!')
 	elif action_after_confirm == 'exit':
 		get_tree().quit()

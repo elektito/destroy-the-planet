@@ -28,7 +28,7 @@ func set_rate(value : int):
 		main_emitter.emitting = false
 	else:
 		var new_emitter := main_emitter.duplicate()
-		get_tree().create_timer(MAX_LIFETIME).connect("timeout", self, "_on_delete_emitter_timeout", [main_emitter])
+		get_tree().create_timer(MAX_LIFETIME).connect("timeout", self, "_on_delete_emitter_timeout", [main_emitter]) # warning-ignore: return_value_discarded
 		main_emitter.emitting = false
 		main_emitter = new_emitter
 		

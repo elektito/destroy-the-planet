@@ -9,13 +9,10 @@ onready var reach_value_label = $margin/hbox/reach_value_label
 var world
 var world_updated := false
 
-func init(world):
-	self.world = world
+func init(_world):
+	world = _world
 	
-	var ret = world.connect("info_updated", self, "_on_world_info_updated")
-	if ret != OK:
-		print('Could not connect world.info_updated signal. Run for your lives!')
-		get_tree().quit()
+	world.connect("info_updated", self, "_on_world_info_updated") # warning-ignore: return_value_discarded
 	
 	update()
 
@@ -28,7 +25,7 @@ func update():
 	reach_value_label.text = '%.2f%%' % (world.get_reach() * 100) #str(get_reach() * 100) + '%'
 
 
-func _process(delta):
+func _process(_delta):
 	if world_updated:
 		update()
 		world_updated = false
