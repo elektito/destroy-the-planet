@@ -294,3 +294,15 @@ func _on_main_area_gui_input(event):
 	if event is InputEventMouseButton and not event.pressed:
 		emit_signal("clicked")
 
+
+
+func _on_spawn_timer_timeout():
+	if world == null:
+		return
+	var flyer := preload("res://FlyingIcon.tscn").instance()
+	flyer.global_position = global_position
+	#flyer.velocity = Vector2.UP.rotated(-global_rotation - PI/2) * flyer.max_speed / 20
+	flyer.velocity = Vector2.LEFT.rotated(global_rotation + PI / 2) * flyer.max_speed / 2
+	flyer.avoidance_target = world.get_node('placing_area').global_position
+	flyer.avoidance_radius = 200
+	world.add_child(flyer)
