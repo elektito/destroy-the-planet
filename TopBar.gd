@@ -1,6 +1,7 @@
 extends PanelContainer
 
-onready var pollution_value_label = $margin/hbox/pollution_value_label
+onready var pollution_value_label = $margin/hbox/panel_container/hbox/pollution_value_label
+onready var pollution_progress_bar = $margin/hbox/panel_container/pollution_progress_bar
 onready var money_label = $margin/hbox/money_label
 onready var money_value_label = $margin/hbox/money_value_label
 
@@ -24,8 +25,10 @@ func update():
 	money_value_label.hint_tooltip = tooltip
 	money_label.hint_tooltip = tooltip
 	
-	var pollution_percent = int(float(world.pollution) / world.MAX_POLLUTION * 100)
+	var pollution_progress = float(world.pollution) / world.MAX_POLLUTION
+	var pollution_percent = int(pollution_progress * 100)
 	pollution_value_label.text = str(world.pollution) + ' (' + str(pollution_percent) + '%)'
+	pollution_progress_bar.value = pollution_progress
 
 
 func _process(_delta):
