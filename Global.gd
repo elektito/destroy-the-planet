@@ -59,6 +59,17 @@ static func get_building_name(building_type) -> String:
 	return names[building_type]
 
 
+static func get_building_tooltip_desc(building_type) -> String:
+	var tooltips = {
+		BuildingType.FACTORY: 'Produces money and pollution.',
+		BuildingType.POWERPLANT: 'Produces power, increasing factory production. Also produces pollution.',
+		BuildingType.MINE: 'Mines planet resources, incerasing factory production.',
+		BuildingType.APARTMENT_BUILDING: 'Increases population cap.',
+		BuildingType.AD_AGENCY: 'Produces ads, increasing reach (factory sales per population).',
+	}
+	return tooltips[building_type]
+
+
 static func human_readable(value : int) -> String:
 	var suffixes = ['K', 'M', 'B', 'T']
 	var fvalue = float(value)

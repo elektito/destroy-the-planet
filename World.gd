@@ -244,8 +244,9 @@ func update_toolbox():
 	for building_type in Global.get_building_types():
 		var btn : Button = building_info[building_type]['button']
 		var building_name := Global.get_building_name(building_type)
+		var building_desc := Global.get_building_tooltip_desc(building_type)
 		var building_price = get_price(building_type)
-		btn.hint_tooltip = building_name + '\nCost: ' + Global.human_readable(building_price)
+		btn.hint_tooltip = building_name + '\n' + building_desc + '\nCost: ' + Global.human_readable(building_price)
 		btn.disabled = (money < building_price)
 
 
