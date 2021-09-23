@@ -286,6 +286,7 @@ bus = "Music"
 [node name="click_vfx_tween" type="Tween" parent="."]
 
 [node name="settings" type="CanvasLayer" parent="."]
+pause_mode = 2
 layer = 3
 
 [node name="screen" parent="settings" instance=ExtResource( 16 )]

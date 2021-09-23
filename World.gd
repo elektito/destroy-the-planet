@@ -468,6 +468,7 @@ func _on_screen_closed():
 
 
 func show_settings_screen():
+	get_tree().paused = true
 	$settings.set_process_input(true)
 	$settings/screen.visible = true
 

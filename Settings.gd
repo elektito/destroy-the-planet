@@ -38,6 +38,7 @@ func _on_sfx_slider_value_changed(value):
 
 
 func close_screen():
+	get_tree().paused = false
 	emit_signal("closed")
 	get_tree().set_input_as_handled()
 
