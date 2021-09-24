@@ -326,7 +326,15 @@ func get_snap_angle(angle):
 
 
 func _on_toolbox_btn_pressed(building):
-	placing_icon.texture = building_info[building]['button'].icon
+	# set the placing icon to the building icon. this is a bit hacky, with
+	# hard-coded values. it cuts a piece of the building icon that's about as
+	# much as it's visible when placed on the planet
+	var icon := AtlasTexture.new()
+	icon.atlas = building_info[building]['preview_icon']
+	icon.region.position = Vector2(0, 0)
+	icon.region.size = Vector2(800, 910)
+	placing_icon.texture = icon
+	
 	placing_icon.position = get_local_mouse_position()
 	placing_icon.visible = true
 	placing = building
