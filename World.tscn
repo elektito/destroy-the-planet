@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/gfx/sprites/powerplant.png" type="Texture" id=1]
 [ext_resource path="res://assets/gfx/sprites/apartment.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/gfx/sprites/planet.png" type="Texture" id=4]
 [ext_resource path="res://assets/gfx/sprites/ad-agency0000.png" type="Texture" id=5]
 [ext_resource path="res://BuildingPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/gfx/sprites/planet-bw.png" type="Texture" id=7]
 [ext_resource path="res://Theme.tres" type="Theme" id=10]
 [ext_resource path="res://BoldLabelFont.tres" type="DynamicFont" id=11]
 [ext_resource path="res://assets/audio/rumble.ogg" type="AudioStream" id=12]
@@ -112,6 +113,12 @@ shape = SubResource( 2 )
 scale = Vector2( 0.4, 0.4 )
 z_index = 10
 texture = ExtResource( 4 )
+
+[node name="planet_bw" type="Sprite" parent="placing_area"]
+modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 0.4, 0.4 )
+z_index = 10
+texture = ExtResource( 7 )
 
 [node name="hud" type="CanvasLayer" parent="."]
 

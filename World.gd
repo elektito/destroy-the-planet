@@ -497,4 +497,5 @@ func _on_rotation_reset_timer_timeout():
 
 
 func _on_recruiter_cycle_timer_timeout():
+	$placing_area/planet_bw.modulate.a = float(pollution) / MAX_POLLUTION
 	add_population(recruiters * population_inc_per_recruiter)
