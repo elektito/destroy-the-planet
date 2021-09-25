@@ -1,6 +1,7 @@
 class_name Global
 
 const SETTINGS_FILE := 'user://settings.json'
+const SAVE_FILE := 'user://game.json'
 
 enum StatType {
 	LEVEL,
@@ -166,3 +167,31 @@ static func new_stat(type: int, value):
 	stat.type = type
 	stat.value = str(value)
 	return stat
+
+
+static func save_game(world):
+	var serialized_world = world.serialize()
+	var save_file := File.new()
+	var ret := save_file.open(SAVE_FILE, File.WRITE)
+	if ret != OK:
+		push_error('Could not read save file for writing.')
+		return
+	save_file.store_line(to_json(serialized_world))
+
+
+static func load_game():
+	var save_file := File.new()
+	if not save_file.file_exists(SAVE_FILE):
+		print('Save file does not exist.')
+		return
+	var ret := save_file.open(SAVE_FILE, File.READ)
+	if ret != OK:
+		push_error('Could not read save file for reading.')
+		return
+	return parse_json(save_file.get_line())
+
+
+static func remove_save():
+	var dir = Directory.new()
+	dir.open('user://')
+	dir.remove(SAVE_FILE)

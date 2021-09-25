@@ -120,13 +120,17 @@ func post_level_upgrade():
 
 
 func perform_action(action, _count):
-	if action.name.begins_with("level"):
-		perform_level_upgrade(action)
+	if action.name == 'level_upgrade':
+		set_level(level + 1)
 		return
 
 
 func _boost_changed():
 	update()
+
+
+func _serialize():
+	return {}
 
 
 func _on_cycle_timer_timeout():
@@ -138,6 +142,10 @@ func _on_cycle_timer_timeout():
 func _on_world_info_updated(_world, item, _value):
 	if item == Global.StatType.MONEY:
 		update_upgrade_label()
+
+
+func _deserialize(_data):
+	update()
 
 
 func update_smoke():

@@ -7,3 +7,14 @@ class_name Stat
 export(int) var type
 
 export(String) var value: String
+
+func serialize():
+	return {
+		'type': type,
+		'value': value,
+	}
+
+
+func deserialize(data):
+	type = data['type']
+	value = data['value']

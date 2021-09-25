@@ -77,11 +77,13 @@ func _ready():
 	
 	create_plants()
 	
-	update_toolbox()
-	
 	$hud/hbox/vbox/top_bar.init(self)
 	$hud/hbox/vbox/bottom_bar.init(self)
 	$hud/hbox/building_panel.init(self, null)
+	
+	deserialize(Global.load_game())
+	
+	update_toolbox()
 
 
 func create_plants():
@@ -138,8 +140,7 @@ func _input(event):
 				b.position = $placing_area/preview_icon.position
 				b.rotation = $placing_area/preview_icon.rotation
 				$placing_area.add_child(b)
-				b.connect('clicked', self, '_on_building_clicked', [b])
-				b.connect('info_updated', self, '_on_building_info_updated')
+				connect_building_signals(b)
 				consume_money(get_price(b.type))
 				b.init(self)
 				$placement_sound.play()
@@ -148,6 +149,11 @@ func _input(event):
 				placed_buildings.append(b)
 				update_toolbox()
 				emit_signal("info_updated", self, Global.StatType.MONEY, money)
+
+
+func connect_building_signals(building):
+	building.connect('clicked', self, '_on_building_clicked', [building])
+	building.connect('info_updated', self, '_on_building_info_updated')
 
 
 func _unhandled_input(event):
@@ -448,6 +454,7 @@ func get_reach() -> float:
 
 
 func win():
+	Global.remove_save()
 	game_over = true
 	for building in get_tree().get_nodes_in_group('buildings'):
 		building.operations_paused = true
@@ -468,6 +475,67 @@ func win():
 	$ominous_background.play()
 	$hud/hbox/vbox/top_bar.visible = false
 	$hud/hbox/vbox/bottom_bar.visible = false
+
+
+func serialize():
+	var serialized_placed_buildings := []
+	for b in placed_buildings:
+		serialized_placed_buildings.append(b.serialize())
+	return {
+		'pollution': pollution,
+		'money': money,
+		'population': population,
+		'recruiters': recruiters,
+		'recruiter_price': recruiter_price,
+		'population_inc_per_recruiter': population_inc_per_recruiter,
+		'recruiter_price_increase': recruiter_price_increase,
+		'click_money': click_money,
+		'used_angles': used_angles,
+		'placed_buildings': serialized_placed_buildings,
+		'rotation_accel': rotation_accel,
+		'rotation_speed': rotation_speed,
+	}
+
+
+func deserialize(data):
+	if data == null:
+		return
+	pollution = data['pollution']
+	money = data['money']
+	population = data['population']
+	recruiters = data['recruiters']
+	recruiter_price = data['recruiter_price']
+	population_inc_per_recruiter = data['population_inc_per_recruiter']
+	recruiter_price_increase = data['recruiter_price_increase']
+	click_money = data['click_money']
+	used_angles = data['used_angles']
+	rotation_accel = data['rotation_accel']
+	rotation_speed = data['rotation_speed']
+	
+	for b in data['placed_buildings']:
+		var type = b['type']
+		var building = building_info[int(type)]['scene'].instance()
+		building.no_shake = true
+		$placing_area.add_child(building)
+		building.init(self)
+		building.deserialize(b)
+		connect_building_signals(building)
+		placed_buildings.append(building)
+	
+	emit_signal("info_updated", self, Global.StatType.MONEY, money)
+	emit_signal("info_updated", self, Global.StatType.POLLUTION, pollution)
+	emit_signal("info_updated", self, Global.StatType.REACH, get_reach())
+	emit_signal("info_updated", self, Global.StatType.POPULATION, population)
+	emit_signal("info_updated", self, Global.StatType.POPULATION_CAP, get_population_cap())
+	emit_signal("info_updated", self, Global.StatType.POPULATION_INCREASE_PER_CYCLE, get_population_increment_per_cycle())
+	emit_signal("info_updated", self, Global.StatType.RECRUITERS, recruiters)
+	
+	var notifiable = [
+		Global.StatType.POLLUTION_PER_CYCLE,
+		Global.StatType.MONEY_PER_CYCLE,
+	]
+	for property in notifiable:
+		emit_signal("info_updated", self, property, get_total_property(property))
 
 
 func _on_screen_closed():
@@ -507,3 +575,7 @@ func _on_rotation_reset_timer_timeout():
 func _on_recruiter_cycle_timer_timeout():
 	$placing_area/planet_bw.modulate.a = float(pollution) / MAX_POLLUTION
 	add_population(recruiters * population_inc_per_recruiter)
+
+
+func _on_auto_save_timer_timeout():
+	Global.save_game(self)

@@ -67,7 +67,9 @@ region = Rect2( 128, 320, 512, 600 )
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0, 0, 0, 1 )
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" groups=[
+"world",
+]]
 script = ExtResource( 3 )
 
 [node name="bg_layer" type="CanvasLayer" parent="."]
@@ -388,6 +390,9 @@ one_shot = true
 [node name="recruiter_cycle_timer" type="Timer" parent="."]
 autostart = true
 
+[node name="auto_save_timer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="mouse_entered" from="placing_area" to="." method="_on_placing_area_mouse_entered"]
 [connection signal="mouse_exited" from="placing_area" to="." method="_on_placing_area_mouse_exited"]
 [connection signal="pressed" from="hud/hbox/toolbox/vbox/factory_btn" to="." method="_on_toolbox_btn_pressed" binds= [ 0 ]]
@@ -402,3 +407,4 @@ autostart = true
 [connection signal="pressed" from="victory_banner_top/margin/hbox/end_game_btn" to="." method="_on_end_game_btn_pressed"]
 [connection signal="timeout" from="rotation_reset_timer" to="." method="_on_rotation_reset_timer_timeout"]
 [connection signal="timeout" from="recruiter_cycle_timer" to="." method="_on_recruiter_cycle_timer_timeout"]
+[connection signal="timeout" from="auto_save_timer" to="." method="_on_auto_save_timer_timeout"]

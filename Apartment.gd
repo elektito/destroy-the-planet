@@ -105,8 +105,8 @@ func post_level_upgrade():
 
 
 func perform_action(action, count):
-	if action.name.begins_with("level"):
-		perform_level_upgrade(action)
+	if action.name == 'level_upgrade':
+		set_level(level + 1)
 		return
 	
 	match action.name:
@@ -118,6 +118,14 @@ func perform_action(action, count):
 func update_recruiter_action():
 	$actions/recruiter.description = 'Hire a recruiter to help you get more people into your planet paradise. Each recruiter recruits one person per cycle. Recruiters are shared between all apartment buildings. Current recruiters in the world: ' + str(world.recruiters)
 	$actions/recruiter.price = world.get_recruiter_price()
+
+
+func _serialize():
+	return {}
+
+
+func _deserialize(_data):
+	update()
 
 
 func _on_world_info_updated(_world, item, _value):

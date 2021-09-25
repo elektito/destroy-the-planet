@@ -16,6 +16,7 @@ export(bool) var operations_paused := false
 
 var outline_material : ShaderMaterial
 var shaking := false
+var no_shake := false
 
 var world
 var smoke_nodes := []
@@ -62,7 +63,8 @@ func _ready():
 	outline_material.shader = preload("res://Outline.gdshader")
 	outline_material.set_shader_param('line_thickness', 25)
 	
-	shake()
+	if not no_shake:
+		shake()
 
 
 func set_texture(value):
@@ -157,7 +159,7 @@ func set_upgrade_available(value : bool):
 
 func find_upgrade_action(actions):
 	for action in actions:
-		if action.name.begins_with('level'):
+		if action.name == 'level_upgrade':
 			return action
 	return null
 
@@ -223,7 +225,7 @@ func get_actions():
 
 func add_upgrade_action(_level, _levels):
 	var action = preload("res://BuildingAction.tscn").instance()
-	action.name = 'level' + str(_level + 1)
+	action.name = 'level_upgrade'
 	action.title = 'Upgrade to level ' + str(_level + 1)
 	action.description = 'Upgrade building to level ' + str(_level + 1) + '.'
 	action.price = get_level_upgrade_price(_level)
@@ -235,15 +237,17 @@ func add_upgrade_action(_level, _levels):
 	$actions.move_child(action, 0)
 
 
-func perform_level_upgrade(action):
-	# this function contains generic level upgrade functionality for all
-	# buildings
+func set_level(new_level):
+	if new_level == level:
+		return
+	
+	var current_action := $actions.get_node('level_upgrade')
 	
 	# just remove the child from the actions list. the widget will free it later.
-	$actions.remove_child(action)
-	print('action %s removed from tree' % action.name)
+	$actions.remove_child(current_action)
+	print('action %s removed from tree' % current_action.name)
 	
-	level += 1
+	level = new_level
 	current_level = levels[level - 1]
 	
 	# perform post-level-upgrade, possibly overridden in the sub-classes
@@ -253,8 +257,6 @@ func perform_level_upgrade(action):
 		add_upgrade_action(level, levels)
 	elif supports_boost:
 		add_boost_action()
-	
-	update_upgrade_label()
 	
 	emit_signal("info_updated", self, Global.StatType.LEVEL, level)
 	emit_signal("info_updated", self, Global.StatType.ACTIONS, get_actions())
@@ -267,6 +269,59 @@ func add_boost_action():
 	action.title = 'Boost Building'
 	action.description = 'Temporarily boost building performance.'
 	$actions.add_child(action)
+
+
+func _serialize():
+	# to be overridden
+	pass
+
+
+func _deserialize(_data):
+	# to be overridden
+	pass
+
+
+func serialize():
+	var child_serialized = _serialize()
+	var actions_serialized = []
+	for action in $actions.get_children():
+		actions_serialized.append(action.serialize())
+	var serialized = {
+		'type': int(get('type')),
+		'pos_x': position.x,
+		'pos_y': position.y,
+		'rot': rotation,
+		'scale_x': scale.x,
+		'scale_y': scale.y,
+		'z_index': z_index,
+		'level': level,
+		'actions': actions_serialized,
+	}
+	for k in child_serialized.keys():
+		serialized[k] = child_serialized[k]
+	return serialized
+
+
+func deserialize(data):
+	position.x = data['pos_x']
+	position.y = data['pos_y']
+	rotation = data['rot']
+	scale.x = data['scale_x']
+	scale.y = data['scale_y']
+	z_index = data['z_index']
+	
+	set_level(data['level'])
+	
+	for action in $actions.get_children():
+		$actions.remove_child(action)
+		action.queue_free()
+	for action_info in data['actions']:
+		var action := preload("res://BuildingAction.tscn").instance()
+		$actions.add_child(action)
+		action.deserialize(action_info)
+	
+	_deserialize(data)
+
 
 
 func _on_main_area_mouse_entered():

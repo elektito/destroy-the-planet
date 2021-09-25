@@ -120,3 +120,36 @@ func remove_timed_property(name: String):
 	var property = timed_properties[name]
 	property.cleanup()
 	timed_properties.erase(name) # warning-ignore: return_value_discarded
+
+
+func serialize():
+	var stats_serialized = []
+	for stat in stats:
+		stats_serialized.append(stat.serialize())
+	return {
+		'name': name,
+		'type': type,
+		'title': title,
+		'description': description,
+		'price': price,
+		'button_text': button_text,
+		'batch_enabled': batch_enabled,
+		'stats': stats_serialized,
+	}
+
+
+func deserialize(data):
+	name = data['name']
+	type = data['type']
+	set_title(data['title'])
+	set_description(data['description'])
+	set_price(data['price'])
+	button_text = data['button_text']
+	batch_enabled = data['batch_enabled']
+	
+	var new_stats := []
+	for stat_data in data['stats']:
+		var stat := Stat.new()
+		stat.deserialize(stat_data)
+		new_stats.append(stat)
+	set_stats(new_stats)

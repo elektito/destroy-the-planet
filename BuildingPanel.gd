@@ -86,8 +86,9 @@ func _on_building_info_updated(_building, item, value):
 		for widget in $margin/vbox/widgets.get_children():
 			var found = false
 			for action in actions:
-				if widget.get_meta('action').name == action.name:
+				if widget.get_meta('action') == action:
 					found = true
+					break
 			if not found:
 				widget.queue_free()
 				print('widget for action %s queued for freeing' % widget.get_meta('action').name)
@@ -110,7 +111,7 @@ func _on_building_info_updated(_building, item, value):
 		for action in actions:
 			var found = false
 			for widget in $margin/vbox/widgets.get_children():
-				if widget.get_meta('action').name == action.name:
+				if widget.get_meta('action') == action:
 					found = true
 			if not found:
 				var widget = create_widget_for_action(action)

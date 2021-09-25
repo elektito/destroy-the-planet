@@ -90,12 +90,20 @@ func post_level_upgrade():
 
 
 func perform_action(action, _count):
-	if action.name.begins_with("level"):
-		perform_level_upgrade(action)
+	if action.name == 'level_upgrade':
+		set_level(level + 1)
 		return
 
 
 func _boost_changed():
+	update()
+
+
+func _serialize():
+	return {}
+
+
+func _deserialize(_data):
 	update()
 
 
