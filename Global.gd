@@ -1,6 +1,6 @@
 class_name Global
 
-const SETTINGS_FILE := 'settings.json'
+const SETTINGS_FILE := 'user://settings.json'
 
 enum StatType {
 	LEVEL,
