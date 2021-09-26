@@ -11,17 +11,22 @@ var type_info = {
 		'human_readable': false,
 	},
 	Global.StatType.POLLUTION_PER_CYCLE: {
-		'name': 'Pollution (per cycle)',
+		'name': 'Pollution per Cycle',
 		'texture': preload("res://assets/gfx/icons/pollution.png"),
 		'human_readable': true,
 	},
 	Global.StatType.PROFIT: {
-		'name': 'Profit per Sale',
+		'name': 'Profit per Sale\n(Depends on base profit, mining, and power)',
+		'texture': preload("res://assets/gfx/icons/profit.png"),
+		'human_readable': true,
+	},
+	Global.StatType.BASE_PROFIT: {
+		'name': 'Base Profit per Sale\n(Actual profit depends on population and reach)',
 		'texture': preload("res://assets/gfx/icons/profit.png"),
 		'human_readable': true,
 	},
 	Global.StatType.MONEY_PER_CYCLE: {
-		'name': 'Money (per cycle)',
+		'name': 'Money per Cycle\n(Depends on profit, population, and reach)',
 		'texture': preload("res://assets/gfx/icons/money.png"),
 		'human_readable': true,
 	},
@@ -46,7 +51,7 @@ var type_info = {
 		'human_readable': true,
 	},
 	Global.StatType.POPULATION_INCREASE_PER_CYCLE: {
-		'name': 'Population Increase (per cycle)',
+		'name': 'Population Increase per Cycle',
 		'texture': preload("res://assets/gfx/icons/population-increase.png"),
 		'human_readable': true,
 	},

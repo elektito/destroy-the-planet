@@ -23,6 +23,7 @@ enum StatType {
 	PRICE,
 	TITLE,
 	DESCRIPTION,
+	BASE_PROFIT,
 }
 
 enum BuildingType {
@@ -90,7 +91,7 @@ static func human_readable(value : int) -> String:
 static func get_level_upgrade_stats(current_level, next_level):
 	var stats = []
 	var key_to_stat_type = {
-		'base_profit_per_sale': StatType.PROFIT,
+		'base_profit_per_sale': StatType.BASE_PROFIT,
 		'base_pollution_per_cycle': StatType.POLLUTION_PER_CYCLE,
 		'base_power': StatType.POWER,
 		'base_ads': StatType.ADS,
