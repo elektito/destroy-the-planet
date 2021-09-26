@@ -539,6 +539,11 @@ func deserialize(data):
 		emit_signal("info_updated", self, property, get_total_property(property))
 
 
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		Global.save_game(self)
+
+
 func _on_screen_closed():
 	$settings.set_process_input(false)
 	$settings/screen.visible = false
