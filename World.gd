@@ -69,9 +69,9 @@ func _ready():
 	for i in range(0, 40):
 		snap_angles.append(2 * PI / 40 * i)
 	
-	$victory_screen.set_process(false)
-	$victory_screen.set_process_input(false)
-	$victory_screen.set_physics_process(false)
+	Global.call_recursive($victory_screen, 'set_process', [false])
+	Global.call_recursive($victory_screen, 'set_process_input', [false])
+	Global.call_recursive($victory_screen, 'set_physics_process', [false])
 	
 	$settings.set_process_input(false)
 	
@@ -556,9 +556,9 @@ func _on_settings_pressed():
 
 func _on_end_game_btn_pressed():
 	get_tree().paused = true
-	$victory_screen.set_process(true)
-	$victory_screen.set_physics_process(true)
-	$victory_screen.set_process_input(true)
+	Global.call_recursive($victory_screen, 'set_process', [true])
+	Global.call_recursive($victory_screen, 'set_process_input', [true])
+	Global.call_recursive($victory_screen, 'set_physics_process', [true])
 	$victory_screen/screen.visible = true
 	$victory_screen/fade_out_tween.interpolate_property($victory_screen/screen, 'modulate:a', 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$victory_screen/fade_out_tween.interpolate_property($music, 'volume_db', $music.volume_db, -80, 1.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)

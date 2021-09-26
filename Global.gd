@@ -195,3 +195,9 @@ static func remove_save():
 	var dir = Directory.new()
 	dir.open('user://')
 	dir.remove(SAVE_FILE)
+
+
+static func call_recursive(node: Node, method: String, args: Array):
+	node.callv(method, args)
+	for child in node.get_children():
+		call_recursive(child, method, args)
