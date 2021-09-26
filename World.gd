@@ -454,6 +454,7 @@ func get_reach() -> float:
 
 
 func win():
+	$auto_save_timer.stop()
 	Global.remove_save()
 	game_over = true
 	for building in get_tree().get_nodes_in_group('buildings'):
