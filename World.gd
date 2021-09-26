@@ -389,7 +389,7 @@ func consume_money(amount):
 func produce_pollution(amount):
 	if game_over:
 		return
-	pollution += amount
+	pollution += int(amount)
 	if pollution > MAX_POLLUTION or pollution < 0: # overflow
 		pollution = MAX_POLLUTION
 	if pollution == MAX_POLLUTION:
