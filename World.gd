@@ -395,8 +395,7 @@ func produce_pollution(amount):
 		win()
 	emit_signal("info_updated", self, Global.StatType.POLLUTION, pollution)
 	
-	$bg_layer/background.color = lerp(Color('00bbff'), Color.lightblue, float(pollution) / MAX_POLLUTION)
-	$bg_layer/background.modulate = lerp(Color.white, Color('999999'), float(pollution) / MAX_POLLUTION)
+	update_colors()
 
 
 func add_population(amount):
@@ -533,6 +532,8 @@ func deserialize(data):
 		connect_building_signals(building)
 		placed_buildings.append(building)
 	
+	update_colors()
+	
 	emit_signal("info_updated", self, Global.StatType.MONEY, money)
 	emit_signal("info_updated", self, Global.StatType.POLLUTION, pollution)
 	emit_signal("info_updated", self, Global.StatType.REACH, get_reach())
@@ -547,6 +548,12 @@ func deserialize(data):
 	]
 	for property in notifiable:
 		emit_signal("info_updated", self, property, get_total_property(property))
+
+
+func update_colors():
+	$placing_area/planet_bw.modulate.a = float(pollution) / MAX_POLLUTION
+	$bg_layer/background.color = lerp(Color('00bbff'), Color.lightblue, float(pollution) / MAX_POLLUTION)
+	$bg_layer/background.modulate = lerp(Color.white, Color('999999'), float(pollution) / MAX_POLLUTION)
 
 
 func _notification(what):
@@ -589,7 +596,6 @@ func _on_rotation_reset_timer_timeout():
 
 
 func _on_recruiter_cycle_timer_timeout():
-	$placing_area/planet_bw.modulate.a = float(pollution) / MAX_POLLUTION
 	add_population(recruiters * population_inc_per_recruiter)
 
 
