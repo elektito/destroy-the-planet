@@ -165,12 +165,11 @@ func find_upgrade_action(actions):
 
 
 func update_upgrade_label():
-	var actions = get_actions()
-	var upgrade_action = find_upgrade_action(actions)
+	var upgrade_action = find_upgrade_action(get_actions())
 	if upgrade_action == null:
 		set_upgrade_available(false)
 	else:
-		set_upgrade_available(world.money >= actions[0]['price'])
+		set_upgrade_available(world.money >= upgrade_action.price)
 
 
 func shake():
