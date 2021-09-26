@@ -16,5 +16,5 @@ func serialize():
 
 
 func deserialize(data):
-	type = data['type']
+	type = int(data['type'])
 	value = data['value']

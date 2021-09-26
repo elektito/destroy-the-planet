@@ -140,10 +140,10 @@ func serialize():
 
 func deserialize(data):
 	name = data['name']
-	type = data['type']
+	type = int(data['type'])
 	set_title(data['title'])
 	set_description(data['description'])
-	set_price(data['price'])
+	set_price(int(data['price']))
 	button_text = data['button_text']
 	batch_enabled = data['batch_enabled']
 	

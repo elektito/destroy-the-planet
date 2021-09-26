@@ -307,9 +307,9 @@ func deserialize(data):
 	rotation = data['rot']
 	scale.x = data['scale_x']
 	scale.y = data['scale_y']
-	z_index = data['z_index']
+	z_index = int(data['z_index'])
 	
-	set_level(data['level'])
+	set_level(int(data['level']))
 	
 	for action in $actions.get_children():
 		$actions.remove_child(action)
@@ -320,7 +320,6 @@ func deserialize(data):
 		action.deserialize(action_info)
 	
 	_deserialize(data)
-
 
 
 func _on_main_area_mouse_entered():

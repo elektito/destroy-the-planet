@@ -500,21 +500,21 @@ func serialize():
 func deserialize(data):
 	if data == null:
 		return
-	pollution = data['pollution']
-	money = data['money']
-	population = data['population']
-	recruiters = data['recruiters']
-	recruiter_price = data['recruiter_price']
-	population_inc_per_recruiter = data['population_inc_per_recruiter']
-	recruiter_price_increase = data['recruiter_price_increase']
-	click_money = data['click_money']
+	pollution = int(data['pollution'])
+	money = int(data['money'])
+	population = int(data['population'])
+	recruiters = int(data['recruiters'])
+	recruiter_price = int(data['recruiter_price'])
+	population_inc_per_recruiter = int(data['population_inc_per_recruiter'])
+	recruiter_price_increase = int(data['recruiter_price_increase'])
+	click_money = int(data['click_money'])
 	used_angles = data['used_angles']
 	rotation_accel = data['rotation_accel']
 	rotation_speed = data['rotation_speed']
 	
 	for b in data['placed_buildings']:
-		var type = b['type']
-		var building = building_info[int(type)]['scene'].instance()
+		var type := int(b['type'])
+		var building = building_info[type]['scene'].instance()
 		building.no_shake = true
 		$placing_area.add_child(building)
 		building.init(self)
