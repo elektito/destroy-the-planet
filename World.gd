@@ -257,8 +257,8 @@ func update_toolbox():
 
 
 func _on_action_button_clicked(_widget, action, count):
-	consume_money(action.price * count)
 	selected_building.perform_action(action, count)
+	consume_money(action.price * count)
 	$placement_sound.play()
 
 
