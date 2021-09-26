@@ -12,7 +12,7 @@ mkdir $EXPORT_DIR
 mkdir $EXPORT_DIR/html5
 $GODOT --export "HTML5"
 mv $EXPORT_DIR/html5/$NAME.html $EXPORT_DIR/html5/index.html
-zip -r $EXPORT_DIR/$NAME-web.zip $EXPORT_DIR/html5/
+cd $EXPORT_DIR; zip -r $NAME-web.zip html5/; cd -
 rm -r $EXPORT_DIR/html5
 
 $GODOT --export "Linux/X11"
