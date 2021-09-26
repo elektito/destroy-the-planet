@@ -29,6 +29,7 @@ var game_over := false
 var prev_angle = null
 var rotation_accel = 0.0
 var rotation_speed = 0.0
+var deserializing := false
 
 # This dictionary is used for caching the result of the get_total_property
 # function. Profiling showed that's an expensive function, so using this,
@@ -105,6 +106,7 @@ func create_plants():
 		plant.position = v.normalized() * 208
 		plant.rotation = v.angle() + PI / 2
 		$placing_area.add_child(plant)
+		plant.init(self)
 
 
 func _input(event):
@@ -501,6 +503,14 @@ func serialize():
 func deserialize(data):
 	if data == null:
 		return
+	
+	# set deserializing to true and have it set to false later when the physics
+	# step is finished. this makes sure the plants see this being set to true
+	# and don't show destruction animation for buildings created in this
+	# function.
+	deserializing = true
+	set_deferred('deserializng', false)
+	
 	pollution = int(data['pollution'])
 	money = int(data['money'])
 	population = int(data['population'])
